@@ -29,7 +29,7 @@ CREATE TABLE [PostCategory](
 
 CREATE TABLE [Post](
 	[Id] INT IDENTITY(1,1) PRIMARY KEY,
-	[IdUser] INT,
+	[IdUserAuthor] INT,
 	[IdCategory] INT,
 	[Title]	VARCHAR(100) NOT NULL,
 	[Content] VARCHAR(1000) NOT NULL,
@@ -38,19 +38,19 @@ CREATE TABLE [Post](
 	[PublishedDate] DATETIME NULL,
 	[ViewCount] INT DEFAULT 0 NOT NULL,
 
-	FOREIGN KEY ([IdUser]) REFERENCES [User]([Id]),
+	FOREIGN KEY ([IdUserAuthor]) REFERENCES [User]([Id]),
 	FOREIGN KEY ([IdCategory]) REFERENCES [PostCategory]([Id])
 )
 
 CREATE TABLE [PostReview](
 	[Id] INT IDENTITY(1,1) PRIMARY KEY,
-	[IdUserPublished] INT,
+	[IdUserAuthor] INT,
 	[IdUserReviewer] INT,
 	[Status] INT NOT NULL,
 	[Feedback] VARCHAR (255) NULL,
 	[ReviewDate] DATETIME NULL,
 
-	FOREIGN KEY ([IdUserPublished]) REFERENCES [User]([Id]),
+	FOREIGN KEY ([IdUserAuthor]) REFERENCES [User]([Id]),
 	FOREIGN KEY ([IdUserReviewer]) REFERENCES [User]([Id])
 )
 

@@ -1,0 +1,14 @@
+﻿namespace BlogApp.Models;
+
+public class Post
+{
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public string Content { get; set; }
+    public string Thumbnail { get; set; }
+    public DateTime CreationDate { get; set; }
+    public DateTime? PublishedDate { get; set; }
+    public int ViewCount { get; set; }
+    public User UserAuthor { get; set; }
+    public PostCategory Category { get; set; }
+}
