@@ -18,6 +18,7 @@ CREATE TABLE [User](
 	[Username] VARCHAR(100) NOT NULL,
 	[Email] VARCHAR(254) NOT NULL,
 	[Password] VARCHAR(255) NOT NULL,
+	[ProfileImageName] VARCHAR(255) NOT NULL,
 
 	FOREIGN KEY ([IdRole]) REFERENCES [UserRole]([Id])
 )
@@ -84,3 +85,6 @@ CREATE TABLE [SavedPosts](
 	FOREIGN KEY ([IdPost]) REFERENCES [Post]([Id]),
 	FOREIGN KEY ([IdUser]) REFERENCES [User]([Id])
 )
+
+INSERT INTO [UserRole] VALUES ('Admin')
+INSERT INTO [UserRole] VALUES ('Default')

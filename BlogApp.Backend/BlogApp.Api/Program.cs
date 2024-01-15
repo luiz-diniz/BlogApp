@@ -1,5 +1,4 @@
-using BlogApp.Repository;
-using BlogApp.Repository.Interfaces;
+using BlogApp.Api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +9,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<IConnectionFactory, ConnectionFactory>();
+builder.Services.AddServices();
+builder.Services.AddRepositories();
 
 var app = builder.Build();
 
