@@ -52,9 +52,7 @@ public class ConnectionFactory : IConnectionFactory
         if (string.IsNullOrWhiteSpace(provider))
             throw new Exception("Provider value must be informed.");
 
-        var parse = int.TryParse(provider, out var result);
-
-        if (parse)
+        if (int.TryParse(provider, out var result))
             return result;
 
         throw new Exception("Provider type must be integer.");

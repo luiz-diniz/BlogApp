@@ -17,5 +17,7 @@ public static class ServicesExtensions
     public static void AddServices(this IServiceCollection serviceCollection)
     {
         serviceCollection.AddSingleton<IUserService, UserService>();
+        serviceCollection.AddSingleton<IImageService, ImageService>();
+        serviceCollection.AddSingleton<IPasswordService, PasswordService>();
     }
 }

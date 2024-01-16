@@ -38,4 +38,9 @@ public class UserRepository : IUserRepository
 
         cmd.ExecuteNonQuery();
     }
+
+    public User Get(int id)
+    {
+        throw new NotImplementedException();
+    }
 }

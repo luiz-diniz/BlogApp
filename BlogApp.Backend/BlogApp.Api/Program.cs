@@ -12,6 +12,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddServices();
 builder.Services.AddRepositories();
 
+builder.Logging.AddLog4Net();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

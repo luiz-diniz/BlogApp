@@ -6,13 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 namespace BlogApp.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/v1/[controller]")]
 public class UserController : ControllerBase
 {
+    private readonly ILogger<UserController> _logger;
     private readonly IUserService _userService;
 
-    public UserController(IUserService userService)
+    public UserController(ILogger<UserController> logger, IUserService userService)
     {
+        _logger = logger;
         _userService = userService;
     }
 
@@ -27,7 +29,8 @@ public class UserController : ControllerBase
         }
         catch (Exception ex)
         {
-            return BadRequest(ex.Message);
+            _logger.LogError(ex, ex.Message);
+            return StatusCode(500, ex.Message);
         }
     }
 }
