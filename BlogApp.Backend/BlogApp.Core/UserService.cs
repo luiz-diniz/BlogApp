@@ -1,4 +1,5 @@
-﻿using BlogApp.Core.Intefaces;
+﻿using BlogApp.Core.Enums;
+using BlogApp.Core.Intefaces;
 using BlogApp.Models;
 using BlogApp.Repository.Interfaces;
 using Microsoft.Extensions.Logging;
@@ -28,7 +29,7 @@ public class UserService : IUserService
                 throw new ArgumentNullException(nameof(user), "User null.");
 
             user.Password = _passwordManager.GeneratePasswordHash(user.Password);
-            user.ProfilePictureName = _imageService.CreateImage(user.ProfilePictureContent!);
+            user.ProfileImageName = _imageService.CreateImage(user.ProfileImageContent!, nameof(AppSettingsEnum.ProfileImageStoragePath));
 
             _userRepository.Add(user);
         }

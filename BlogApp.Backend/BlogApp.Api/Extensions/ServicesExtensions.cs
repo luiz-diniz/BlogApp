@@ -12,11 +12,13 @@ public static class ServicesExtensions
     {
         serviceCollection.AddSingleton<IConnectionFactory, ConnectionFactory>();
         serviceCollection.AddSingleton<IUserRepository, UserRepository>();
+        serviceCollection.AddSingleton<IPostRepository, PostRepository>();
     }
 
     public static void AddServices(this IServiceCollection serviceCollection)
     {
         serviceCollection.AddSingleton<IUserService, UserService>();
+        serviceCollection.AddSingleton<IPostService, PostService>();
         serviceCollection.AddSingleton<IImageService, ImageService>();
         serviceCollection.AddSingleton<IPasswordService, PasswordService>();
     }

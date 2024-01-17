@@ -1,7 +1,9 @@
-﻿namespace BlogApp.Core.Intefaces;
+﻿using BlogApp.Core.Enums;
+
+namespace BlogApp.Core.Intefaces;
 
 public interface IImageService
 {
-    string CreateImage(string imageBase64);
-    string GetImage(string imageName);
+    string CreateImage(string imageBase64, string appSettingsPathSection);
+    string GetImage(string imageName, string appSettingsPathSection);
 }

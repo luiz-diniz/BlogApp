@@ -1,28 +1,30 @@
 ﻿using BlogApp.Api.Extensions.Converters;
 using BlogApp.Api.Models;
 using BlogApp.Core.Intefaces;
+using BlogApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogApp.Api.Controllers;
 
+[ApiController]
 [Route("api/v1/[controller]")]
-public class UserController : ApiControllerBase
+public class PostController : ApiControllerBase
 {
-    private readonly ILogger<UserController> _logger;
-    private readonly IUserService _userService;
+    private readonly ILogger<PostController> _logger;
+    private readonly IPostService _postService;
 
-    public UserController(ILogger<UserController> logger, IUserService userService)
+    public PostController(ILogger<PostController> logger, IPostService postService)
     {
         _logger = logger;
-        _userService = userService;
+        _postService = postService;
     }
 
     [HttpPost]
-    public IActionResult Add([FromBody] UserModel user)
+    public IActionResult Add([FromBody] PostModel post)
     {
         try
         {
-            _userService.Add(user.ConvertModelToUser());
+            _postService.Add(post.ConvertModelToPost());
 
             return Ok();
         }

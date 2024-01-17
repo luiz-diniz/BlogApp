@@ -1,4 +1,4 @@
-﻿namespace BlogApp.Models.Enum;
+﻿namespace BlogApp.Models.Enums;
 
 public enum RoleEnum
 {

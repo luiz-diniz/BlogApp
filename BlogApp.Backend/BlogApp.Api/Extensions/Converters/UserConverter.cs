@@ -1,13 +1,13 @@
 ﻿using BlogApp.Api.Models;
 using BlogApp.Models;
 
-namespace BlogApp.Api.Extensions;
+namespace BlogApp.Api.Extensions.Converters;
 
 public static class UserConverter
 {
     public static User ConvertModelToUser(this UserModel user)
     {
-        if(user is null)
+        if (user is null)
             throw new ArgumentNullException(nameof(user), "UserModel null.");
 
         return new User
@@ -15,11 +15,8 @@ public static class UserConverter
             Username = user.Username,
             Password = user.Password,
             Email = user.Email,
-            ProfilePictureContent = user.ProfilePictureContent,
-            Role = new UserRole
-            {
-                Id = Convert.ToInt32(user.Role)
-            }
+            ProfileImageContent = user.ProfileImageContent,
+            Role = user.Role
         };
     }
 }

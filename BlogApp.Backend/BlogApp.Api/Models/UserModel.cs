@@ -1,4 +1,4 @@
-﻿using BlogApp.Models.Enum;
+﻿using BlogApp.Models.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace BlogApp.Api.Models;
@@ -14,7 +14,7 @@ public class UserModel
     [Required]
     public string Email { get; set; }
 
-    public string ProfilePictureContent { get; set; }
+    public string ProfileImageContent { get; set; }
 
     [Required]
     public RoleEnum Role {  get; set; }

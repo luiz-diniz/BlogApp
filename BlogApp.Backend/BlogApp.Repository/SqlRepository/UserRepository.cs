@@ -25,11 +25,11 @@ public class UserRepository : IUserRepository
 
         var parameters = new object[]
         {
-            user.Role.Id,
+            (int)user.Role,
             user.Username,
             user.Email,
             user.Password,
-            user.ProfilePictureName
+            user.ProfileImageName
         };
 
         ParametersBuilder.Build(cmd.Parameters, parameters);
