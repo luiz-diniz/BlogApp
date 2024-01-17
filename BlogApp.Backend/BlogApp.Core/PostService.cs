@@ -18,7 +18,7 @@ public class PostService : IPostService
         _postRepository = postRepository;
         _imageService = imageService;
     }
-
+        
     public void Add(Post post)
     {
 		try

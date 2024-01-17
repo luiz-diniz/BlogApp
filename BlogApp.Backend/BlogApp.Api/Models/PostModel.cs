@@ -18,5 +18,5 @@ public class PostModel
     public int IdUserAuthor { get; set; }
 
     [Required]
-    public PostCategoryEnum PostCategory { get; set; }
+    public PostCategoryEnum Category { get; set; }
 }

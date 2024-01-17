@@ -19,7 +19,7 @@ public static class PostConverter
             {
                 Id = post.IdUserAuthor
             },
-            Category = post.PostCategory
+            Category = post.Category
         };
     }
 }

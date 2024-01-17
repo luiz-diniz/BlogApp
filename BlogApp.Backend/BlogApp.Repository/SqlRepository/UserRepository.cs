@@ -7,19 +7,19 @@ namespace BlogApp.Repository.SqlRepository;
 
 public class UserRepository : IUserRepository
 {
-    private readonly IConnectionFactory _connection;
+    private readonly IConnectionFactory _connectionFactory;
 
-    public UserRepository(IConnectionFactory connection)
+    public UserRepository(IConnectionFactory connectionFactory)
     {
-        _connection = connection;
+        _connectionFactory = connectionFactory;
     }
 
     public void Add(User user)
     {
-        var query = "INSERT INTO [User] (IdRole, Username, Email, Password, ProfileImageName) " +
-            "VALUES (@P0, @P1, @P2, @P3, @P4)";
+        var query = @"INSERT INTO [User] (IdRole, Username, Email, Password, ProfileImageName)
+            VALUES (@P0, @P1, @P2, @P3, @P4);";
 
-        using var connection = _connection.Create() as SqlConnection;
+        using var connection = _connectionFactory.Create() as SqlConnection;
 
         using var cmd = new SqlCommand(query, connection);
 
