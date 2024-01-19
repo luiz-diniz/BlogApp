@@ -33,4 +33,25 @@ public class PostService : IPostService
 			throw;
 		}
     }
+
+    public IEnumerable<Post> GetAll()
+    {
+        try
+        {
+            var posts = _postRepository.GetAll();
+
+            if (posts is null)
+                return null!;
+
+            foreach(var post in posts)       
+                post.PostImageContent = _imageService.GetImage(post.PostImageName, nameof(AppSettingsEnum.PostImageStoragePath));
+
+            return posts;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            throw;
+        }    
+    }
 }

@@ -3,6 +3,7 @@ using BlogApp.Api.Models;
 using BlogApp.Core.Intefaces;
 using BlogApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace BlogApp.Api.Controllers;
 
@@ -27,6 +28,26 @@ public class PostController : ApiControllerBase
             _postService.Add(post.ConvertModelToPost());
 
             return Ok();
+        }
+        catch (Exception ex)
+        {
+            return ReturnError(500, ex, _logger);
+        }
+    }
+
+    [HttpGet]
+    public IActionResult GetAll()
+    {
+        try
+        {
+            var posts = _postService.GetAll();
+
+            var jsonPosts = JsonConvert.SerializeObject(posts, new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            });
+
+            return Ok(jsonPosts);
         }
         catch (Exception ex)
         {
