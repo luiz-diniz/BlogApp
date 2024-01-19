@@ -27,7 +27,7 @@ public class PostRepository : IPostRepository
         var parameters = new object[]
         {
             post.UserAuthor.Id,
-            (int)post.Category,
+            post.Category.Id,
             post.Title,
             post.Content,
             post.PostImageName

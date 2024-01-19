@@ -1,5 +1,4 @@
-﻿using BlogApp.Core.Enums;
-using BlogApp.Core.Intefaces;
+﻿using BlogApp.Core.Intefaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 

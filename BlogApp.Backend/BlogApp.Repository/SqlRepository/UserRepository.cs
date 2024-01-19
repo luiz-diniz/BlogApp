@@ -25,7 +25,7 @@ public class UserRepository : IUserRepository
 
         var parameters = new object[]
         {
-            (int)user.Role,
+            user.Role.Id,
             user.Username,
             user.Email,
             user.Password,

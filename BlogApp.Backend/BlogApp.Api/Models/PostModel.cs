@@ -1,6 +1,4 @@
-﻿using BlogApp.Models.Enums;
-using Microsoft.AspNetCore.Antiforgery;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace BlogApp.Api.Models;
 
@@ -18,5 +16,5 @@ public class PostModel
     public int IdUserAuthor { get; set; }
 
     [Required]
-    public PostCategoryEnum Category { get; set; }
+    public int IdCategory { get; set; }
 }

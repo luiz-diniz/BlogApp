@@ -1,5 +1,6 @@
 ﻿using BlogApp.Api.Models;
 using BlogApp.Models;
+using Microsoft.Extensions.Hosting;
 
 namespace BlogApp.Api.Extensions.Converters;
 
@@ -16,7 +17,10 @@ public static class UserConverter
             Password = user.Password,
             Email = user.Email,
             ProfileImageContent = user.ProfileImageContent,
-            Role = user.Role
+            Role = new UserRole
+            {
+                Id = user.IdRole
+            }
         };
     }
 }

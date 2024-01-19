@@ -1,5 +1,4 @@
-﻿using BlogApp.Models.Enums;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace BlogApp.Api.Models;
 
@@ -17,5 +16,5 @@ public class UserModel
     public string ProfileImageContent { get; set; }
 
     [Required]
-    public RoleEnum Role {  get; set; }
+    public int IdRole {  get; set; }
 }

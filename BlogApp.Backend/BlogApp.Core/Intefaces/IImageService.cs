@@ -1,6 +1,4 @@
-﻿using BlogApp.Core.Enums;
-
-namespace BlogApp.Core.Intefaces;
+﻿namespace BlogApp.Core.Intefaces;
 
 public interface IImageService
 {

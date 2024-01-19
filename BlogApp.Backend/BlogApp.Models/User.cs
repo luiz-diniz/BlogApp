@@ -1,6 +1,4 @@
-﻿using BlogApp.Models.Enums;
-
-namespace BlogApp.Models;
+﻿namespace BlogApp.Models;
 
 public class User
 {
@@ -10,5 +8,5 @@ public class User
     public string Password { get; set; }
     public string ProfileImageName { get; set; }
     public string ProfileImageContent { get; set; }
-    public RoleEnum Role { get; set; }
+    public UserRole Role { get; set; }
 }

@@ -1,6 +1,4 @@
-﻿using BlogApp.Models.Enums;
-
-namespace BlogApp.Models;
+﻿namespace BlogApp.Models;
 
 public class Post
 {
@@ -13,5 +11,5 @@ public class Post
     public DateTime? PublishedDate { get; set; }
     public int ViewCount { get; set; }
     public User UserAuthor { get; set; }
-    public PostCategoryEnum Category { get; set; }
+    public PostCategory Category { get; set; }
 }
