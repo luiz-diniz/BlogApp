@@ -46,6 +46,22 @@ public class PostService : IPostService
 		}
     }
 
+    public Post Get(int id)
+    {
+        try
+        {
+            if(id <= 0)
+                throw new ArgumentOutOfRangeException(nameof(id), "Invalid Post Id.");
+
+            return _postRepository.Get(id);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            throw;
+        }
+    }
+
     public IEnumerable<Post> GetAll()
     {
         try

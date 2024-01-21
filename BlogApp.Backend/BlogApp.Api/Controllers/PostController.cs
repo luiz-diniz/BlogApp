@@ -34,16 +34,31 @@ public class PostController : ApiControllerBase
     }
 
     [HttpGet]
+    [Route("{id}")]
+    public IActionResult Get(int id)
+    {
+        try
+        {
+            var post = _postService.Get(id);
+
+            var postJson = SerializeReturn(post);
+
+            return Ok(postJson);
+        }
+        catch (Exception ex)
+        {
+            return ReturnError(500, ex, _logger);
+        }
+    }
+
+    [HttpGet]
     public IActionResult GetAll()
     {
         try
         {
             var posts = _postService.GetAll();
 
-            var jsonPosts = JsonConvert.SerializeObject(posts, new JsonSerializerSettings
-            {
-                NullValueHandling = NullValueHandling.Ignore
-            });
+            var jsonPosts = SerializeReturn(posts);
 
             return Ok(jsonPosts);
         }
