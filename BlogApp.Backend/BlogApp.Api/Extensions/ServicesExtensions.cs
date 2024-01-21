@@ -13,6 +13,7 @@ public static class ServicesExtensions
         serviceCollection.AddSingleton<IConnectionFactory, ConnectionFactory>();
         serviceCollection.AddSingleton<IUserRepository, UserRepository>();
         serviceCollection.AddSingleton<IPostRepository, PostRepository>();
+        serviceCollection.AddSingleton<IPostReviewRepository, PostReviewRepository>();
     }
 
     public static void AddServices(this IServiceCollection serviceCollection)

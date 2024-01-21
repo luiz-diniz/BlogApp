@@ -18,7 +18,7 @@ public class ConnectionFactory : IConnectionFactory
         _provider = GetProvider();
     }
 
-    public IDbConnection Create()
+    public IDbConnection CreateConnection()
     {
         IDbConnection connection;
 
@@ -33,6 +33,14 @@ public class ConnectionFactory : IConnectionFactory
         }
 
         return connection;
+    }
+
+    public IDbTransaction CreateTransaction(IDbConnection connection)
+    {
+        if (connection is null)
+            throw new ArgumentNullException(nameof(connection), "Connection provided is null.");
+
+        return connection.BeginTransaction();
     }
 
     private string GetConnectionString()

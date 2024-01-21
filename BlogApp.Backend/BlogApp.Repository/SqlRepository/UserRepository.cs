@@ -19,7 +19,7 @@ public class UserRepository : IUserRepository
         var query = @"INSERT INTO [User] (IdRole, Username, Email, Password, ProfileImageName)
             VALUES (@P0, @P1, @P2, @P3, @P4);";
 
-        using var connection = _connectionFactory.Create() as SqlConnection;
+        using var connection = _connectionFactory.CreateConnection() as SqlConnection;
 
         using var cmd = new SqlCommand(query, connection);
 

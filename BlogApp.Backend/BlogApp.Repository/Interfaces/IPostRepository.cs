@@ -1,9 +1,10 @@
 ﻿using BlogApp.Models;
+using System.Data;
 
 namespace BlogApp.Repository.Interfaces;
 
 public interface IPostRepository
 {
-    void Add(Post post);
+    int Add(Post post, IDbConnection connection, IDbTransaction transaction);
     IEnumerable<Post> GetAll();
 }

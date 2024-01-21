@@ -15,14 +15,12 @@ public class PostRepository : IPostRepository
         _connectionFactory = connectionFactory;
     }
 
-    public void Add(Post post)
+    public int Add(Post post, IDbConnection connection, IDbTransaction transaction)
     {
-        var query = @"INSERT INTO [Post] (IdUserAuthor, IdCategory, Title, Content, PostImageName)
+        var query = @"INSERT INTO [Post] (IdUserAuthor, IdCategory, Title, Content, PostImageName) OUTPUT INSERTED.Id
             VALUES (@P0, @P1, @P2, @P3, @P4);";
 
-        using var connection = _connectionFactory.Create() as SqlConnection;
-
-        using var cmd = new SqlCommand(query, connection);
+        using var cmd = new SqlCommand(query, connection as SqlConnection, transaction as SqlTransaction);
 
         var parameters = new object[]
         {
@@ -37,7 +35,7 @@ public class PostRepository : IPostRepository
 
         cmd.CommandType = CommandType.Text;
 
-        cmd.ExecuteNonQuery();
+        return Convert.ToInt32(cmd.ExecuteScalar());
     }
 
     public IEnumerable<Post> GetAll()
@@ -47,7 +45,7 @@ public class PostRepository : IPostRepository
                         INNER JOIN [User] AS U ON P.IdUserAuthor = U.Id
                         INNER JOIN [PostCategory] AS C ON P.IdCategory = C.Id;";
 
-        var connection = _connectionFactory.Create() as SqlConnection;
+        var connection = _connectionFactory.CreateConnection() as SqlConnection;
 
         using var cmd = new SqlCommand(query, connection);
 
