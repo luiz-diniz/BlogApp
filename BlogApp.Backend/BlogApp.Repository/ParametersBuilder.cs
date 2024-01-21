@@ -5,7 +5,7 @@ namespace BlogApp.Repository;
 
 public static class ParametersBuilder
 {
-    public static void Build(SqlParameterCollection sqlParameterCollection, object[] parameters)
+    public static void BuildSqlParameters(SqlParameterCollection sqlParameterCollection, object[] parameters)
     {
         var count = 0;
 

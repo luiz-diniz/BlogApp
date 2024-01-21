@@ -32,7 +32,7 @@ public class UserRepository : IUserRepository
             user.ProfileImageName
         };
 
-        ParametersBuilder.Build(cmd.Parameters, parameters);
+        ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);
 
         cmd.CommandType = CommandType.Text;
 

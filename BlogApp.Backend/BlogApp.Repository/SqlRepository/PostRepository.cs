@@ -31,7 +31,7 @@ public class PostRepository : IPostRepository
             post.PostImageName
         };
 
-        ParametersBuilder.Build(cmd.Parameters, parameters);
+        ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);
 
         cmd.CommandType = CommandType.Text;
 

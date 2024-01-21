@@ -8,20 +8,50 @@ namespace BlogApp.Repository.SqlRepository;
 
 public class PostReviewRepository : IPostReviewRepository
 {
+    private readonly IConnectionFactory _connectionFactory;
+
+    public PostReviewRepository(IConnectionFactory connectionFactory)
+    {
+        _connectionFactory = connectionFactory;
+    }
+
     public void Add(Post post, IDbConnection connection, IDbTransaction transaction)
     {
-        var query = "INSERT INTO [PostReview] (IdPost, IdUserAuthor, Status) VALUES (@P0, @P1, @P2);";
+        var query = "INSERT INTO [PostReview] (IdPost, Status) VALUES (@P0, @P1);";
 
         using var cmd = new SqlCommand(query, connection as SqlConnection, transaction as SqlTransaction);
 
         var parameters = new object[]
         {
             post.Id,
-            post.UserAuthor.Id,
             (int)StatusEnum.Pending
         };
 
-        ParametersBuilder.Build(cmd.Parameters, parameters);
+        ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);
+
+        cmd.CommandType = CommandType.Text;
+
+        cmd.ExecuteNonQuery();
+    }
+
+    public void Update(PostReview postReview)
+    {
+        var query = "UPDATE [PostReview] SET [IdUserReviewer] = @P0, [Status] = @P1, [Feedback] = @P2, [ReviewDate] = @P3 WHERE [IdPost] = @P4;";
+
+        using var connection = _connectionFactory.CreateConnection() as SqlConnection;
+
+        using var cmd = new SqlCommand(query, connection);
+
+        var parameters = new object[]
+        {
+            postReview.UserReviewer.Id,
+            (int)postReview.Status,
+            postReview.Feedback,
+            postReview.ReviewDate!,
+            postReview.Post.Id
+        };
+
+        ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);
 
         cmd.CommandType = CommandType.Text;
 

@@ -20,6 +20,7 @@ public static class ServicesExtensions
     {
         serviceCollection.AddSingleton<IUserService, UserService>();
         serviceCollection.AddSingleton<IPostService, PostService>();
+        serviceCollection.AddSingleton<IPostReviewService, PostReviewService>();
         serviceCollection.AddSingleton<IImageService, ImageService>();
         serviceCollection.AddSingleton<IPasswordService, PasswordService>();
     }

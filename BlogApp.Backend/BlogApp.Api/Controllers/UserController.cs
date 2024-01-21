@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlogApp.Api.Controllers;
 
-[Route("api/v1/[controller]")]
 public class UserController : ApiControllerBase
 {
     private readonly ILogger<UserController> _logger;

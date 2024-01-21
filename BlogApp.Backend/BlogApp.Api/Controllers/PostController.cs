@@ -7,8 +7,6 @@ using Newtonsoft.Json;
 
 namespace BlogApp.Api.Controllers;
 
-[ApiController]
-[Route("api/v1/[controller]")]
 public class PostController : ApiControllerBase
 {
     private readonly ILogger<PostController> _logger;

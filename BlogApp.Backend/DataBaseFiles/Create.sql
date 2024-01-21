@@ -54,14 +54,12 @@ CREATE TABLE [Post](
 CREATE TABLE [PostReview](
 	[Id] INT IDENTITY(1,1) PRIMARY KEY,
 	[IdPost] INT NOT NULL,
-	[IdUserAuthor] INT NOT NULL,
 	[IdUserReviewer] INT,
 	[Status] INT NOT NULL,
 	[Feedback] VARCHAR (255) NULL,
 	[ReviewDate] DATETIME NULL,
 
 	FOREIGN KEY ([IdPost]) REFERENCES [Post]([Id]),
-	FOREIGN KEY ([IdUserAuthor]) REFERENCES [User]([Id]),
 	FOREIGN KEY ([IdUserReviewer]) REFERENCES [User]([Id])
 );
 
