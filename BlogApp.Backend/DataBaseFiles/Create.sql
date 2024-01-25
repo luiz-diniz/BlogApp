@@ -78,7 +78,7 @@ CREATE TABLE [PostComments](
 	[IdPost] INT,
 	[IdUser] INT,
 	[Comment] VARCHAR (500) NOT NULL,
-	[CommentDate] DATETIME NOT NULL,
+	[CommentDate] DATETIME NOT NULL DEFAULT GETDATE(),
 
 	FOREIGN KEY ([IdPost]) REFERENCES [Post]([Id]),
 	FOREIGN KEY ([IdUser]) REFERENCES [User]([Id])

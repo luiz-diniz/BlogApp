@@ -7,6 +7,9 @@ public static class PostReviewConverter
 {
     public static PostReview ConvertModelToPostReview(this PostReviewModel post)
     {
+        if(post is null)
+            throw new ArgumentNullException(nameof(post), "PostReviewModel is null.");
+
         return new PostReview
         {
             Post = new Post

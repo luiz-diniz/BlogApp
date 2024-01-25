@@ -12,4 +12,6 @@ public class Post
     public int ViewCount { get; set; }
     public User UserAuthor { get; set; }
     public PostCategory Category { get; set; }
+    public IEnumerable<PostComment> Comments { get;set; }
+    public IEnumerable<PostLikes> Likes { get; set; }
 }

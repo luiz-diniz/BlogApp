@@ -1,9 +1,7 @@
 ﻿using BlogApp.Api.Extensions.Converters;
 using BlogApp.Api.Models;
 using BlogApp.Core.Intefaces;
-using BlogApp.Models;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace BlogApp.Api.Controllers;
 
