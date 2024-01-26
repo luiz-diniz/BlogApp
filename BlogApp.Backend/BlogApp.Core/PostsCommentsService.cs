@@ -5,12 +5,12 @@ using Microsoft.Extensions.Logging;
 
 namespace BlogApp.Core;
 
-public class PostCommentService : IPostCommentService
+public class PostsCommentsService : IPostsCommentsService
 {
-    private readonly ILogger<PostCommentService> _logger;
-    private readonly IPostCommentRepository _postCommentRepository;
+    private readonly ILogger<PostsCommentsService> _logger;
+    private readonly IPostsCommentsRepository _postCommentRepository;
 
-    public PostCommentService(ILogger<PostCommentService> logger, IPostCommentRepository postCommentRepository)
+    public PostsCommentsService(ILogger<PostsCommentsService> logger, IPostsCommentsRepository postCommentRepository)
     {
         _logger = logger;
         _postCommentRepository = postCommentRepository;

@@ -2,7 +2,7 @@
 
 namespace BlogApp.Core.Intefaces;
 
-public interface IUserService
+public interface IUsersService
 {
     void Add(User user);
 }

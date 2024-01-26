@@ -2,7 +2,7 @@
 
 namespace BlogApp.Core.Intefaces;
 
-public interface IPostService
+public interface IPostsService
 {
     void Add(Post post);
     Post Get(int id);

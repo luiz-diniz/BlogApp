@@ -5,18 +5,18 @@ using System.Data.SqlClient;
 
 namespace BlogApp.Repository.SqlRepository;
 
-public class PostCommentRepository : IPostCommentRepository
+public class PostsCommentsRepository : IPostsCommentsRepository
 {
     private readonly IConnectionFactory _connectionFactory;
 
-    public PostCommentRepository(IConnectionFactory connectionFactory)
+    public PostsCommentsRepository(IConnectionFactory connectionFactory)
     {
         _connectionFactory = connectionFactory;
     }
 
     public void Add(PostComment postComment)
     {
-        var query = $"INSERT INTO [PostComments] (IdPost, IdUser, Comment) VALUES (@P0, @P1, @P2);";
+        var query = $"INSERT INTO [PostsComments] (IdPost, IdUser, Comment) VALUES (@P0, @P1, @P2);";
         
         using var connection = _connectionFactory.CreateConnection();
 
@@ -24,7 +24,7 @@ public class PostCommentRepository : IPostCommentRepository
 
         var parameters = new object[]
         {
-            postComment.Id,
+            postComment.IdPost,
             postComment.User.Id,
             postComment.Comment
         };
@@ -38,7 +38,7 @@ public class PostCommentRepository : IPostCommentRepository
 
     public void Delete(int idPostComment)
     {
-        var query = $"DELETE FROM [PostComments] WHERE Id = @P0";
+        var query = $"DELETE FROM [PostsComments] WHERE Id = @P0";
 
         using var connection = _connectionFactory.CreateConnection();
 
@@ -58,8 +58,8 @@ public class PostCommentRepository : IPostCommentRepository
 
     public IEnumerable<PostComment> GetAll(int idPost)
     {
-        var query = $@"SELECT P.*, U.Username FROM [PostComments] P 
-                        INNER JOIN [User] U ON P.IdUser = U.Id 
+        var query = $@"SELECT P.*, U.Username FROM [PostsComments] P 
+                        INNER JOIN [Users] U ON P.IdUser = U.Id 
                         WHERE P.IdPost = @P0";
 
         using var connection = _connectionFactory.CreateConnection();

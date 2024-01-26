@@ -5,12 +5,12 @@ using Microsoft.Extensions.Logging;
 
 namespace BlogApp.Core;
 
-public class PostLikeService : IPostLikeService
+public class PostsLikesService : IPostsLikesService
 {
-    private readonly ILogger<PostLikeService> _logger;
-    private readonly IPostLikeRepository _postLikeRepository;
+    private readonly ILogger<PostsLikesService> _logger;
+    private readonly IPostsLikesRepository _postLikeRepository;
 
-    public PostLikeService(ILogger<PostLikeService> logger, IPostLikeRepository postLikeRepository)
+    public PostsLikesService(ILogger<PostsLikesService> logger, IPostsLikesRepository postLikeRepository)
     {
         _logger = logger;
         _postLikeRepository = postLikeRepository;

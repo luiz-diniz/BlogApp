@@ -7,15 +7,15 @@ using System.Data.Common;
 
 namespace BlogApp.Core;
 
-public class PostService : IPostService
+public class PostsService : IPostsService
 {
-    private readonly ILogger<PostService> _logger;
-    private readonly IPostRepository _postRepository;
+    private readonly ILogger<PostsService> _logger;
+    private readonly IPostsRepository _postRepository;
     private readonly IImageService _imageService;
-    private readonly IPostReviewRepository _postReviewRepository;
+    private readonly IPostsReviewsRepository _postReviewRepository;
     private readonly IConnectionFactory _connectionFactory;
 
-    public PostService(ILogger<PostService> logger, IPostRepository postRepository, IImageService imageService, IPostReviewRepository postReviewRepository, IConnectionFactory connectionFactory)
+    public PostsService(ILogger<PostsService> logger, IPostsRepository postRepository, IImageService imageService, IPostsReviewsRepository postReviewRepository, IConnectionFactory connectionFactory)
     {
         _logger = logger;
         _postRepository = postRepository;

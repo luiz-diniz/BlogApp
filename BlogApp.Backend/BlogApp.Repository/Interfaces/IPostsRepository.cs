@@ -3,7 +3,7 @@ using System.Data;
 
 namespace BlogApp.Repository.Interfaces;
 
-public interface IPostRepository
+public interface IPostsRepository
 {
     int Add(Post post, IDbConnection connection, IDbTransaction transaction);
     Post Get(int id);

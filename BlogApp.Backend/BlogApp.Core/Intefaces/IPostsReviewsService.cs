@@ -2,7 +2,7 @@
 
 namespace BlogApp.Core.Intefaces;
 
-public interface IPostReviewService
+public interface IPostsReviewsService
 {
     public void Update(PostReview postReview);
 }

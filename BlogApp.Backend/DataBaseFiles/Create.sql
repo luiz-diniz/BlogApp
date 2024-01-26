@@ -7,15 +7,15 @@ GO
 USE [BlogApp];
 GO
 
-CREATE TABLE [UserRole](
+CREATE TABLE [UsersRoles](
 	[Id] INT IDENTITY(1,1) PRIMARY KEY,
 	[Role] VARCHAR(100) NOT NULL
 );
 
-INSERT INTO [UserRole] VALUES ('Admin');
-INSERT INTO [UserRole] VALUES ('Default');
+INSERT INTO [UsersRoles] VALUES ('Admin');
+INSERT INTO [UsersRoles] VALUES ('Default');
 
-CREATE TABLE [User](
+CREATE TABLE [Users](
 	[Id] INT IDENTITY(1,1) PRIMARY KEY,
 	[IdRole] INT,
 	[Username] VARCHAR(100) NOT NULL,
@@ -23,20 +23,20 @@ CREATE TABLE [User](
 	[Password] VARCHAR(255) NOT NULL,
 	[ProfileImageName] VARCHAR(255) NOT NULL,
 
-	FOREIGN KEY ([IdRole]) REFERENCES [UserRole]([Id])
+	FOREIGN KEY ([IdRole]) REFERENCES [UsersRoles]([Id])
 );
 
-CREATE TABLE [PostCategory](
+CREATE TABLE [PostsCategories](
 	[Id] INT IDENTITY(1,1) PRIMARY KEY,
 	[Name] VARCHAR(100) NOT NULL
 );
 
-INSERT INTO [PostCategory] VALUES ('Technology');
-INSERT INTO [PostCategory] VALUES ('Programming');
-INSERT INTO [PostCategory] VALUES ('Productivity');
-INSERT INTO [PostCategory] VALUES ('SelfImprovement');
+INSERT INTO [PostsCategories] VALUES ('Technology');
+INSERT INTO [PostsCategories] VALUES ('Programming');
+INSERT INTO [PostsCategories] VALUES ('Productivity');
+INSERT INTO [PostsCategories] VALUES ('SelfImprovement');
 
-CREATE TABLE [Post](
+CREATE TABLE [Posts](
 	[Id] INT IDENTITY(1,1) PRIMARY KEY,
 	[IdUserAuthor] INT,
 	[IdCategory] INT,
@@ -47,11 +47,11 @@ CREATE TABLE [Post](
 	[PublishedDate] DATETIME NULL,
 	[ViewCount] INT DEFAULT 0 NOT NULL,
 
-	FOREIGN KEY ([IdUserAuthor]) REFERENCES [User]([Id]),
-	FOREIGN KEY ([IdCategory]) REFERENCES [PostCategory]([Id])
+	FOREIGN KEY ([IdUserAuthor]) REFERENCES [Users]([Id]),
+	FOREIGN KEY ([IdCategory]) REFERENCES [PostsCategories]([Id])
 );
 
-CREATE TABLE [PostReview](
+CREATE TABLE [PostsReviews](
 	[Id] INT IDENTITY(1,1) PRIMARY KEY,
 	[IdPost] INT NOT NULL,
 	[IdUserReviewer] INT,
@@ -59,29 +59,29 @@ CREATE TABLE [PostReview](
 	[Feedback] VARCHAR (255) NULL,
 	[ReviewDate] DATETIME NULL,
 
-	FOREIGN KEY ([IdPost]) REFERENCES [Post]([Id]),
-	FOREIGN KEY ([IdUserReviewer]) REFERENCES [User]([Id])
+	FOREIGN KEY ([IdPost]) REFERENCES [Posts]([Id]),
+	FOREIGN KEY ([IdUserReviewer]) REFERENCES [Users]([Id])
 );
 
-CREATE TABLE [PostLikes](
+CREATE TABLE [PostsLikes](
 	[Id] INT IDENTITY(1,1) PRIMARY KEY,
 	[IdPost] INT,
 	[IdUser] INT,
 	[LikeDate] DATETIME NOT NULL DEFAULT GETDATE(),
 
-	FOREIGN KEY ([IdPost]) REFERENCES [Post]([Id]),
-	FOREIGN KEY ([IdUser]) REFERENCES [User]([Id])
+	FOREIGN KEY ([IdPost]) REFERENCES [Posts]([Id]),
+	FOREIGN KEY ([IdUser]) REFERENCES [Users]([Id])
 );
 
-CREATE TABLE [PostComments](
+CREATE TABLE [PostsComments](
 	[Id] INT IDENTITY(1,1) PRIMARY KEY,
 	[IdPost] INT,
 	[IdUser] INT,
 	[Comment] VARCHAR (500) NOT NULL,
 	[CommentDate] DATETIME NOT NULL DEFAULT GETDATE(),
 
-	FOREIGN KEY ([IdPost]) REFERENCES [Post]([Id]),
-	FOREIGN KEY ([IdUser]) REFERENCES [User]([Id])
+	FOREIGN KEY ([IdPost]) REFERENCES [Posts]([Id]),
+	FOREIGN KEY ([IdUser]) REFERENCES [Users]([Id])
 );
 
 CREATE TABLE [SavedPosts](
@@ -90,6 +90,6 @@ CREATE TABLE [SavedPosts](
 	[IdUser] INT,
 	[SaveDate] DATETIME NOT NULL,
 
-	FOREIGN KEY ([IdPost]) REFERENCES [Post]([Id]),
-	FOREIGN KEY ([IdUser]) REFERENCES [User]([Id])
+	FOREIGN KEY ([IdPost]) REFERENCES [Posts]([Id]),
+	FOREIGN KEY ([IdUser]) REFERENCES [Users]([Id])
 );

@@ -5,7 +5,6 @@ using Newtonsoft.Json;
 namespace BlogApp.Api.Controllers;
 
 [ApiController]
-[Route("api/v1/[controller]")]
 public class ApiControllerBase : ControllerBase
 {
     protected string SerializeReturn(object model)

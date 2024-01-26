@@ -11,20 +11,20 @@ public static class ServicesExtensions
     public static void AddRepositories(this IServiceCollection serviceCollection)
     {
         serviceCollection.AddSingleton<IConnectionFactory, ConnectionFactory>();
-        serviceCollection.AddSingleton<IUserRepository, UserRepository>();
-        serviceCollection.AddSingleton<IPostRepository, PostRepository>();
-        serviceCollection.AddSingleton<IPostReviewRepository, PostReviewRepository>();
-        serviceCollection.AddSingleton<IPostLikeRepository, PostLikeRepository>();
-        serviceCollection.AddSingleton<IPostCommentRepository, PostCommentRepository>();
+        serviceCollection.AddSingleton<IUsersRepository, UsersRepository>();
+        serviceCollection.AddSingleton<IPostsRepository, PostsRepository>();
+        serviceCollection.AddSingleton<IPostsReviewsRepository, PostsReviewsRepository>();
+        serviceCollection.AddSingleton<IPostsLikesRepository, PostsLikesRepository>();
+        serviceCollection.AddSingleton<IPostsCommentsRepository, PostsCommentsRepository>();
     }
 
     public static void AddServices(this IServiceCollection serviceCollection)
     {
-        serviceCollection.AddSingleton<IUserService, UserService>();
-        serviceCollection.AddSingleton<IPostService, PostService>();
-        serviceCollection.AddSingleton<IPostReviewService, PostReviewService>();
-        serviceCollection.AddSingleton<IPostLikeService, PostLikeService>();
-        serviceCollection.AddSingleton<IPostCommentService, PostCommentService>();
+        serviceCollection.AddSingleton<IUsersService, UsersService>();
+        serviceCollection.AddSingleton<IPostsService, PostsService>();
+        serviceCollection.AddSingleton<IPostsReviewsService, PostsReviewsService>();
+        serviceCollection.AddSingleton<IPostsLikesService, PostsLikesService>();
+        serviceCollection.AddSingleton<IPostsCommentsService, PostsCommentsService>();
         serviceCollection.AddSingleton<IImageService, ImageService>();
         serviceCollection.AddSingleton<IPasswordService, PasswordService>();
     }

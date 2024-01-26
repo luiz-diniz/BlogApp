@@ -6,12 +6,12 @@ using Microsoft.Extensions.Logging;
 
 namespace BlogApp.Core;
 
-public class PostReviewService : IPostReviewService
+public class PostsReviewsService : IPostsReviewsService
 {
-    private readonly ILogger<PostReviewService> _logger;
-    private readonly IPostReviewRepository _postReviewRepository;
+    private readonly ILogger<PostsReviewsService> _logger;
+    private readonly IPostsReviewsRepository _postReviewRepository;
 
-    public PostReviewService(ILogger<PostReviewService> logger, IPostReviewRepository postReviewRepository)
+    public PostsReviewsService(ILogger<PostsReviewsService> logger, IPostsReviewsRepository postReviewRepository)
     {
         _logger = logger;
         _postReviewRepository = postReviewRepository;

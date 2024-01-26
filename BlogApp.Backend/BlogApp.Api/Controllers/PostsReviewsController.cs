@@ -5,12 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlogApp.Api.Controllers;
 
-public class PostReviewController : ApiControllerBase
+[Route("api/v1/posts/reviews")]
+public class PostsReviewsController : ApiControllerBase
 {
-    private readonly ILogger<PostReviewController> _logger;
-    private readonly IPostReviewService _postReviewService;
+    private readonly ILogger<PostsReviewsController> _logger;
+    private readonly IPostsReviewsService _postReviewService;
 
-    public PostReviewController(ILogger<PostReviewController> logger, IPostReviewService postReviewService)
+    public PostsReviewsController(ILogger<PostsReviewsController> logger, IPostsReviewsService postReviewService)
     {
         _logger = logger;
         _postReviewService = postReviewService;

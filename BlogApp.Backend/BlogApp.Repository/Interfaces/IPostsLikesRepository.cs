@@ -2,7 +2,7 @@
 
 namespace BlogApp.Repository.Interfaces;
 
-public interface IPostLikeRepository
+public interface IPostsLikesRepository
 {
     void AddLike(int idPost, int idUser);
     void RemoveLike(int idPost, int idUser);

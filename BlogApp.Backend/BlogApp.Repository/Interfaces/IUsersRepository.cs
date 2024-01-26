@@ -2,7 +2,7 @@
 
 namespace BlogApp.Repository.Interfaces;
 
-public interface IUserRepository
+public interface IUsersRepository
 {
     void Add(User user);
     User Get(int id);

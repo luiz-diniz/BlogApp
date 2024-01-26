@@ -6,14 +6,14 @@ using Microsoft.Extensions.Logging;
 
 namespace BlogApp.Core;
 
-public class UserService : IUserService
+public class UsersService : IUsersService
 {
-    private readonly ILogger<UserService> _logger;
-    private readonly IUserRepository _userRepository;
+    private readonly ILogger<UsersService> _logger;
+    private readonly IUsersRepository _userRepository;
     private readonly IPasswordService _passwordManager;
     private readonly IImageService _imageService;
 
-    public UserService(ILogger<UserService> logger, IUserRepository userRepository, IPasswordService passwordManager, IImageService imageService)
+    public UsersService(ILogger<UsersService> logger, IUsersRepository userRepository, IPasswordService passwordManager, IImageService imageService)
     {
         _logger = logger;
         _userRepository = userRepository;

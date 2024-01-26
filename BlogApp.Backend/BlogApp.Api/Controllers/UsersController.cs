@@ -5,12 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlogApp.Api.Controllers;
 
-public class UserController : ApiControllerBase
+[Route("api/v1/[controller]")]
+public class UsersController : ApiControllerBase
 {
-    private readonly ILogger<UserController> _logger;
-    private readonly IUserService _userService;
+    private readonly ILogger<UsersController> _logger;
+    private readonly IUsersService _userService;
 
-    public UserController(ILogger<UserController> logger, IUserService userService)
+    public UsersController(ILogger<UsersController> logger, IUsersService userService)
     {
         _logger = logger;
         _userService = userService;

@@ -5,18 +5,18 @@ using System.Data.SqlClient;
 
 namespace BlogApp.Repository.SqlRepository;
 
-public class PostLikeRepository : IPostLikeRepository
+public class PostsLikesRepository : IPostsLikesRepository
 {
     private readonly IConnectionFactory _connectionFactory;
 
-    public PostLikeRepository(IConnectionFactory connectionFactory)
+    public PostsLikesRepository(IConnectionFactory connectionFactory)
     {
         _connectionFactory = connectionFactory;
     }
 
     public void AddLike(int idPost, int idUser)
     {
-        var query = "INSERT INTO [PostLikes] (IdPost, IdUser) VALUES (@P0, @P1);";
+        var query = "INSERT INTO [PostsLikes] (IdPost, IdUser) VALUES (@P0, @P1);";
 
         using var connection = _connectionFactory.CreateConnection();
 
@@ -37,7 +37,7 @@ public class PostLikeRepository : IPostLikeRepository
 
     public void RemoveLike(int idPost, int idUser)
     {
-        var query = "DELETE FROM [PostLikes] WHERE IdPost = @P0 AND IdUser = @P1;";
+        var query = "DELETE FROM [PostsLikes] WHERE IdPost = @P0 AND IdUser = @P1;";
 
         using var connection = _connectionFactory.CreateConnection();
 
@@ -58,7 +58,7 @@ public class PostLikeRepository : IPostLikeRepository
 
     public bool VerifyPostLiked(int idPost, int idUser)
     {
-        var query = "SELECT COUNT(*) AS COUNT FROM [PostLikes] WHERE IdPost = @P0 AND IdUser = @P1;";
+        var query = "SELECT COUNT(*) AS COUNT FROM [PostsLikes] WHERE IdPost = @P0 AND IdUser = @P1;";
 
         using var connection = _connectionFactory.CreateConnection();
 

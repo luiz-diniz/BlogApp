@@ -2,7 +2,7 @@
 
 namespace BlogApp.Core.Intefaces;
 
-public interface IPostLikeService
+public interface IPostsLikesService
 {
     void AddLike(int idPost, int idUser);
     void RemoveLike(int idPost, int idUser);

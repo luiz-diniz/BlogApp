@@ -5,18 +5,18 @@ using System.Data.SqlClient;
 
 namespace BlogApp.Repository.SqlRepository;
 
-public class UserRepository : IUserRepository
+public class UsersRepository : IUsersRepository
 {
     private readonly IConnectionFactory _connectionFactory;
 
-    public UserRepository(IConnectionFactory connectionFactory)
+    public UsersRepository(IConnectionFactory connectionFactory)
     {
         _connectionFactory = connectionFactory;
     }
 
     public void Add(User user)
     {
-        var query = @"INSERT INTO [User] (IdRole, Username, Email, Password, ProfileImageName)
+        var query = @"INSERT INTO [Users] (IdRole, Username, Email, Password, ProfileImageName)
             VALUES (@P0, @P1, @P2, @P3, @P4);";
 
         using var connection = _connectionFactory.CreateConnection() as SqlConnection;

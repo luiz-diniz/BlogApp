@@ -4,12 +4,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlogApp.Api.Controllers;
 
-public class PostLikeController : ApiControllerBase
+[Route("api/v1/posts/likes")]
+public class PostsLikesController : ApiControllerBase
 {
-    private readonly ILogger<PostLikeController> _logger;
-    private readonly IPostLikeService _postLikeService;
+    private readonly ILogger<PostsLikesController> _logger;
+    private readonly IPostsLikesService _postLikeService;
 
-    public PostLikeController(ILogger<PostLikeController> logger, IPostLikeService postLikeService)
+    public PostsLikesController(ILogger<PostsLikesController> logger, IPostsLikesService postLikeService)
     {
         _logger = logger;
         _postLikeService = postLikeService;

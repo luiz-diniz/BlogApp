@@ -1,8 +1,8 @@
 ﻿using BlogApp.Models;
 
-namespace BlogApp.Repository.Interfaces;
+namespace BlogApp.Core.Intefaces;
 
-public interface IPostCommentRepository
+public interface IPostsCommentsService
 {
     void Add(PostComment postComment);
     void Delete(int idPostComment);

@@ -5,18 +5,20 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlogApp.Api.Controllers;
 
-public class PostCommentController : ApiControllerBase
+[Route("api/v1/posts")]
+public class PostsCommentsController : ApiControllerBase
 {
-    private readonly ILogger<PostCommentController> _logger;
-    private readonly IPostCommentService _postCommentService;
+    private readonly ILogger<PostsCommentsController> _logger;
+    private readonly IPostsCommentsService _postCommentService;
 
-    public PostCommentController(ILogger<PostCommentController> logger, IPostCommentService postCommentService)
+    public PostsCommentsController(ILogger<PostsCommentsController> logger, IPostsCommentsService postCommentService)
     {
         _logger = logger;
         _postCommentService = postCommentService;
     }
 
     [HttpPost]
+    [Route("comments")]
     public IActionResult Add([FromBody] PostCommentModel postComment)
     {
         try
@@ -32,7 +34,7 @@ public class PostCommentController : ApiControllerBase
     }
 
     [HttpDelete]
-    [Route("{idPostComment}")]
+    [Route("comments/{idPostComment}")]
     public IActionResult Delete(int idPostComment)
     {
         try
@@ -48,7 +50,7 @@ public class PostCommentController : ApiControllerBase
     }
 
     [HttpGet]
-    [Route("{idPost}")]
+    [Route("{idPost}/comments")]
     public IActionResult GetAll(int idPost)
     {
         try
