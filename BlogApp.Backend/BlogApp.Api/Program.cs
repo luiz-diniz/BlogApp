@@ -1,4 +1,6 @@
+using BlogApp.Api;
 using BlogApp.Api.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -31,6 +33,18 @@ builder.Services.AddAuthentication("Bearer")
     };
 });
 
+builder.Services.AddAuthorization(opts =>
+{
+    opts.AddPolicy(PolicyConstants.MustBeAdmin, policy =>
+    {
+        policy.RequireClaim("userRoleId", "1");
+    });
+
+    opts.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -42,6 +56,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

@@ -1,6 +1,7 @@
 ﻿using BlogApp.Api.Extensions.Converters;
 using BlogApp.Api.Models;
 using BlogApp.Core.Intefaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogApp.Api.Controllers;
@@ -18,6 +19,7 @@ public class UsersController : ApiControllerBase
     }
 
     [HttpPost]
+    [AllowAnonymous]
     public IActionResult Add([FromBody] UserModel user)
     {
         try

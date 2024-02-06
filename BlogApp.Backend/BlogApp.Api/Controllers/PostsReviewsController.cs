@@ -1,11 +1,13 @@
 ﻿using BlogApp.Api.Extensions.Converters;
 using BlogApp.Api.Models;
 using BlogApp.Core.Intefaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogApp.Api.Controllers;
 
 [Route("api/v1/posts/reviews")]
+[Authorize(Policy = PolicyConstants.MustBeAdmin)]
 public class PostsReviewsController : ApiControllerBase
 {
     private readonly ILogger<PostsReviewsController> _logger;

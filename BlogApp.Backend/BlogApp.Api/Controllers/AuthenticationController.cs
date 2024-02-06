@@ -1,10 +1,12 @@
 ﻿using BlogApp.Api.Models;
 using BlogApp.Core.Intefaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogApp.Api.Controllers;
 
 [Route("api/v1/[controller]")]
+[AllowAnonymous]
 public class AuthenticationController : ApiControllerBase
 {
     private readonly ILogger<AuthenticationController> _logger;
