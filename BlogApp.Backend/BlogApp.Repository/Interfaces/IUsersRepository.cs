@@ -5,5 +5,5 @@ namespace BlogApp.Repository.Interfaces;
 public interface IUsersRepository
 {
     void Add(User user);
-    User Get(int id);
+    User GetUserCredentials(string username);
 }

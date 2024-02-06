@@ -27,5 +27,7 @@ public static class ServicesExtensions
         serviceCollection.AddSingleton<IPostsCommentsService, PostsCommentsService>();
         serviceCollection.AddSingleton<IImageService, ImageService>();
         serviceCollection.AddSingleton<IPasswordService, PasswordService>();
+        serviceCollection.AddSingleton<IAuthenticationService, AuthenticationService>();
+        serviceCollection.AddSingleton<ITokenService, TokenService>();
     }
 }

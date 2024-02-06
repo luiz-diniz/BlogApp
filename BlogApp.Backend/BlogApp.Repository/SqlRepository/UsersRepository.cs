@@ -39,8 +39,39 @@ public class UsersRepository : IUsersRepository
         cmd.ExecuteNonQuery();
     }
 
-    public User Get(int id)
+    public User GetUserCredentials(string username)
     {
-        throw new NotImplementedException();
+        var query = @"SELECT Id, IdRole, Password FROM [Users] WHERE Username = @P0";
+
+        using var connection = _connectionFactory.CreateConnection() as SqlConnection;
+
+        using var cmd = new SqlCommand(query, connection);
+
+        var parameters = new object[]
+        {
+            username
+        };
+
+        ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);
+
+        cmd.CommandType = CommandType.Text;
+
+        var reader = cmd.ExecuteReader();
+
+        if (reader.Read())
+        {
+            return new User()
+            {
+                Id = Convert.ToInt32(reader["Id"]),
+                Role = new UserRole
+                {
+                    Id = Convert.ToInt32(reader["IdRole"])
+                },
+                Username = username,
+                Password = Convert.ToString(reader["Password"]),
+            };
+        }
+
+        return null!;
     }
 }

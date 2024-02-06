@@ -28,7 +28,7 @@ public class PostsReviewsController : ApiControllerBase
         }
         catch (Exception ex)
         {
-            return ReturnError(500, ex, _logger);            
+            return ReturnError(500, ex, _logger);
         }
     }
 }
