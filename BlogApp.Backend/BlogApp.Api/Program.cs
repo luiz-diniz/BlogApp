@@ -1,7 +1,6 @@
 using BlogApp.Api;
 using BlogApp.Api.Extensions;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 

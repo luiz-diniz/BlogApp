@@ -45,7 +45,7 @@ public class ConnectionFactory : IConnectionFactory
 
     private string GetConnectionString()
     {
-        var connectionString = _configuration.GetSection("Database").GetSection("ConnectionStrings").GetSection("Default").Value;
+        var connectionString = _configuration.GetSection("Database:ConnectionStrings:Default").Value;
 
         if (string.IsNullOrWhiteSpace(connectionString))
             throw new Exception("Connection string value must be informed.");
@@ -55,7 +55,7 @@ public class ConnectionFactory : IConnectionFactory
 
     private int GetProvider()
     {
-        var provider = _configuration.GetSection("Database").GetSection("Provider").Value;
+        var provider = _configuration.GetSection("Database:Provider").Value;
 
         if (string.IsNullOrWhiteSpace(provider))
             throw new Exception("Provider value must be informed.");
