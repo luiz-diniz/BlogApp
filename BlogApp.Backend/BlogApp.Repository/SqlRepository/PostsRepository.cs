@@ -131,4 +131,23 @@ public class PostsRepository : IPostsRepository
 
         return null!;
     }
+
+    public void Publish(int idPost, IDbConnection connection, IDbTransaction transaction)
+    {
+        var query = "UPDATE [Posts] SET PublishedDate = @P0 WHERE Id = @P1";
+
+        using var cmd = new SqlCommand(query, connection as SqlConnection, transaction as SqlTransaction);
+
+        var parameters = new object[]
+        {
+            DateTime.Now,
+            idPost
+        };
+
+        ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);
+
+        cmd.CommandType = CommandType.Text;
+
+        cmd.ExecuteNonQuery();
+    }
 }

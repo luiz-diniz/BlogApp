@@ -7,4 +7,5 @@ public interface IPostsReviewsRepository
 {
     void Add(Post post, IDbConnection connection, IDbTransaction transaction);
     void Update(PostReview postReview);
+    void Publish(PostReview postReview, IDbConnection connection, IDbTransaction transaction);
 }
