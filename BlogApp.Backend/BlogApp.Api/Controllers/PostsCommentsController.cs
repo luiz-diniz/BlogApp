@@ -6,7 +6,7 @@ using System.Net;
 
 namespace BlogApp.Api.Controllers;
 
-[Route("api/v1/posts")]
+[Route("api/v1/Posts")]
 public class PostsCommentsController : ApiControllerBase
 {
     private readonly ILogger<PostsCommentsController> _logger;
@@ -19,7 +19,7 @@ public class PostsCommentsController : ApiControllerBase
     }
 
     [HttpPost]
-    [Route("comments")]
+    [Route("Comments")]
     public IActionResult Add([FromBody] PostCommentModel postComment)
     {
         try
@@ -35,7 +35,7 @@ public class PostsCommentsController : ApiControllerBase
     }
 
     [HttpDelete]
-    [Route("comments/{idPostComment}")]
+    [Route("Comments/{idPostComment}")]
     public IActionResult Delete(int idPostComment)
     {
         try
@@ -51,7 +51,7 @@ public class PostsCommentsController : ApiControllerBase
     }
 
     [HttpGet]
-    [Route("{idPost}/comments")]
+    [Route("{idPost}/Comments")]
     public IActionResult GetAll(int idPost)
     {
         try

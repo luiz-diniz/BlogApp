@@ -5,7 +5,7 @@ using System.Net;
 
 namespace BlogApp.Api.Controllers;
 
-[Route("api/v1/posts/likes")]
+[Route("api/v1/Posts/Likes")]
 public class PostsLikesController : ApiControllerBase
 {
     private readonly ILogger<PostsLikesController> _logger;

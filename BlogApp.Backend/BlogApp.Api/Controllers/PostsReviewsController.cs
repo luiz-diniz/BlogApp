@@ -7,7 +7,7 @@ using System.Net;
 
 namespace BlogApp.Api.Controllers;
 
-[Route("api/v1/posts/reviews")]
+[Route("api/v1/Posts/Reviews")]
 [Authorize(Policy = PolicyConstants.MustBeAdmin)]
 public class PostsReviewsController : ApiControllerBase
 {
