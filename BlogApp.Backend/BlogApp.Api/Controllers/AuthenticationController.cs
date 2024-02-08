@@ -1,7 +1,10 @@
 ﻿using BlogApp.Api.Models;
+using BlogApp.Core.Exceptions;
 using BlogApp.Core.Intefaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System.Net.Mail;
 
 namespace BlogApp.Api.Controllers;
 
@@ -27,9 +30,13 @@ public class AuthenticationController : ApiControllerBase
 
             return Ok(result);
         }
-		catch (Exception ex)
+        catch (InvalidUserCredentialsException ex)
+        {
+            return ReturnError(HttpStatusCode.Unauthorized, ex, _logger);
+        }
+        catch (Exception ex)
 		{
-            return ReturnError(500, ex, _logger);	
+            return ReturnError(HttpStatusCode.InternalServerError, ex, _logger);	
 		}
     }
 }

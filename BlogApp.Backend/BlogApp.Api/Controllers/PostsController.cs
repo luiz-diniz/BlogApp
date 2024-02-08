@@ -2,6 +2,7 @@
 using BlogApp.Api.Models;
 using BlogApp.Core.Intefaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace BlogApp.Api.Controllers;
 
@@ -28,7 +29,7 @@ public class PostsController : ApiControllerBase
         }
         catch (Exception ex)
         {
-            return ReturnError(500, ex, _logger);
+            return ReturnError(HttpStatusCode.InternalServerError, ex, _logger);
         }
     }
 
@@ -46,7 +47,7 @@ public class PostsController : ApiControllerBase
         }
         catch (Exception ex)
         {
-            return ReturnError(500, ex, _logger);
+            return ReturnError(HttpStatusCode.InternalServerError, ex, _logger);
         }
     }
 
@@ -63,7 +64,7 @@ public class PostsController : ApiControllerBase
         }
         catch (Exception ex)
         {
-            return ReturnError(500, ex, _logger);
+            return ReturnError(HttpStatusCode.InternalServerError, ex, _logger);
         }
     }
 }

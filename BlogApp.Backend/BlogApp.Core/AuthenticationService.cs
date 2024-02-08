@@ -29,7 +29,7 @@ public class AuthenticationService : IAuthenticationService
             var user = _usersRepository.GetUserCredentials(username);
 
             if (user is null)
-                throw new InvalidUserException($"User with username [{username}] was not found.");
+                throw new InvalidUserCredentialsException($"User with username [{username}] was not found.");
                        
             var validPassword = _passwordService.VerifyPasswordMatch(password, user.Password);
 
