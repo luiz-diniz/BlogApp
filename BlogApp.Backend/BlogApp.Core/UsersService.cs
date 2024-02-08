@@ -1,4 +1,5 @@
 ﻿using BlogApp.Core.Enums;
+using BlogApp.Core.Exceptions;
 using BlogApp.Core.Intefaces;
 using BlogApp.Models;
 using BlogApp.Repository.Interfaces;
@@ -27,6 +28,9 @@ public class UsersService : IUsersService
         {
             if(user is null)
                 throw new ArgumentNullException(nameof(user), "User null.");
+
+            if (_userRepository.VerifyUserExist(user.Username))
+                throw new UserAlreadyExistsException($"User [{user.Username}] already exists.");
 
             user.Password = _passwordManager.GeneratePasswordHash(user.Password);
             user.ProfileImageName = _imageService.CreateImage(user.ProfileImageContent!, nameof(AppSettingsEnum.ProfileImageStoragePath));

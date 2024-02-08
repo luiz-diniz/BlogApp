@@ -1,5 +1,6 @@
 ﻿using BlogApp.Api.Extensions.Converters;
 using BlogApp.Api.Models;
+using BlogApp.Core.Exceptions;
 using BlogApp.Core.Intefaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -28,6 +29,10 @@ public class UsersController : ApiControllerBase
             _userService.Add(user.ConvertModelToUser());
 
             return Ok();
+        }
+        catch(UserAlreadyExistsException ex)
+        {
+            return ReturnError(HttpStatusCode.BadRequest, ex, _logger);
         }
         catch (Exception ex)
         {

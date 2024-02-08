@@ -16,9 +16,11 @@ public class ApiControllerBase : ControllerBase
         });
     }
 
-    protected IActionResult ReturnError(HttpStatusCode statusCode, Exception exception, ILogger logger)
+    protected IActionResult ReturnError(HttpStatusCode statusCode, Exception exception, ILogger logger = null)
     {
-        logger.LogError(exception, exception.Message);
-        return StatusCode((int)statusCode, "Invalid username or password.");
+        if(logger != null)
+            logger.LogError(exception, exception.Message);
+
+        return StatusCode((int)statusCode, exception.Message);
     }
 }

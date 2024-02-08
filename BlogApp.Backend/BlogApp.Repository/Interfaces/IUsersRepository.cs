@@ -6,4 +6,5 @@ public interface IUsersRepository
 {
     void Add(User user);
     User GetUserCredentials(string username);
+    bool VerifyUserExist(string username);
 }

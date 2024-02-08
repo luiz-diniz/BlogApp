@@ -2,7 +2,9 @@
 using BlogApp.Core.Exceptions;
 using BlogApp.Core.Intefaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Net;
 using System.Net.Mail;
 
@@ -32,7 +34,8 @@ public class AuthenticationController : ApiControllerBase
         }
         catch (InvalidUserCredentialsException ex)
         {
-            return ReturnError(HttpStatusCode.Unauthorized, ex, _logger);
+            _logger.LogError(ex, ex.Message);
+            return StatusCode((int)HttpStatusCode.Unauthorized, "Invalid Username or Password.");
         }
         catch (Exception ex)
 		{

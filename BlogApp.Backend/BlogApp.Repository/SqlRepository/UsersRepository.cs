@@ -26,7 +26,7 @@ public class UsersRepository : IUsersRepository
         var parameters = new object[]
         {
             user.Role.Id,
-            user.Username,
+            user.Username.ToLower(),
             user.Email,
             user.Password,
             user.ProfileImageName
@@ -67,11 +67,36 @@ public class UsersRepository : IUsersRepository
                 {
                     Id = Convert.ToInt32(reader["IdRole"])
                 },
-                Username = username,
+                Username = username.ToLower(),
                 Password = Convert.ToString(reader["Password"]),
             };
         }
 
         return null!;
+    }
+
+    public bool VerifyUserExist(string username)
+    {
+        var query = @"SELECT COUNT(*) AS Value FROM [Users] WHERE Username = @P0";
+
+        using var connection = _connectionFactory.CreateConnection() as SqlConnection;
+
+        using var cmd = new SqlCommand(query, connection);
+
+        var parameters = new object[]
+        {
+            username.ToLower()
+        };
+
+        ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);
+
+        cmd.CommandType = CommandType.Text;
+
+        var reader = cmd.ExecuteReader();
+
+        if (reader.Read())
+            return Convert.ToInt32(reader["Value"]) > 0;      
+
+        return false;
     }
 }
