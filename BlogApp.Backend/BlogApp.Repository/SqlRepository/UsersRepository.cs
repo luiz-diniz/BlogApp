@@ -8,21 +8,17 @@ namespace BlogApp.Repository.SqlRepository;
 
 public class UsersRepository : IUsersRepository
 {
-    private readonly IConnectionFactory _connectionFactory;
+    private readonly IQueryExecutor _queryExecutor;
 
-    public UsersRepository(IConnectionFactory connectionFactory)
+    public UsersRepository(IQueryExecutor queryExecutor)
     {
-        _connectionFactory = connectionFactory;
+        _queryExecutor = queryExecutor;
     }
 
     public void Add(UserModel userModel)
     {
         var query = @"INSERT INTO [Users] (IdRole, Username, Email, Password, ProfileImageName)
             VALUES (@P0, @P1, @P2, @P3, @P4);";
-
-        using var connection = _connectionFactory.CreateConnection() as SqlConnection;
-
-        using var cmd = new SqlCommand(query, connection);
 
         var parameters = new object[]
         {
@@ -33,31 +29,19 @@ public class UsersRepository : IUsersRepository
             userModel.ProfileImageName
         };
 
-        ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);
-
-        cmd.CommandType = CommandType.Text;
-
-        cmd.ExecuteNonQuery();
+        _queryExecutor.ExecuteNonQuery(query, parameters);
     }
 
     public User GetUserCredentials(string username)
     {
         var query = @"SELECT Id, IdRole, Password FROM [Users] WHERE Username = @P0";
 
-        using var connection = _connectionFactory.CreateConnection() as SqlConnection;
-
-        using var cmd = new SqlCommand(query, connection);
-
         var parameters = new object[]
         {
             username
         };
 
-        ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);
-
-        cmd.CommandType = CommandType.Text;
-
-        var reader = cmd.ExecuteReader();
+        using var reader = _queryExecutor.ExecuteReader(query, parameters);
 
         if (reader.Read())
         {
@@ -80,20 +64,12 @@ public class UsersRepository : IUsersRepository
     {
         var query = @"SELECT COUNT(*) AS Value FROM [Users] WHERE Username = @P0";
 
-        using var connection = _connectionFactory.CreateConnection() as SqlConnection;
-
-        using var cmd = new SqlCommand(query, connection);
-
         var parameters = new object[]
         {
             username.ToLower()
         };
 
-        ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);
-
-        cmd.CommandType = CommandType.Text;
-
-        var reader = cmd.ExecuteReader();
+        using var reader = _queryExecutor.ExecuteReader(query, parameters);
 
         if (reader.Read())
             return Convert.ToInt32(reader["Value"]) > 0;      

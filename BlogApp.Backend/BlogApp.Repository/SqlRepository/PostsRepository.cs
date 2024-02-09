@@ -8,19 +8,17 @@ namespace BlogApp.Repository.SqlRepository;
 
 public class PostsRepository : IPostsRepository
 {
-    private readonly IConnectionFactory _connectionFactory;
+    private readonly IQueryExecutor _queryExecutor;
 
-    public PostsRepository(IConnectionFactory connectionFactory)
+    public PostsRepository(IQueryExecutor queryExecutor)
     {
-        _connectionFactory = connectionFactory;
+        _queryExecutor = queryExecutor;
     }
 
     public int Add(PostModel post, IDbConnection connection, IDbTransaction transaction)
     {
         var query = @"INSERT INTO [Posts] (IdUserAuthor, IdCategory, Title, Content, PostImageName) OUTPUT INSERTED.Id
             VALUES (@P0, @P1, @P2, @P3, @P4);";
-
-        using var cmd = new SqlCommand(query, connection as SqlConnection, transaction as SqlTransaction);
 
         var parameters = new object[]
         {
@@ -30,12 +28,8 @@ public class PostsRepository : IPostsRepository
             post.Content,
             post.PostImageName
         };
-
-        ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);
-
-        cmd.CommandType = CommandType.Text;
-
-        return Convert.ToInt32(cmd.ExecuteScalar());
+       
+        return Convert.ToInt32(_queryExecutor.ExecuteScalar(connection, transaction, query, parameters));
     }
 
     public Post Get(int id)
@@ -46,21 +40,13 @@ public class PostsRepository : IPostsRepository
                         INNER JOIN [PostsCategories] AS C ON P.IdCategory = C.Id
                         INNER JOIN [PostsReviews] AS PR ON P.Id = PR.IdPost
                         WHERE P.Id = @P0 AND PR.Status = 2;";
-
-        var connection = _connectionFactory.CreateConnection() as SqlConnection;
-
-        using var cmd = new SqlCommand(query, connection);
-
+  
         var parameters = new object[]
         {
             id
-        };
+        };        
 
-        ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);
-
-        cmd.CommandType = CommandType.Text;
-
-        using var reader = cmd.ExecuteReader();
+        using var reader = _queryExecutor.ExecuteReader(query, parameters);
 
         if (reader.Read())
         {
@@ -94,13 +80,8 @@ public class PostsRepository : IPostsRepository
                         INNER JOIN [Users] AS U ON P.IdUserAuthor = U.Id
                         INNER JOIN [PostsCategories] AS C ON P.IdCategory = C.Id;";
 
-        var connection = _connectionFactory.CreateConnection() as SqlConnection;
 
-        using var cmd = new SqlCommand(query, connection);
-
-        cmd.CommandType = CommandType.Text;
-
-        using var reader = cmd.ExecuteReader();
+        using var reader = _queryExecutor.ExecuteReader(query);
 
         var posts = new List<Post>();
 
@@ -136,18 +117,11 @@ public class PostsRepository : IPostsRepository
     {
         var query = "UPDATE [Posts] SET PublishedDate = @P0 WHERE Id = @P1";
 
-        using var cmd = new SqlCommand(query, connection as SqlConnection, transaction as SqlTransaction);
-
         var parameters = new object[]
         {
-            DateTime.Now,
             idPost
         };
 
-        ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);
-
-        cmd.CommandType = CommandType.Text;
-
-        cmd.ExecuteNonQuery();
+        _queryExecutor.ExecuteNonQuery(connection, transaction, query, parameters);
     }
 }

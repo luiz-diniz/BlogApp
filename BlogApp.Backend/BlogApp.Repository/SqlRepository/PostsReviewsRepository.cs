@@ -9,18 +9,16 @@ namespace BlogApp.Repository.SqlRepository;
 
 public class PostsReviewsRepository : IPostsReviewsRepository
 {
-    private readonly IConnectionFactory _connectionFactory;
+    private readonly IQueryExecutor _queryExecutor;
 
-    public PostsReviewsRepository(IConnectionFactory connectionFactory)
+    public PostsReviewsRepository(IQueryExecutor queryExecutor)
     {
-        _connectionFactory = connectionFactory;
+        _queryExecutor = queryExecutor;
     }
 
     public void Add(PostModel postModel, IDbConnection connection, IDbTransaction transaction)
     {
         var query = "INSERT INTO [PostsReviews] (IdPost, Status) VALUES (@P0, @P1);";
-
-        using var cmd = new SqlCommand(query, connection as SqlConnection, transaction as SqlTransaction);
 
         var parameters = new object[]
         {
@@ -28,21 +26,13 @@ public class PostsReviewsRepository : IPostsReviewsRepository
             (int)StatusEnum.Pending
         };
 
-        ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);
-
-        cmd.CommandType = CommandType.Text;
-
-        cmd.ExecuteNonQuery();
+        _queryExecutor.ExecuteNonQuery(connection, transaction, query, parameters);
     }
 
     public void Update(PostReviewModel postReviewModel)
     {
         var query = "UPDATE [PostsReviews] SET [IdUserReviewer] = @P0, [Status] = @P1, [Feedback] = @P2, [ReviewDate] = @P3 WHERE [IdPost] = @P4;";
 
-        using var connection = _connectionFactory.CreateConnection() as SqlConnection;
-
-        using var cmd = new SqlCommand(query, connection);
-
         var parameters = new object[]
         {
             postReviewModel.IdUserReviewer,
@@ -52,19 +42,13 @@ public class PostsReviewsRepository : IPostsReviewsRepository
             postReviewModel.IdPost
         };
 
-        ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);
-
-        cmd.CommandType = CommandType.Text;
-
-        cmd.ExecuteNonQuery();
+        _queryExecutor.ExecuteNonQuery(query, parameters);
     }
 
     public void Publish(PostReviewModel postReviewModel, IDbConnection connection, IDbTransaction transaction)
     {
         var query = "UPDATE [PostsReviews] SET [IdUserReviewer] = @P0, [Status] = @P1, [Feedback] = @P2, [ReviewDate] = @P3 WHERE [IdPost] = @P4;";
 
-        using var cmd = new SqlCommand(query, connection as SqlConnection, transaction as SqlTransaction);
-
         var parameters = new object[]
         {
             postReviewModel.IdUserReviewer,
@@ -74,10 +58,6 @@ public class PostsReviewsRepository : IPostsReviewsRepository
             postReviewModel.IdPost
         };
 
-        ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);
-
-        cmd.CommandType = CommandType.Text;
-
-        cmd.ExecuteNonQuery();
+        _queryExecutor.ExecuteNonQuery(connection, transaction, query, parameters);
     }
 }

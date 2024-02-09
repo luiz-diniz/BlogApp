@@ -8,20 +8,16 @@ namespace BlogApp.Repository.SqlRepository;
 
 public class PostsCommentsRepository : IPostsCommentsRepository
 {
-    private readonly IConnectionFactory _connectionFactory;
+    private readonly IQueryExecutor _queryExecutor;
 
-    public PostsCommentsRepository(IConnectionFactory connectionFactory)
+    public PostsCommentsRepository(IQueryExecutor queryExecutor)
     {
-        _connectionFactory = connectionFactory;
+        _queryExecutor = queryExecutor;
     }
 
     public void Add(PostCommentModel postComment)
     {
-        var query = $"INSERT INTO [PostsComments] (IdPost, IdUser, Comment) VALUES (@P0, @P1, @P2);";
-        
-        using var connection = _connectionFactory.CreateConnection();
-
-        using var cmd = new SqlCommand(query, connection as SqlConnection);
+        var query = $"INSERT INTO [PostsComments] (IdPost, IdUser, Comment) VALUES (@P0, @P1, @P2);";   
 
         var parameters = new object[]
         {
@@ -30,31 +26,19 @@ public class PostsCommentsRepository : IPostsCommentsRepository
             postComment.Comment
         };
 
-        ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);
-
-        cmd.CommandType = CommandType.Text;
-
-        cmd.ExecuteNonQuery();
+        _queryExecutor.ExecuteNonQuery(query, parameters);
     }
 
     public void Delete(int idPostComment)
     {
         var query = $"DELETE FROM [PostsComments] WHERE Id = @P0";
 
-        using var connection = _connectionFactory.CreateConnection();
-
-        using var cmd = new SqlCommand(query, connection as SqlConnection);
-
         var parameters = new object[]
         {
             idPostComment
         };
 
-        ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);
-
-        cmd.CommandType = CommandType.Text;
-
-        cmd.ExecuteNonQuery();
+        _queryExecutor.ExecuteNonQuery(query, parameters);
     }
 
     public IEnumerable<PostComment> GetAll(int idPost)
@@ -62,21 +46,13 @@ public class PostsCommentsRepository : IPostsCommentsRepository
         var query = $@"SELECT P.*, U.Username FROM [PostsComments] P 
                         INNER JOIN [Users] U ON P.IdUser = U.Id 
                         WHERE P.IdPost = @P0";
-
-        using var connection = _connectionFactory.CreateConnection();
-
-        using var cmd = new SqlCommand(query, connection as SqlConnection);
-
-        cmd.CommandType = CommandType.Text;
-
+              
         var parameters = new object[]
         {
             idPost
         };
 
-        ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);
-
-        var reader = cmd.ExecuteReader();
+        using var reader = _queryExecutor.ExecuteReader(query, parameters);
 
         var comments = new List<PostComment>();
 

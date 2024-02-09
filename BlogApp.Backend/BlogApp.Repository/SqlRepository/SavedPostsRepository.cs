@@ -9,20 +9,16 @@ namespace BlogApp.Repository.SqlRepository;
 
 public class SavedPostsRepository : ISavedPostsRepository
 {
-    private readonly IConnectionFactory _connectionFactory;
+    private readonly IQueryExecutor _queryExecutor;
 
-    public SavedPostsRepository(IConnectionFactory connectionFactory)
+    public SavedPostsRepository(IQueryExecutor queryExecutor)
     {
-        _connectionFactory = connectionFactory;
+        _queryExecutor = queryExecutor;
     }
 
     public void Save(SavedPostModel savedPostModel)
     {
         var query = "INSERT INTO [SavedPosts] (IdPost, IdUser) VALUES (@P0, @P1);";
-
-        using var connection = _connectionFactory.CreateConnection();
-
-        using var cmd = new SqlCommand(query, connection as SqlConnection);
 
         var parameters = new object[]
         {
@@ -30,30 +26,18 @@ public class SavedPostsRepository : ISavedPostsRepository
             savedPostModel.IdUser
         };
 
-        ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);
-
-        cmd.CommandType = CommandType.Text;
-
-        cmd.ExecuteNonQuery();
+        _queryExecutor.ExecuteNonQuery(query, parameters);
     }
 
     public void Delete(int idSavedPost)
     {
         var query = "DELETE FROM [SavedPosts] WHERE Id = @P0";
 
-        using var connection = _connectionFactory.CreateConnection();
-
-        using var cmd = new SqlCommand(query, connection as SqlConnection);
-
         var parameters = new object[]
         {
             idSavedPost
         };
 
-        ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);
-
-        cmd.CommandType = CommandType.Text;
-
-        cmd.ExecuteNonQuery();
+        _queryExecutor.ExecuteNonQuery(query, parameters);
     }
 }

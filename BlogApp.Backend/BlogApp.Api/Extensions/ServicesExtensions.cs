@@ -11,13 +11,13 @@ public static class ServicesExtensions
     public static void AddRepositories(this IServiceCollection serviceCollection)
     {
         serviceCollection.AddSingleton<IConnectionFactory, ConnectionFactory>();
+        serviceCollection.AddSingleton<IQueryExecutor, SqlQueryExecutor>();
         serviceCollection.AddSingleton<IUsersRepository, UsersRepository>();
         serviceCollection.AddSingleton<IPostsRepository, PostsRepository>();
         serviceCollection.AddSingleton<IPostsReviewsRepository, PostsReviewsRepository>();
         serviceCollection.AddSingleton<IPostsLikesRepository, PostsLikesRepository>();
         serviceCollection.AddSingleton<IPostsCommentsRepository, PostsCommentsRepository>();
         serviceCollection.AddSingleton<ISavedPostsRepository, SavedPostsRepository>();
-
     }
 
     public static void AddServices(this IServiceCollection serviceCollection)

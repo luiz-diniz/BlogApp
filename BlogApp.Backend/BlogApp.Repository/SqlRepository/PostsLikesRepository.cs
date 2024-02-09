@@ -8,74 +8,50 @@ namespace BlogApp.Repository.SqlRepository;
 
 public class PostsLikesRepository : IPostsLikesRepository
 {
-    private readonly IConnectionFactory _connectionFactory;
+    private readonly IQueryExecutor _queryExecutor;
 
-    public PostsLikesRepository(IConnectionFactory connectionFactory)
+    public PostsLikesRepository(IQueryExecutor queryExecutor)
     {
-        _connectionFactory = connectionFactory;
+        _queryExecutor = queryExecutor;
     }
 
     public void AddLike(PostLikeModel postLikeModel)
     {
         var query = "INSERT INTO [PostsLikes] (IdPost, IdUser) VALUES (@P0, @P1);";
 
-        using var connection = _connectionFactory.CreateConnection();
-
-        using var cmd = new SqlCommand(query, connection as SqlConnection);
-
         var parameters = new object[]
         {
             postLikeModel.IdPost,
             postLikeModel.IdUser
         };
 
-        ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);
-
-        cmd.CommandType = CommandType.Text;
-
-        cmd.ExecuteNonQuery();
+        _queryExecutor.ExecuteNonQuery(query, parameters);
     }
 
     public void RemoveLike(PostLikeModel postLikeModel)
     {
         var query = "DELETE FROM [PostsLikes] WHERE IdPost = @P0 AND IdUser = @P1;";
 
-        using var connection = _connectionFactory.CreateConnection();
-
-        using var cmd = new SqlCommand(query, connection as SqlConnection);
-
         var parameters = new object[]
         {
             postLikeModel.IdPost,
             postLikeModel.IdUser
         };
 
-        ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);
-
-        cmd.CommandType = CommandType.Text;
-
-        cmd.ExecuteNonQuery();
+        _queryExecutor.ExecuteNonQuery(query, parameters);
     }
 
     public bool VerifyPostLiked(PostLikeModel postLikeModel)
     {
         var query = "SELECT COUNT(*) AS COUNT FROM [PostsLikes] WHERE IdPost = @P0 AND IdUser = @P1;";
-
-        using var connection = _connectionFactory.CreateConnection();
-
-        using var cmd = new SqlCommand(query, connection as SqlConnection);
-
+       
         var parameters = new object[]
         {
             postLikeModel.IdPost,
             postLikeModel.IdUser
         };
-
-        ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);
-
-        cmd.CommandType = CommandType.Text;
-
-        var reader = cmd.ExecuteReader();
+        
+        using var reader = _queryExecutor.ExecuteReader(query, parameters);
         
         if(reader.Read())
           return Convert.ToInt32(reader["COUNT"]) == 1;

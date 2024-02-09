@@ -4,7 +4,6 @@ using BlogApp.Models;
 using BlogApp.Models.InputModels;
 using BlogApp.Repository.Interfaces;
 using Microsoft.Extensions.Logging;
-using System.Data.Common;
 
 namespace BlogApp.Core;
 
@@ -29,16 +28,16 @@ public class PostsService : IPostsService
     {
 		try
 		{
-            postModel.PostImageName = _imageService.CreateImage(postModel.PostImageContent!, nameof(AppSettingsEnum.PostImageStoragePath));
+            postModel.PostImageName = _imageService.CreateImage(postModel.PostImageContent, nameof(AppSettingsEnum.PostImageStoragePath));
 
             using var connection = _connectionFactory.CreateConnection();
 
-            using var tx = _connectionFactory.CreateTransaction(connection);
+            using var transaction = _connectionFactory.CreateTransaction(connection);
 
-            postModel.Id = _postRepository.Add(postModel, connection, tx);
-            _postReviewRepository.Add(postModel, connection, tx);
+            postModel.Id = _postRepository.Add(postModel, connection, transaction);
+            _postReviewRepository.Add(postModel, connection, transaction);
 
-            tx.Commit();
+            transaction.Commit();
 		}
 		catch (Exception ex)
 		{
