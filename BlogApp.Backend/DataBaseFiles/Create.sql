@@ -86,9 +86,9 @@ CREATE TABLE [PostsComments](
 
 CREATE TABLE [SavedPosts](
 	[Id] INT IDENTITY(1,1) PRIMARY KEY,
-	[IdPost] INT,
-	[IdUser] INT,
-	[SaveDate] DATETIME NOT NULL,
+	[IdPost] INT NOT NULL,
+	[IdUser] INT NOT NULL,
+	[SaveDate] DATETIME NOT NULL DEFAULT GETDATE(),
 
 	FOREIGN KEY ([IdPost]) REFERENCES [Posts]([Id]),
 	FOREIGN KEY ([IdUser]) REFERENCES [Users]([Id])

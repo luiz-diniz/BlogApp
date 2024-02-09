@@ -15,6 +15,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddServices();
 builder.Services.AddRepositories();
+
 builder.Logging.AddLog4Net();
 
 builder.Services.AddAuthentication("Bearer")
