@@ -1,6 +1,7 @@
 ﻿using BlogApp.Core.Enums;
 using BlogApp.Core.Intefaces;
 using BlogApp.Models;
+using BlogApp.Models.InputModels;
 using BlogApp.Repository.Interfaces;
 using Microsoft.Extensions.Logging;
 using System.Data.Common;
@@ -24,18 +25,18 @@ public class PostsService : IPostsService
         _connectionFactory = connectionFactory;
     }
         
-    public void Add(Post post)
+    public void Add(PostModel postModel)
     {
 		try
-		{           
-            post.PostImageName = _imageService.CreateImage(post.PostImageContent!, nameof(AppSettingsEnum.PostImageStoragePath));
+		{
+            postModel.PostImageName = _imageService.CreateImage(postModel.PostImageContent!, nameof(AppSettingsEnum.PostImageStoragePath));
 
             using var connection = _connectionFactory.CreateConnection();
 
             using var tx = _connectionFactory.CreateTransaction(connection);
 
-            post.Id = _postRepository.Add(post, connection, tx);
-            _postReviewRepository.Add(post, connection, tx);
+            postModel.Id = _postRepository.Add(postModel, connection, tx);
+            _postReviewRepository.Add(postModel, connection, tx);
 
             tx.Commit();
 		}

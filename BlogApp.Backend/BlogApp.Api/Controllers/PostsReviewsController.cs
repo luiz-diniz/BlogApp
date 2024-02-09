@@ -1,6 +1,5 @@
-﻿using BlogApp.Api.Extensions.Converters;
-using BlogApp.Api.Models;
-using BlogApp.Core.Intefaces;
+﻿using BlogApp.Core.Intefaces;
+using BlogApp.Models.InputModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -21,11 +20,11 @@ public class PostsReviewsController : ApiControllerBase
     }
 
     [HttpPut]
-    public IActionResult Update([FromBody] PostReviewModel post)
+    public IActionResult Update([FromBody] PostReviewModel postReviewModel)
     {
         try
         {
-            _postReviewService.Update(post.ConvertModelToPostReview());
+            _postReviewService.Update(postReviewModel);
 
             return Ok();
         }

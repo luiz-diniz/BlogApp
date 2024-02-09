@@ -1,7 +1,7 @@
 ﻿using BlogApp.Models.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace BlogApp.Api.Models;
+namespace BlogApp.Models.InputModels;
 
 public class PostReviewModel
 {

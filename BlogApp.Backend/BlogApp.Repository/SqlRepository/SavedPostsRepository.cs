@@ -1,4 +1,5 @@
 ﻿using BlogApp.Models;
+using BlogApp.Models.InputModels;
 using BlogApp.Repository.Interfaces;
 using System.Data;
 using System.Data.SqlClient;
@@ -15,7 +16,7 @@ public class SavedPostsRepository : ISavedPostsRepository
         _connectionFactory = connectionFactory;
     }
 
-    public void Save(int idPost, int idUser)
+    public void Save(SavedPostModel savedPostModel)
     {
         var query = "INSERT INTO [SavedPosts] (IdPost, IdUser) VALUES (@P0, @P1);";
 
@@ -25,8 +26,8 @@ public class SavedPostsRepository : ISavedPostsRepository
 
         var parameters = new object[]
         {
-            idPost,
-            idUser
+            savedPostModel.IdPost,
+            savedPostModel.IdUser
         };
 
         ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);

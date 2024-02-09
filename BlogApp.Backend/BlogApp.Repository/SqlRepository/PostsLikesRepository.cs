@@ -1,4 +1,5 @@
 ﻿using BlogApp.Models;
+using BlogApp.Models.InputModels;
 using BlogApp.Repository.Interfaces;
 using System.Data;
 using System.Data.SqlClient;
@@ -14,7 +15,7 @@ public class PostsLikesRepository : IPostsLikesRepository
         _connectionFactory = connectionFactory;
     }
 
-    public void AddLike(int idPost, int idUser)
+    public void AddLike(PostLikeModel postLikeModel)
     {
         var query = "INSERT INTO [PostsLikes] (IdPost, IdUser) VALUES (@P0, @P1);";
 
@@ -24,8 +25,8 @@ public class PostsLikesRepository : IPostsLikesRepository
 
         var parameters = new object[]
         {
-            idPost,
-            idUser
+            postLikeModel.IdPost,
+            postLikeModel.IdUser
         };
 
         ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);
@@ -35,7 +36,7 @@ public class PostsLikesRepository : IPostsLikesRepository
         cmd.ExecuteNonQuery();
     }
 
-    public void RemoveLike(int idPost, int idUser)
+    public void RemoveLike(PostLikeModel postLikeModel)
     {
         var query = "DELETE FROM [PostsLikes] WHERE IdPost = @P0 AND IdUser = @P1;";
 
@@ -45,8 +46,8 @@ public class PostsLikesRepository : IPostsLikesRepository
 
         var parameters = new object[]
         {
-            idPost,
-            idUser
+            postLikeModel.IdPost,
+            postLikeModel.IdUser
         };
 
         ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);
@@ -56,7 +57,7 @@ public class PostsLikesRepository : IPostsLikesRepository
         cmd.ExecuteNonQuery();
     }
 
-    public bool VerifyPostLiked(int idPost, int idUser)
+    public bool VerifyPostLiked(PostLikeModel postLikeModel)
     {
         var query = "SELECT COUNT(*) AS COUNT FROM [PostsLikes] WHERE IdPost = @P0 AND IdUser = @P1;";
 
@@ -66,8 +67,8 @@ public class PostsLikesRepository : IPostsLikesRepository
 
         var parameters = new object[]
         {
-            idPost,
-            idUser
+            postLikeModel.IdPost,
+            postLikeModel.IdUser
         };
 
         ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);

@@ -1,5 +1,5 @@
-﻿using BlogApp.Api.Models;
-using BlogApp.Core.Intefaces;
+﻿using BlogApp.Core.Intefaces;
+using BlogApp.Models.InputModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -18,11 +18,11 @@ public class PostsLikesController : ApiControllerBase
     }
 
     [HttpPost]
-    public IActionResult AddLike([FromBody] PostLikeModel postLike)
+    public IActionResult AddLike([FromBody] PostLikeModel postLikeModel)
     {
         try
         {
-            _postLikeService.AddLike(postLike.IdPost, postLike.IdUser);
+            _postLikeService.AddLike(postLikeModel);
 
             return Ok();
         }
@@ -33,11 +33,11 @@ public class PostsLikesController : ApiControllerBase
     }
 
     [HttpDelete]
-    public IActionResult RemoveLike([FromBody] PostLikeModel postLike)
+    public IActionResult RemoveLike([FromBody] PostLikeModel postLikeModel)
     {
         try
         {
-            _postLikeService.RemoveLike(postLike.IdPost, postLike.IdUser);
+            _postLikeService.RemoveLike(postLikeModel);
 
             return Ok();
         }

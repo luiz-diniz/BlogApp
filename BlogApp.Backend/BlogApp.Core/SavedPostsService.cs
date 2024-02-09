@@ -1,4 +1,5 @@
 ﻿using BlogApp.Core.Intefaces;
+using BlogApp.Models.InputModels;
 using BlogApp.Repository.Interfaces;
 using Microsoft.Extensions.Logging;
 
@@ -28,11 +29,11 @@ public class SavedPostsService : ISavedPostsService
         }
     }
 
-    public void Save(int idPost, int idUser)
+    public void Save(SavedPostModel savedPostModel)
     {
         try
         {
-            _savedPostsRepository.Save(idPost, idUser);
+            _savedPostsRepository.Save(savedPostModel);
         }
         catch (Exception ex)
         {

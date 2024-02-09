@@ -1,6 +1,5 @@
-﻿using BlogApp.Api.Extensions.Converters;
-using BlogApp.Api.Models;
-using BlogApp.Core.Intefaces;
+﻿using BlogApp.Core.Intefaces;
+using BlogApp.Models.InputModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -24,7 +23,7 @@ public class PostsCommentsController : ApiControllerBase
     {
         try
         {
-            _postCommentService.Add(postComment.ConvertToPostComment());
+            _postCommentService.Add(postComment);
 
             return Ok();
         }

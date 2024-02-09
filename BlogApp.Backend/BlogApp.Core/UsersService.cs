@@ -1,7 +1,7 @@
 ﻿using BlogApp.Core.Enums;
 using BlogApp.Core.Exceptions;
 using BlogApp.Core.Intefaces;
-using BlogApp.Models;
+using BlogApp.Models.InputModels;
 using BlogApp.Repository.Interfaces;
 using Microsoft.Extensions.Logging;
 
@@ -22,20 +22,20 @@ public class UsersService : IUsersService
         _imageService = imageService;
     }
 
-    public void Add(User user)
+    public void Add(UserModel userModel)
     {
         try
         {
-            if(user is null)
-                throw new ArgumentNullException(nameof(user), "User null.");
+            if(userModel is null)
+                throw new ArgumentNullException(nameof(userModel), "User null.");
 
-            if (_userRepository.VerifyUserExist(user.Username))
-                throw new UserAlreadyExistsException($"User [{user.Username}] already exists.");
+            if (_userRepository.VerifyUserExist(userModel.Username))
+                throw new UserAlreadyExistsException($"User [{userModel.Username}] already exists.");
 
-            user.Password = _passwordManager.GeneratePasswordHash(user.Password);
-            user.ProfileImageName = _imageService.CreateImage(user.ProfileImageContent!, nameof(AppSettingsEnum.ProfileImageStoragePath));
+            userModel.Password = _passwordManager.GeneratePasswordHash(userModel.Password);
+            userModel.ProfileImageName = _imageService.CreateImage(userModel.ProfileImageContent!, nameof(AppSettingsEnum.ProfileImageStoragePath));
 
-            _userRepository.Add(user);
+            _userRepository.Add(userModel);
         }
         catch (Exception ex)
         {

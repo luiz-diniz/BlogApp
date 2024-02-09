@@ -1,7 +1,9 @@
-﻿namespace BlogApp.Repository.Interfaces;
+﻿using BlogApp.Models.InputModels;
+
+namespace BlogApp.Repository.Interfaces;
 
 public interface ISavedPostsRepository
 {
-    void Save(int idPost, int idUser);
+    void Save(SavedPostModel savedPostModel);
     void Delete(int idSavedPost);
 }

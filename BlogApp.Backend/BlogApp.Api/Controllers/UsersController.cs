@@ -1,7 +1,6 @@
-﻿using BlogApp.Api.Extensions.Converters;
-using BlogApp.Api.Models;
-using BlogApp.Core.Exceptions;
+﻿using BlogApp.Core.Exceptions;
 using BlogApp.Core.Intefaces;
+using BlogApp.Models.InputModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -22,11 +21,11 @@ public class UsersController : ApiControllerBase
 
     [HttpPost]
     [AllowAnonymous]
-    public IActionResult Add([FromBody] UserModel user)
+    public IActionResult Add([FromBody] UserModel userModel)
     {
         try
         {
-            _userService.Add(user.ConvertModelToUser());
+            _userService.Add(userModel);
 
             return Ok();
         }

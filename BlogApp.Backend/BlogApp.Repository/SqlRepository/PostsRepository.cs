@@ -1,7 +1,7 @@
 ﻿using BlogApp.Models;
+using BlogApp.Models.InputModels;
 using BlogApp.Repository.Interfaces;
 using System.Data;
-using System.Data.Common;
 using System.Data.SqlClient;
 
 namespace BlogApp.Repository.SqlRepository;
@@ -15,7 +15,7 @@ public class PostsRepository : IPostsRepository
         _connectionFactory = connectionFactory;
     }
 
-    public int Add(Post post, IDbConnection connection, IDbTransaction transaction)
+    public int Add(PostModel post, IDbConnection connection, IDbTransaction transaction)
     {
         var query = @"INSERT INTO [Posts] (IdUserAuthor, IdCategory, Title, Content, PostImageName) OUTPUT INSERTED.Id
             VALUES (@P0, @P1, @P2, @P3, @P4);";
@@ -24,8 +24,8 @@ public class PostsRepository : IPostsRepository
 
         var parameters = new object[]
         {
-            post.UserAuthor.Id,
-            post.Category.Id,
+            post.IdUserAuthor,
+            post.IdCategory,
             post.Title,
             post.Content,
             post.PostImageName
@@ -45,7 +45,7 @@ public class PostsRepository : IPostsRepository
                         INNER JOIN [Users] AS U ON P.IdUserAuthor = U.Id
                         INNER JOIN [PostsCategories] AS C ON P.IdCategory = C.Id
                         INNER JOIN [PostsReviews] AS PR ON P.Id = PR.IdPost
-                        WHERE P.Id = @P0 AND PR.Status = 3;";
+                        WHERE P.Id = @P0 AND PR.Status = 2;";
 
         var connection = _connectionFactory.CreateConnection() as SqlConnection;
 

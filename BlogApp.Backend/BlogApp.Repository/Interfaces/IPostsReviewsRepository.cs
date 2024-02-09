@@ -1,11 +1,12 @@
 ﻿using BlogApp.Models;
+using BlogApp.Models.InputModels;
 using System.Data;
 
 namespace BlogApp.Repository.Interfaces;
 
 public interface IPostsReviewsRepository
 {
-    void Add(Post post, IDbConnection connection, IDbTransaction transaction);
-    void Update(PostReview postReview);
-    void Publish(PostReview postReview, IDbConnection connection, IDbTransaction transaction);
+    void Add(PostModel postModel, IDbConnection connection, IDbTransaction transaction);
+    void Update(PostReviewModel postReviewModel);
+    void Publish(PostReviewModel postReviewModel, IDbConnection connection, IDbTransaction transaction);
 }

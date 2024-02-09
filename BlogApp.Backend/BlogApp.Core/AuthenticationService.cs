@@ -1,6 +1,7 @@
 ﻿using BlogApp.Core.Exceptions;
 using BlogApp.Core.Intefaces;
 using BlogApp.Models;
+using BlogApp.Models.InputModels;
 using BlogApp.Repository.Interfaces;
 using log4net.Core;
 using Microsoft.Extensions.Logging;
@@ -22,16 +23,16 @@ public class AuthenticationService : IAuthenticationService
         _tokenService = tokenService;
     }
 
-    public AuthenticationResult Authenticate(string username, string password)
+    public AuthenticationResult Authenticate(LoginModel loginModel)
     {
 		try
 		{
-            var user = _usersRepository.GetUserCredentials(username);
+            var user = _usersRepository.GetUserCredentials(loginModel.Username);
 
             if (user is null)
-                throw new InvalidUserCredentialsException($"User with username [{username}] was not found.");
+                throw new InvalidUserCredentialsException($"User with username [{loginModel.Username}] was not found.");
                        
-            var validPassword = _passwordService.VerifyPasswordMatch(password, user.Password);
+            var validPassword = _passwordService.VerifyPasswordMatch(loginModel.Password, user.Password);
 
             if (validPassword)
             {
@@ -43,7 +44,7 @@ public class AuthenticationService : IAuthenticationService
                 };
             }
 
-            throw new InvalidUserCredentialsException($"Password provided for the User [{username}] is invalid.");
+            throw new InvalidUserCredentialsException($"Password provided for the User [{loginModel.Username}] is invalid.");
         }
 		catch (Exception ex)
 		{

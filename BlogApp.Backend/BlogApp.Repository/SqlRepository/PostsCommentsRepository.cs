@@ -1,4 +1,5 @@
 ﻿using BlogApp.Models;
+using BlogApp.Models.InputModels;
 using BlogApp.Repository.Interfaces;
 using System.Data;
 using System.Data.SqlClient;
@@ -14,7 +15,7 @@ public class PostsCommentsRepository : IPostsCommentsRepository
         _connectionFactory = connectionFactory;
     }
 
-    public void Add(PostComment postComment)
+    public void Add(PostCommentModel postComment)
     {
         var query = $"INSERT INTO [PostsComments] (IdPost, IdUser, Comment) VALUES (@P0, @P1, @P2);";
         
@@ -25,7 +26,7 @@ public class PostsCommentsRepository : IPostsCommentsRepository
         var parameters = new object[]
         {
             postComment.IdPost,
-            postComment.User.Id,
+            postComment.IdUser,
             postComment.Comment
         };
 

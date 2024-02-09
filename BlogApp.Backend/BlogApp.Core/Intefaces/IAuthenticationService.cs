@@ -1,8 +1,9 @@
 ﻿using BlogApp.Models;
+using BlogApp.Models.InputModels;
 
 namespace BlogApp.Core.Intefaces;
 
 public interface IAuthenticationService
 {
-    public AuthenticationResult Authenticate(string username, string password);
+    public AuthenticationResult Authenticate(LoginModel loginModel);
 }

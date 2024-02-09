@@ -1,10 +1,11 @@
 ﻿using BlogApp.Models;
+using BlogApp.Models.InputModels;
 
 namespace BlogApp.Repository.Interfaces;
 
 public interface IPostsLikesRepository
 {
-    void AddLike(int idPost, int idUser);
-    void RemoveLike(int idPost, int idUser);
-    bool VerifyPostLiked(int idPost, int idUser);
+    void AddLike(PostLikeModel postLikeModel);
+    void RemoveLike(PostLikeModel postLikeModel);
+    bool VerifyPostLiked(PostLikeModel postLikeModel);
 }

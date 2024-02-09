@@ -1,5 +1,6 @@
 ﻿using BlogApp.Core.Intefaces;
 using BlogApp.Models;
+using BlogApp.Models.InputModels;
 using BlogApp.Repository.Interfaces;
 using Microsoft.Extensions.Logging;
 
@@ -16,14 +17,14 @@ public class PostsLikesService : IPostsLikesService
         _postLikeRepository = postLikeRepository;
     }
 
-    public void AddLike(int idPost, int idUser)
+    public void AddLike(PostLikeModel postLikeModel)
     {
         try
         {
-            if (_postLikeRepository.VerifyPostLiked(idPost, idUser))
+            if (_postLikeRepository.VerifyPostLiked(postLikeModel))
                 return;
 
-            _postLikeRepository.AddLike(idPost, idUser);
+            _postLikeRepository.AddLike(postLikeModel);
         }
         catch (Exception ex)
         {
@@ -32,11 +33,11 @@ public class PostsLikesService : IPostsLikesService
         }
     }
 
-    public void RemoveLike(int idPost, int idUser)
+    public void RemoveLike(PostLikeModel postLikeModel)
     {
         try
         {
-            _postLikeRepository.RemoveLike(idPost, idUser);
+            _postLikeRepository.RemoveLike(postLikeModel);
         }
         catch (Exception ex)
         {

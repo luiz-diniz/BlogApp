@@ -1,8 +1,8 @@
-﻿using BlogApp.Models;
+﻿using BlogApp.Models.InputModels;
 
 namespace BlogApp.Core.Intefaces;
 
 public interface IUsersService
 {
-    void Add(User user);
+    void Add(UserModel userModel);
 }

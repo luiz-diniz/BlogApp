@@ -1,5 +1,6 @@
 ﻿using BlogApp.Core.Intefaces;
 using BlogApp.Models;
+using BlogApp.Models.InputModels;
 using BlogApp.Repository.Interfaces;
 using Microsoft.Extensions.Logging;
 
@@ -16,7 +17,7 @@ public class PostsCommentsService : IPostsCommentsService
         _postCommentRepository = postCommentRepository;
     }
 
-    public void Add(PostComment postComment)
+    public void Add(PostCommentModel postComment)
     {
         try
         {

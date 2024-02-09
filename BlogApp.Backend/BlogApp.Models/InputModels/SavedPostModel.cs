@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BlogApp.Api.Models;
+namespace BlogApp.Models.InputModels;
 
-public class PostLikeModel
+public class SavedPostModel
 {
     [Required]
     public int IdPost { get; set; }

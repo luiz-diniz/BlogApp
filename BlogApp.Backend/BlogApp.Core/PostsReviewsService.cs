@@ -1,6 +1,7 @@
 ﻿using BlogApp.Core.Intefaces;
 using BlogApp.Models;
 using BlogApp.Models.Enums;
+using BlogApp.Models.InputModels;
 using BlogApp.Repository;
 using BlogApp.Repository.Interfaces;
 using log4net.Core;
@@ -23,22 +24,22 @@ public class PostsReviewsService : IPostsReviewsService
         _connectionFactory = connectionFactory;
     }
 
-    public void Update(PostReview postReview)
+    public void Update(PostReviewModel postReviewModel)
     {
         try
         { 
-            if(postReview.Status == StatusEnum.Approved)
+            if(postReviewModel.Status == StatusEnum.Approved)
             {
                 using var connection = _connectionFactory.CreateConnection();
                 using var transaction = _connectionFactory.CreateTransaction(connection);
 
-                _postReviewRepository.Publish(postReview, connection, transaction);
-                _postsRepository.Publish(postReview.Post.Id, connection, transaction);
+                _postReviewRepository.Publish(postReviewModel, connection, transaction);
+                _postsRepository.Publish(postReviewModel.IdPost, connection, transaction);
 
                 transaction.Commit();
             }
             else
-                _postReviewRepository.Update(postReview);
+                _postReviewRepository.Update(postReviewModel);
         }
         catch (Exception ex)
         {

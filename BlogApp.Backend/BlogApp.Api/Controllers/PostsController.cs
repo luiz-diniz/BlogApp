@@ -1,6 +1,5 @@
-﻿using BlogApp.Api.Extensions.Converters;
-using BlogApp.Api.Models;
-using BlogApp.Core.Intefaces;
+﻿using BlogApp.Core.Intefaces;
+using BlogApp.Models.InputModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -19,11 +18,11 @@ public class PostsController : ApiControllerBase
     }
 
     [HttpPost]
-    public IActionResult Add([FromBody] PostModel post)
+    public IActionResult Add([FromBody] PostModel postModel)
     {
         try
         {
-            _postService.Add(post.ConvertModelToPost());
+            _postService.Add(postModel);
 
             return Ok();
         }

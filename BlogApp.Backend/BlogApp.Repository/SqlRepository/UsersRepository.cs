@@ -1,4 +1,5 @@
 ﻿using BlogApp.Models;
+using BlogApp.Models.InputModels;
 using BlogApp.Repository.Interfaces;
 using System.Data;
 using System.Data.SqlClient;
@@ -14,7 +15,7 @@ public class UsersRepository : IUsersRepository
         _connectionFactory = connectionFactory;
     }
 
-    public void Add(User user)
+    public void Add(UserModel userModel)
     {
         var query = @"INSERT INTO [Users] (IdRole, Username, Email, Password, ProfileImageName)
             VALUES (@P0, @P1, @P2, @P3, @P4);";
@@ -25,11 +26,11 @@ public class UsersRepository : IUsersRepository
 
         var parameters = new object[]
         {
-            user.Role.Id,
-            user.Username.ToLower(),
-            user.Email,
-            user.Password,
-            user.ProfileImageName
+            userModel.IdRole,
+            userModel.Username.ToLower(),
+            userModel.Email,
+            userModel.Password,
+            userModel.ProfileImageName
         };
 
         ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);

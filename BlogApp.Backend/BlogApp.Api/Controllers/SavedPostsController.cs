@@ -1,5 +1,5 @@
-﻿using BlogApp.Api.Models;
-using BlogApp.Core.Intefaces;
+﻿using BlogApp.Core.Intefaces;
+using BlogApp.Models.InputModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -18,11 +18,11 @@ public class SavedPostsController : ApiControllerBase
     }
 
     [HttpPost]
-    public IActionResult Save([FromBody] SavedPostModel savedPost)
+    public IActionResult Save([FromBody] SavedPostModel savedPostModel)
     {
         try
         {
-            _savedPostsService.Save(savedPost.IdPost, savedPost.IdUser);
+            _savedPostsService.Save(savedPostModel);
 
             return Ok();
         }

@@ -1,12 +1,9 @@
-﻿using BlogApp.Api.Models;
-using BlogApp.Core.Exceptions;
+﻿using BlogApp.Core.Exceptions;
 using BlogApp.Core.Intefaces;
+using BlogApp.Models.InputModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Net;
-using System.Net.Mail;
 
 namespace BlogApp.Api.Controllers;
 
@@ -24,11 +21,11 @@ public class AuthenticationController : ApiControllerBase
     }
 
     [HttpPost]
-    public IActionResult Authenticate(LoginModel loginModel)
+    public IActionResult Authenticate([FromBody] LoginModel loginModel)
     {
 		try
 		{
-            var result = _authenticationService.Authenticate(loginModel.Username, loginModel.Password);
+            var result = _authenticationService.Authenticate(loginModel);
 
             return Ok(result);
         }
