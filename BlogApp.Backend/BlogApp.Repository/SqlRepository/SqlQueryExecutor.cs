@@ -39,33 +39,33 @@ public class SqlQueryExecutor : IQueryExecutor
 
     public IDataReader ExecuteReader(string query)
     {
-        using var connection = _connectionFactory.CreateConnection();
+        var connection = _connectionFactory.CreateConnection();
 
-        var cmd = new SqlCommand(query, connection as SqlConnection);
+        using var cmd = new SqlCommand(query, connection as SqlConnection);
 
         cmd.CommandType = CommandType.Text;
 
-        return cmd.ExecuteReader();
+        return cmd.ExecuteReader(CommandBehavior.CloseConnection);
     }
 
     public IDataReader ExecuteReader(string query, object[] parameters)
     {
-        using var connection = _connectionFactory.CreateConnection();
+        var connection = _connectionFactory.CreateConnection();
 
-        var cmd = new SqlCommand(query, connection as SqlConnection);
+        using var cmd = new SqlCommand(query, connection as SqlConnection);
 
         ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);
 
         cmd.CommandType = CommandType.Text;
 
-        return cmd.ExecuteReader();
+        return cmd.ExecuteReader(CommandBehavior.CloseConnection);
     }
 
     public object ExecuteScalar(string query, object[] parameters)
     {
         using var connection = _connectionFactory.CreateConnection();
 
-        var cmd = new SqlCommand(query, connection as SqlConnection);
+        using var cmd = new SqlCommand(query, connection as SqlConnection);
 
         ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);
 
@@ -76,7 +76,7 @@ public class SqlQueryExecutor : IQueryExecutor
 
     public object ExecuteScalar(IDbConnection connection, IDbTransaction transaction, string query, object[] parameters)
     {
-        var cmd = new SqlCommand(query, connection as SqlConnection, transaction as SqlTransaction);
+        using var cmd = new SqlCommand(query, connection as SqlConnection, transaction as SqlTransaction);
 
         ParametersBuilder.BuildSqlParameters(cmd.Parameters, parameters);
 
