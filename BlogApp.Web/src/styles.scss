@@ -1,1 +1,89 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto:wght@100&display=swap');
+@import 'variables';
+
+*{
+    font-family: 'Roboto', normal;  
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: $black;
+    font-weight: bold;
+}
+
+header{
+    padding: 1rem;
+    border-bottom: 1px solid #dbdbdb;
+    background-color: $white;
+
+    img{
+        width: 32px;
+        height: 32px;
+        margin-top: .3rem;
+    }
+
+    .header-container{
+        max-width: 1200px;
+        height: 100%;
+        margin: auto;
+    }
+
+    .header-components{
+        display: flex;
+        justify-content: space-between;
+        margin: auto;
+    }
+
+    .actions{
+        display: flex;
+        align-items: center;
+
+        a{
+            margin: .1rem;
+        }
+    }
+}
+
+.container{
+    max-width: 1200px;
+    height: 100%;
+    margin: auto;
+    padding: 0 1rem;
+}
+
+.container-components{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 3rem 0;
+    padding: 1rem;
+}
+
+.btn{
+    height: auto;
+    cursor: pointer;
+    border: none;
+    border-radius: .2rem;
+    font-weight: bold;
+    padding: .5rem;
+}
+
+.btn-blue{
+    border: 1px solid $blue;
+    color: $blue;
+
+    &:hover{
+        color: $white;
+        background: $blue;
+    }
+}
+
+.btn-gray{
+    border: 1px solid $light-gray;
+    background: $white;
+
+    &:hover{
+        color: $black;
+        background: $light-gray;
+    }
+}
