@@ -1,3 +1,5 @@
+![panda_logo](https://github.com/luiz-diniz/PandaBlog/assets/39447716/ef43a021-a5fa-4787-b329-3f38fc6b1112)
+
 # Panda Blog
 
 Panda Blog is a web application that allows users to create, interact and share content.
