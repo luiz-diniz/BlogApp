@@ -7,5 +7,5 @@ public interface IPostsService
 {
     void Add(PostModel postModel);
     Post Get(int id);
-    IEnumerable<Post> GetAll();
+    IEnumerable<PostFeed> GetFeedPosts();
 }

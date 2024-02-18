@@ -62,17 +62,14 @@ public class PostsService : IPostsService
         }
     }
 
-    public IEnumerable<Post> GetAll()
+    public IEnumerable<PostFeed> GetFeedPosts()
     {
         try
         {
-            var posts = _postRepository.GetAll();
+            var posts = _postRepository.GetFeedPosts();
 
             if (posts is null)
                 return null!;
-
-            foreach(var post in posts)       
-                post.PostImageContent = _imageService.GetImage(post.PostImageName, nameof(AppSettingsEnum.PostImageStoragePath));
 
             return posts;
         }

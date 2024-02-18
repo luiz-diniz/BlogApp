@@ -73,37 +73,35 @@ public class PostsRepository : IPostsRepository
         return null!;
     }
 
-    public IEnumerable<Post> GetAll()
+    public IEnumerable<PostFeed> GetFeedPosts()
     {
-        var query = @"SELECT U.Id AS IdUser, U.Username, C.Id AS IdCategory, C.Name AS CategoryName, P.Id, P.Title, P.Content, P.PostImageName, P.CreationDate 
+        var query = @"SELECT U.Id AS IdUser, U.Username, C.Id AS IdCategory, C.Name AS CategoryName, P.Id, P.Title, PR.ReviewDate AS PublishDate, 
+											(SELECT COUNT(*) FROM [PostsLikes] WHERE IdPost = P.Id) AS LikesCount,
+											(SELECT COUNT(*) FROM [PostsComments] WHERE IdPost = P.Id) AS CommentsCount
                         FROM [Posts] AS P
                         INNER JOIN [Users] AS U ON P.IdUserAuthor = U.Id
-                        INNER JOIN [PostsCategories] AS C ON P.IdCategory = C.Id;";
+                        INNER JOIN [PostsCategories] AS C ON P.IdCategory = C.Id
+						INNER JOIN [PostsReviews] AS PR ON P.Id = PR.IdPost
+                     WHERE PR.Status = 2";
 
 
         using var reader = _queryExecutor.ExecuteReader(query);
 
-        var posts = new List<Post>();
+        var posts = new List<PostFeed>();
 
         while (reader.Read())
         {
-            posts.Add(new Post
+            posts.Add(new PostFeed
             {
+                IdUser = Convert.ToInt32(reader["IdUser"]),
+                Username = Convert.ToString(reader["Username"]),
+                IdCategory = Convert.ToInt32(reader["IdCategory"]),
+                Category = Convert.ToString(reader["CategoryName"]),
                 Id = Convert.ToInt32(reader["Id"]),
                 Title = Convert.ToString(reader["Title"]),
-                Content = Convert.ToString(reader["Content"]),
-                PostImageName = Convert.ToString(reader["PostImageName"]),
-                CreationDate = Convert.ToDateTime(reader["CreationDate"]),
-                UserAuthor = new User
-                {
-                    Id = Convert.ToInt32(reader["IdUser"]),
-                    Username = Convert.ToString(reader["Username"])
-                },
-                Category = new PostCategory
-                {
-                    Id = Convert.ToInt32(reader["IdCategory"]),
-                    Name = Convert.ToString(reader["CategoryName"])
-                }
+                PublishDate = Convert.ToDateTime(reader["PublishDate"]),
+                LikesCount = Convert.ToInt32(reader["LikesCount"]),
+                CommentsCount = Convert.ToInt32(reader["CommentsCount"])
             });
         }
 

@@ -1,5 +1,6 @@
 ﻿using BlogApp.Core.Intefaces;
 using BlogApp.Models.InputModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -51,11 +52,12 @@ public class PostsController : ApiControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetAll()
+    [AllowAnonymous]
+    public IActionResult GetFeedPosts()
     {
         try
         {
-            var posts = _postService.GetAll();
+            var posts = _postService.GetFeedPosts();
 
             var jsonPosts = SerializeReturn(posts);
 
