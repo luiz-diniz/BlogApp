@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { PostsService } from '../../services/posts.service';
 import { PostFeedModel } from '../../models/post.feed.model';
+import { faComment, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-posts',
@@ -12,6 +13,9 @@ import { PostFeedModel } from '../../models/post.feed.model';
 export class PostsComponent  {
 
   posts?: PostFeedModel[];
+
+  faLikes = faThumbsUp;
+  faComments = faComment;
 
   ngOnInit() : void{
     this.postsService.getFeedPosts().subscribe({

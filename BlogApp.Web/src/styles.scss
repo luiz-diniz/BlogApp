@@ -1,14 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto:wght@100&display=swap');
-@import 'variables';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap')
+;@import 'variables';
 
+//strucutural
 *{
-    font-family: 'Roboto', normal;  
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;   
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    color: $black;
     font-weight: bold;
+    text-decoration: none;
+}
+
+body{
+    background: $light-gray;
 }
 
 header{
@@ -59,6 +66,26 @@ header{
     padding: 1rem;
 }
 
+//colors
+.blue{
+    color: $blue;
+}
+
+//text
+h1{
+    color: $black;
+}
+
+.light-text{
+    margin: .3rem 0;
+    color: #303030;
+}
+
+.small{
+    font-size: small;
+}
+
+//btn
 .btn{
     height: auto;
     cursor: pointer;

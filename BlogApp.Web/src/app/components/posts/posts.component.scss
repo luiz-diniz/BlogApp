@@ -1,0 +1,25 @@
+@import '../../../variables';
+
+.card{
+    margin: .5rem 0;
+    padding: 1rem;
+    width: 43rem;
+    height: auto;
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+    background: $white;
+    border-radius: .5rem;
+
+    div{
+        margin: .5rem;
+    }
+}
+
+.info-interaction{
+    display: flex;
+}
+
+h1{
+    font-size: 2rem;
+}

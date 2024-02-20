@@ -1,6 +1,23 @@
-<h1>Test</h1>
-<div *ngFor="let post of posts">
-    <h1>Title - {{post.Title}}</h1>
-    <h1>Username - {{post.Username}}</h1>
-    <h1>Likes - {{post.LikesCount}}</h1>
-</div>
+<h1>Feed</h1>
+<article class="card" *ngFor="let post of posts">
+    <div class="info-user-date">
+        <a href="#" class="light-text">{{post.Username}}</a>
+        <p class="light-text small">{{post.PublishDate | date}}</p>
+    </div>
+    <div class="info-post">
+        <h1>
+            {{post.Title}}
+        </h1>
+        <a href="#" class="light-text small">{{post.Category}}</a>
+    </div>
+    <div class="info-interaction">
+        <div class="likes">
+            <fa-icon class="blue" [icon]="faLikes"></fa-icon>
+            {{post.LikesCount}}
+        </div>
+        <div class="likes">
+            <fa-icon class="blue" [icon]="faComments"></fa-icon>
+            {{post.CommentsCount}}        
+        </div>
+    </div>      
+</article>

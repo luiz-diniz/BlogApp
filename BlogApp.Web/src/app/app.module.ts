@@ -8,6 +8,7 @@ import { PostsComponent } from './components/posts/posts.component';
 
 import { PostsService } from './services/posts.service';
 import { HttpClientModule } from '@angular/common/http';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FontAwesomeModule
   ],
   providers: [PostsService],
   bootstrap: [AppComponent]
