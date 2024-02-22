@@ -44,7 +44,6 @@ CREATE TABLE [Posts](
 	[Content] VARCHAR(1000) NOT NULL,
 	[PostImageName] VARCHAR(256) NOT NULL,
 	[CreationDate] DATETIME NOT NULL DEFAULT GETDATE(),
-	[PublishedDate] DATETIME NULL,
 	[ViewCount] INT DEFAULT 0 NOT NULL,
 
 	FOREIGN KEY ([IdUserAuthor]) REFERENCES [Users]([Id]),
