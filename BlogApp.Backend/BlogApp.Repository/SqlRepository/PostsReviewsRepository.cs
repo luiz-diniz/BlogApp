@@ -44,20 +44,4 @@ public class PostsReviewsRepository : IPostsReviewsRepository
 
         _queryExecutor.ExecuteNonQuery(query, parameters);
     }
-
-    public void Publish(PostReviewModel postReviewModel, IDbConnection connection, IDbTransaction transaction)
-    {
-        var query = "UPDATE [PostsReviews] SET [IdUserReviewer] = @P0, [Status] = @P1, [Feedback] = @P2, [ReviewDate] = @P3 WHERE [IdPost] = @P4;";
-
-        var parameters = new object[]
-        {
-            postReviewModel.IdUserReviewer,
-            (int)postReviewModel.Status,
-            postReviewModel.Feedback,
-            DateTime.Now,
-            postReviewModel.IdPost
-        };
-
-        _queryExecutor.ExecuteNonQuery(connection, transaction, query, parameters);
-    }
 }

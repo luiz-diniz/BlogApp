@@ -2,7 +2,6 @@
 using BlogApp.Models.InputModels;
 using BlogApp.Repository.Interfaces;
 using System.Data;
-using System.Data.SqlClient;
 
 namespace BlogApp.Repository.SqlRepository;
 
@@ -82,7 +81,8 @@ public class PostsRepository : IPostsRepository
                         INNER JOIN [Users] AS U ON P.IdUserAuthor = U.Id
                         INNER JOIN [PostsCategories] AS C ON P.IdCategory = C.Id
 						INNER JOIN [PostsReviews] AS PR ON P.Id = PR.IdPost
-                     WHERE PR.Status = 2";
+                     WHERE PR.Status = 2
+                     ORDER BY PublishDate DESC";
 
 
         using var reader = _queryExecutor.ExecuteReader(query);
@@ -116,17 +116,5 @@ public class PostsRepository : IPostsRepository
             return posts;
 
         return null!;
-    }
-
-    public void Publish(int idPost, IDbConnection connection, IDbTransaction transaction)
-    {
-        var query = "UPDATE [Posts] SET PublishedDate = @P0 WHERE Id = @P1";
-
-        var parameters = new object[]
-        {
-            idPost
-        };
-
-        _queryExecutor.ExecuteNonQuery(connection, transaction, query, parameters);
     }
 }
