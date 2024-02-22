@@ -1,9 +1,11 @@
+import { CategoryModel } from "./category.model";
+import { UserModel } from "./user.model";
+
 export class PostFeedModel{
     Id?: number;
-    IdUser?: number;
-    Username?: string;
     Title?: string;
-    Category?: string;
+    User?: UserModel;
+    Category?: CategoryModel;
     PublishDate?: Date;
     LikesCount?: number;
     CommentsCount?: number;

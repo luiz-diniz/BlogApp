@@ -71,6 +71,9 @@ public class PostsService : IPostsService
             if (posts is null)
                 return null!;
 
+            foreach (var post in posts)          
+                post.User.ProfileImageContent = _imageService.GetImage(post.User.ProfileImageName, nameof(AppSettingsEnum.ProfileImageStoragePath));           
+
             return posts;
         }
         catch (Exception ex)

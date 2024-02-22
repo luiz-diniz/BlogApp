@@ -75,7 +75,7 @@ public class PostsRepository : IPostsRepository
 
     public IEnumerable<PostFeed> GetFeedPosts()
     {
-        var query = @"SELECT U.Id AS IdUser, U.Username, C.Id AS IdCategory, C.Name AS CategoryName, P.Id, P.Title, PR.ReviewDate AS PublishDate, 
+        var query = @"SELECT P.Id, P.Title, U.Id AS IdUser, U.Username, U.ProfileImageName, C.Id AS IdCategory, C.Name AS CategoryName, PR.ReviewDate AS PublishDate, 
 											(SELECT COUNT(*) FROM [PostsLikes] WHERE IdPost = P.Id) AS LikesCount,
 											(SELECT COUNT(*) FROM [PostsComments] WHERE IdPost = P.Id) AS CommentsCount
                         FROM [Posts] AS P
@@ -92,13 +92,20 @@ public class PostsRepository : IPostsRepository
         while (reader.Read())
         {
             posts.Add(new PostFeed
-            {
-                IdUser = Convert.ToInt32(reader["IdUser"]),
-                Username = Convert.ToString(reader["Username"]),
-                IdCategory = Convert.ToInt32(reader["IdCategory"]),
-                Category = Convert.ToString(reader["CategoryName"]),
+            {           
                 Id = Convert.ToInt32(reader["Id"]),
                 Title = Convert.ToString(reader["Title"]),
+                User = new User 
+                {
+                    Id = Convert.ToInt32(reader["IdUser"]),
+                    Username = Convert.ToString(reader["Username"]),
+                    ProfileImageName = Convert.ToString(reader["ProfileImageName"])
+                },
+                Category = new PostCategory
+                {
+                    Id = Convert.ToInt32(reader["IdCategory"]),
+                    Name = Convert.ToString(reader["CategoryName"])
+                },             
                 PublishDate = Convert.ToDateTime(reader["PublishDate"]),
                 LikesCount = Convert.ToInt32(reader["LikesCount"]),
                 CommentsCount = Convert.ToInt32(reader["CommentsCount"])
