@@ -1,48 +1,5 @@
 @import '../../../variables';
 
-
 .card{
-    margin-top: 1rem;
-    padding: 1rem;
     width: 43rem;
-    height: auto;
-    display: flex;
-    justify-content: left;
-    flex-direction: column;
-    background: $white;
-    border-radius: .5rem;
-
-    h1{
-        font-size: 2rem;
-    }
-
-    .info-user-date{
-        display: flex;
-        align-items: center;
-
-        img{
-            width: 32px;
-            height: 32px;
-            border-radius: 100%;
-            margin-right: .5rem;
-            object-fit: cover;
-        }
-    }
-
-    .info-post{
-        margin: .8rem;
-        margin-left: 2.3rem;
-    }
-
-    .interaction{
-        display: flex;
-        margin-top: 1rem;
-
-        div{
-            margin-right: 1rem;
-        }
-    }
 }
-
-
-

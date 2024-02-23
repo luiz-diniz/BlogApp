@@ -38,15 +38,14 @@ INSERT INTO [PostsCategories] VALUES ('SelfImprovement');
 
 CREATE TABLE [Posts](
 	[Id] INT IDENTITY(1,1) PRIMARY KEY,
-	[IdUserAuthor] INT,
+	[IdUser] INT,
 	[IdCategory] INT,
 	[Title]	VARCHAR(100) NOT NULL,
 	[Content] VARCHAR(1000) NOT NULL,
 	[PostImageName] VARCHAR(256) NOT NULL,
 	[CreationDate] DATETIME NOT NULL DEFAULT GETDATE(),
-	[ViewCount] INT DEFAULT 0 NOT NULL,
 
-	FOREIGN KEY ([IdUserAuthor]) REFERENCES [Users]([Id]),
+	FOREIGN KEY ([IdUser]) REFERENCES [Users]([Id]),
 	FOREIGN KEY ([IdCategory]) REFERENCES [PostsCategories]([Id])
 );
 
@@ -77,7 +76,7 @@ CREATE TABLE [PostsComments](
 	[IdPost] INT,
 	[IdUser] INT,
 	[Comment] VARCHAR (500) NOT NULL,
-	[CommentDate] DATETIME NOT NULL DEFAULT GETDATE(),
+	[CreationDate] DATETIME NOT NULL DEFAULT GETDATE(),
 
 	FOREIGN KEY ([IdPost]) REFERENCES [Posts]([Id]),
 	FOREIGN KEY ([IdUser]) REFERENCES [Users]([Id])

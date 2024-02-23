@@ -35,6 +35,7 @@ public class PostsController : ApiControllerBase
 
     [HttpGet]
     [Route("{id}")]
+    [AllowAnonymous]
     public IActionResult Get(int id)
     {
         try

@@ -14,16 +14,20 @@ public class PostsService : IPostsService
     private readonly IImageService _imageService;
     private readonly IPostsReviewsRepository _postReviewRepository;
     private readonly IConnectionFactory _connectionFactory;
+    private readonly IPostsCommentsService _postCommentsService;
+    private readonly IPostsLikesService _postLikesService;
 
-    public PostsService(ILogger<PostsService> logger, IPostsRepository postRepository, IImageService imageService, IPostsReviewsRepository postReviewRepository, IConnectionFactory connectionFactory)
+    public PostsService(ILogger<PostsService> logger, IPostsRepository postRepository, IImageService imageService, IPostsReviewsRepository postReviewRepository, IConnectionFactory connectionFactory, IPostsCommentsService postCommentsService, IPostsLikesService postLikesService)
     {
         _logger = logger;
         _postRepository = postRepository;
         _postReviewRepository = postReviewRepository;
         _imageService = imageService;
         _connectionFactory = connectionFactory;
+        _postCommentsService = postCommentsService;
+        _postLikesService = postLikesService;
     }
-        
+
     public void Add(PostModel postModel)
     {
 		try
@@ -53,7 +57,22 @@ public class PostsService : IPostsService
             if(id <= 0)
                 throw new ArgumentOutOfRangeException(nameof(id), "Invalid Post Id.");
 
-            return _postRepository.Get(id);
+            var post = _postRepository.Get(id);
+
+            if(post is not null)
+            {
+                post.PostImageContent = _imageService.GetImage(post.PostImageName, nameof(AppSettingsEnum.PostImageStoragePath));
+                post.User.ProfileImageContent = _imageService.GetImage(post.User.ProfileImageName, nameof(AppSettingsEnum.ProfileImageStoragePath));
+
+                post.Comments = _postCommentsService.GetAll(id);
+
+                foreach (var comment in post.Comments)              
+                    comment.User.ProfileImageContent = _imageService.GetImage(comment.User.ProfileImageName, nameof(AppSettingsEnum.ProfileImageStoragePath));
+                
+                return post;
+            }
+
+            return null!;
         }
         catch (Exception ex)
         {

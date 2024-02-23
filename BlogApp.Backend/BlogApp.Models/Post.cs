@@ -7,11 +7,9 @@ public class Post
     public string Content { get; set; }
     public string PostImageContent { get; set; }
     public string PostImageName { get; set; }
-    public DateTime CreationDate { get; set; }
     public DateTime? PublishedDate { get; set; }
-    public int ViewCount { get; set; }
-    public User UserAuthor { get; set; }
+    public User User { get; set; }
     public PostCategory Category { get; set; }
     public IEnumerable<PostComment> Comments { get;set; }
-    public IEnumerable<PostLikes> Likes { get; set; }
+    public int LikesCount { get; set; }
 }

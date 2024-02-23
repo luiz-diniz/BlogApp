@@ -16,12 +16,12 @@ public class PostsRepository : IPostsRepository
 
     public int Add(PostModel post, IDbConnection connection, IDbTransaction transaction)
     {
-        var query = @"INSERT INTO [Posts] (IdUserAuthor, IdCategory, Title, Content, PostImageName) OUTPUT INSERTED.Id
+        var query = @"INSERT INTO [Posts] (IdUser, IdCategory, Title, Content, PostImageName) OUTPUT INSERTED.Id
             VALUES (@P0, @P1, @P2, @P3, @P4);";
 
         var parameters = new object[]
         {
-            post.IdUserAuthor,
+            post.IdUser,
             post.IdCategory,
             post.Title,
             post.Content,
@@ -33,11 +33,12 @@ public class PostsRepository : IPostsRepository
 
     public Post Get(int id)
     {
-        var query = @"SELECT U.Id AS IdUser, U.Username, C.Id AS IdCategory, C.Name AS CategoryName, P.Id, P.Title, P.Content, P.PostImageName, P.CreationDate 
+        var query = @"SELECT U.Id AS IdUser, U.Username, U.ProfileImageName, C.Id AS IdCategory, C.Name AS CategoryName, P.Id, P.Title, P.Content, P.PostImageName, PR.ReviewDate AS PublishedDate,
+						    (SELECT COUNT(*) FROM [PostsLikes] WHERE IdPost = P.Id) AS LikesCount
                         FROM [Posts] AS P
-                        INNER JOIN [Users] AS U ON P.IdUserAuthor = U.Id
-                        INNER JOIN [PostsCategories] AS C ON P.IdCategory = C.Id
-                        INNER JOIN [PostsReviews] AS PR ON P.Id = PR.IdPost
+                            INNER JOIN [Users] AS U ON P.IdUser = U.Id
+                            INNER JOIN [PostsCategories] AS C ON P.IdCategory = C.Id
+                            INNER JOIN [PostsReviews] AS PR ON P.Id = PR.IdPost
                         WHERE P.Id = @P0 AND PR.Status = 2;";
   
         var parameters = new object[]
@@ -55,11 +56,13 @@ public class PostsRepository : IPostsRepository
                 Title = Convert.ToString(reader["Title"]),
                 Content = Convert.ToString(reader["Content"]),
                 PostImageName = Convert.ToString(reader["PostImageName"]),
-                CreationDate = Convert.ToDateTime(reader["CreationDate"]),
-                UserAuthor = new User
+                PublishedDate = Convert.ToDateTime(reader["PublishedDate"]),
+                LikesCount = Convert.ToInt32(reader["LikesCount"]),
+                User = new User
                 {
                     Id = Convert.ToInt32(reader["IdUser"]),
-                    Username = Convert.ToString(reader["Username"])
+                    Username = Convert.ToString(reader["Username"]),
+                    ProfileImageName = Convert.ToString(reader["ProfileImageName"])
                 },
                 Category = new PostCategory
                 {
@@ -78,11 +81,11 @@ public class PostsRepository : IPostsRepository
 											(SELECT COUNT(*) FROM [PostsLikes] WHERE IdPost = P.Id) AS LikesCount,
 											(SELECT COUNT(*) FROM [PostsComments] WHERE IdPost = P.Id) AS CommentsCount
                         FROM [Posts] AS P
-                        INNER JOIN [Users] AS U ON P.IdUserAuthor = U.Id
-                        INNER JOIN [PostsCategories] AS C ON P.IdCategory = C.Id
-						INNER JOIN [PostsReviews] AS PR ON P.Id = PR.IdPost
-                     WHERE PR.Status = 2
-                     ORDER BY PublishDate DESC";
+                            INNER JOIN [Users] AS U ON P.IdUser = U.Id
+                            INNER JOIN [PostsCategories] AS C ON P.IdCategory = C.Id
+						    INNER JOIN [PostsReviews] AS PR ON P.Id = PR.IdPost
+                        WHERE PR.Status = 2
+                            ORDER BY PublishDate DESC";
 
 
         using var reader = _queryExecutor.ExecuteReader(query);

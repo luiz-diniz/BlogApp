@@ -9,7 +9,7 @@
     </div>
     <div class="info-post">
         <h1>
-            {{post.Title}}
+            <a [routerLink]="['/post', post.Id]">{{post.Title}}</a>
         </h1>
         <a href="#" class="light-text small">{{post.Category?.Name}}</a>
         <div class="interaction">

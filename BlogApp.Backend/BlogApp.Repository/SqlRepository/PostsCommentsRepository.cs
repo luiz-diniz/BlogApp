@@ -43,7 +43,7 @@ public class PostsCommentsRepository : IPostsCommentsRepository
 
     public IEnumerable<PostComment> GetAll(int idPost)
     {
-        var query = $@"SELECT P.*, U.Username FROM [PostsComments] P 
+        var query = $@"SELECT P.*, U.Username, U.ProfileImageName FROM [PostsComments] P 
                         INNER JOIN [Users] U ON P.IdUser = U.Id 
                         WHERE P.IdPost = @P0";
               
@@ -64,10 +64,11 @@ public class PostsCommentsRepository : IPostsCommentsRepository
                 User = new User
                 {
                     Id = Convert.ToInt32(reader["IdUser"]),
-                    Username = Convert.ToString(reader["Username"])
+                    Username = Convert.ToString(reader["Username"]),
+                    ProfileImageName = Convert.ToString(reader["ProfileImageName"])
                 },
                 Comment = Convert.ToString(reader["Comment"]),
-                CommentDate = Convert.ToDateTime(reader["CommentDate"])                
+                CreationDate = Convert.ToDateTime(reader["CreationDate"])                
             });
         }
 

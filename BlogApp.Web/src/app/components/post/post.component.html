@@ -1,0 +1,43 @@
+<article class="card">
+    <img class="post-img" [src]="post?.PostImageContentSafe" alt="Post image">
+    <div class="info-user-date">
+        <img [src]="post?.User?.ProfileImageContentSafe" alt="User profile image">
+        <div class="user-info">
+            <a href="#" class="light-text">{{post?.User?.Username}}</a>
+            <p class="light-text small">{{post?.PublishedDate | date}}</p>
+        </div>
+    </div>
+    <div class="info-post">
+        <h1>
+            {{post?.Title}}
+        </h1>
+        <a href="#" class="light-text small">{{post?.Category?.Name}}</a>
+        <p class="post-content">
+            {{post?.Content}}
+        </p>
+        <div class="interaction">
+            <div class="likes">
+                <fa-icon class="blue" [icon]="faLikes"></fa-icon>
+                {{post?.LikesCount}}
+            </div>
+            <div class="comments">
+                <h3>Comments</h3>
+                <div *ngIf="post?.Comments?.length === null">
+                    <p class="no-comments">No comments yet, be the first one to comment!</p>
+                </div>
+                <div class="comment-content" *ngFor="let comment of post?.Comments">
+                    <div class="info-user-date">
+                        <img [src]="comment?.User?.ProfileImageContentSafe" alt="User profile image">
+                        <div class="user-info">
+                            <a href="#" class="light-text">{{comment.User?.Username}}</a>
+                            <p class="light-text small">{{comment?.CreationDate | date}}</p>
+                        </div>
+                    </div>
+                    <p class="comment">
+                        {{comment.Comment}}
+                    </p>                   
+                </div>
+            </div>
+        </div>   
+    </div>
+</article>

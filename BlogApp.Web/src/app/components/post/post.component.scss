@@ -1,0 +1,42 @@
+@import '../../../variables';
+
+.card{
+    width: 60rem;
+
+    .post-img{
+        margin: 1rem 0;
+        height: 20rem;
+        object-fit: cover;
+        border: 1rem;
+    }
+
+    .post-content{
+        margin: 2rem 0;
+        color: $dark-gray;
+    }
+
+    .interaction{        
+        flex-direction: column;
+
+        .likes{
+            margin: 2rem 0;
+        }
+
+        .comments{
+            .no-comments{
+                color: $dark-gray;
+            }
+
+            .comment-content{
+                margin: 1rem;
+                padding: 1rem;
+                background-color: $light-gray;
+                border-radius: 1rem;
+            }
+
+            .comment{
+                margin: .5rem 2.4rem;
+            }
+        }
+    }
+}

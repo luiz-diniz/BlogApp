@@ -21,7 +21,7 @@ public class PostModel
     public string? PostImageName { get; set; }
 
     [Required]
-    public int IdUserAuthor { get; set; }
+    public int IdUser { get; set; }
 
     [Required]
     public int IdCategory { get; set; }
