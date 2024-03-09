@@ -2,10 +2,11 @@
 
 namespace BlogApp.Models.InputModels;
 
-public class LoginModel
+public class PostLike
 {
     [Required]
-    public string Username { get; set; }
+    public int IdPost { get; set; }
+
     [Required]
-    public string Password { get; set; }
+    public int IdUser { get; set; }
 }

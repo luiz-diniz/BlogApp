@@ -19,7 +19,7 @@ public class PostsController : ApiControllerBase
     }
 
     [HttpPost]
-    public IActionResult Add([FromBody] PostModel postModel)
+    public IActionResult Add([FromBody] Post postModel)
     {
         try
         {

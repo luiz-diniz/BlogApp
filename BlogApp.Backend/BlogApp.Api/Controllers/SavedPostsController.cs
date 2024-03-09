@@ -18,7 +18,7 @@ public class SavedPostsController : ApiControllerBase
     }
 
     [HttpPost]
-    public IActionResult Save([FromBody] SavedPostModel savedPostModel)
+    public IActionResult Save([FromBody] SavedPost savedPostModel)
     {
         try
         {

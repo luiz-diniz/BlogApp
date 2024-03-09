@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BlogApp.Models.InputModels;
 
-public class PostReviewModel
+public class PostReview
 {
     [Required]
     public int IdPost { get; set; }

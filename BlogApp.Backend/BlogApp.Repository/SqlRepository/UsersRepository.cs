@@ -1,8 +1,7 @@
 ﻿using BlogApp.Models;
 using BlogApp.Models.InputModels;
+using BlogApp.Models.OutputModels;
 using BlogApp.Repository.Interfaces;
-using System.Data;
-using System.Data.SqlClient;
 
 namespace BlogApp.Repository.SqlRepository;
 
@@ -15,7 +14,7 @@ public class UsersRepository : IUsersRepository
         _queryExecutor = queryExecutor;
     }
 
-    public void Add(UserModel userModel)
+    public void Add(User userModel)
     {
         var query = @"INSERT INTO [Users] (IdRole, Username, Email, Password, ProfileImageName)
             VALUES (@P0, @P1, @P2, @P3, @P4);";
@@ -32,7 +31,33 @@ public class UsersRepository : IUsersRepository
         _queryExecutor.ExecuteNonQuery(query, parameters);
     }
 
-    public User GetUserCredentials(string username)
+    public UserProfile GetProfileInfo(int id)
+    {
+        var query = @"SELECT U.Id AS IdUser, U.Username, U.ProfileImageName
+                        FROM Users U
+                        WHERE U.Id = @P0";
+
+        var parameters = new object[]
+        {
+            id
+        };
+
+        using var reader = _queryExecutor.ExecuteReader(query, parameters);
+
+        if (reader.Read())
+        {
+            return new UserProfile
+            {
+                Id = Convert.ToInt32(reader["IdUser"]),
+                Username = Convert.ToString(reader["Username"]),
+                ProfileImageName = Convert.ToString(reader["ProfileImageName"])
+            };
+        }
+
+        return null!;
+    }
+
+    public UserCredentialsModel GetUserCredentials(string username)
     {
         var query = @"SELECT Id, IdRole, Password FROM [Users] WHERE Username = @P0";
 
@@ -45,7 +70,7 @@ public class UsersRepository : IUsersRepository
 
         if (reader.Read())
         {
-            return new User()
+            return new UserCredentialsModel
             {
                 Id = Convert.ToInt32(reader["Id"]),
                 Role = new UserRole

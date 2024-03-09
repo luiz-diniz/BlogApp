@@ -5,7 +5,7 @@ namespace BlogApp.Repository.Interfaces;
 
 public interface IPostsLikesRepository
 {
-    void AddLike(PostLikeModel postLikeModel);
-    void RemoveLike(PostLikeModel postLikeModel);
-    bool VerifyPostLiked(PostLikeModel postLikeModel);
+    void AddLike(PostLike postLikeModel);
+    void RemoveLike(PostLike postLikeModel);
+    bool VerifyPostLiked(PostLike postLikeModel);
 }

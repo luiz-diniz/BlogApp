@@ -4,5 +4,5 @@ namespace BlogApp.Core.Intefaces;
 
 public interface IUsersService
 {
-    void Add(UserModel userModel);
+    void Add(User userModel);
 }

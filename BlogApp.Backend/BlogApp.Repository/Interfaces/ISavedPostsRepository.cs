@@ -4,6 +4,6 @@ namespace BlogApp.Repository.Interfaces;
 
 public interface ISavedPostsRepository
 {
-    void Save(SavedPostModel savedPostModel);
+    void Save(SavedPost savedPostModel);
     void Delete(int idSavedPost);
 }

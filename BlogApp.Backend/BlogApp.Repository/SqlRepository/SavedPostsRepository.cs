@@ -1,9 +1,5 @@
-﻿using BlogApp.Models;
-using BlogApp.Models.InputModels;
+﻿using BlogApp.Models.InputModels;
 using BlogApp.Repository.Interfaces;
-using System.Data;
-using System.Data.SqlClient;
-using System.Transactions;
 
 namespace BlogApp.Repository.SqlRepository;
 
@@ -16,7 +12,7 @@ public class SavedPostsRepository : ISavedPostsRepository
         _queryExecutor = queryExecutor;
     }
 
-    public void Save(SavedPostModel savedPostModel)
+    public void Save(SavedPost savedPostModel)
     {
         var query = "INSERT INTO [SavedPosts] (IdPost, IdUser) VALUES (@P0, @P1);";
 

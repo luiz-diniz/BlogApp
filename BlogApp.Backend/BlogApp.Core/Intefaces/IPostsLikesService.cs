@@ -1,10 +1,9 @@
-﻿using BlogApp.Models;
-using BlogApp.Models.InputModels;
+﻿using BlogApp.Models.InputModels;
 
 namespace BlogApp.Core.Intefaces;
 
 public interface IPostsLikesService
 {
-    void AddLike(PostLikeModel postLikeModel);
-    void RemoveLike(PostLikeModel postLikeModel);
+    void AddLike(PostLike postLikeModel);
+    void RemoveLike(PostLike postLikeModel);
 }

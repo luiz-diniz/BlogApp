@@ -21,7 +21,7 @@ public class UsersController : ApiControllerBase
 
     [HttpPost]
     [AllowAnonymous]
-    public IActionResult Add([FromBody] UserModel userModel)
+    public IActionResult Add([FromBody] User userModel)
     {
         try
         {

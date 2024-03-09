@@ -1,6 +1,6 @@
 ﻿using BlogApp.Core.Intefaces;
-using BlogApp.Models;
 using BlogApp.Models.InputModels;
+using BlogApp.Models.OutputModels;
 using BlogApp.Repository.Interfaces;
 using Microsoft.Extensions.Logging;
 
@@ -17,7 +17,7 @@ public class PostsCommentsService : IPostsCommentsService
         _postCommentRepository = postCommentRepository;
     }
 
-    public void Add(PostCommentModel postComment)
+    public void Add(PostComment postComment)
     {
         try
         {
@@ -43,7 +43,7 @@ public class PostsCommentsService : IPostsCommentsService
         }
     }
 
-    public IEnumerable<PostComment> GetAll(int idPost)
+    public IEnumerable<PostCommentContent> GetAll(int idPost)
     {
         try
         {

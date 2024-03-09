@@ -22,7 +22,7 @@ public class UsersService : IUsersService
         _imageService = imageService;
     }
 
-    public void Add(UserModel userModel)
+    public void Add(User userModel)
     {
         try
         {

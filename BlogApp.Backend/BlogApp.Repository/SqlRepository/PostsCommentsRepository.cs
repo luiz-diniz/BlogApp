@@ -1,8 +1,6 @@
-﻿using BlogApp.Models;
-using BlogApp.Models.InputModels;
+﻿using BlogApp.Models.InputModels;
+using BlogApp.Models.OutputModels;
 using BlogApp.Repository.Interfaces;
-using System.Data;
-using System.Data.SqlClient;
 
 namespace BlogApp.Repository.SqlRepository;
 
@@ -15,7 +13,7 @@ public class PostsCommentsRepository : IPostsCommentsRepository
         _queryExecutor = queryExecutor;
     }
 
-    public void Add(PostCommentModel postComment)
+    public void Add(PostComment postComment)
     {
         var query = $"INSERT INTO [PostsComments] (IdPost, IdUser, Comment) VALUES (@P0, @P1, @P2);";   
 
@@ -41,7 +39,7 @@ public class PostsCommentsRepository : IPostsCommentsRepository
         _queryExecutor.ExecuteNonQuery(query, parameters);
     }
 
-    public IEnumerable<PostComment> GetAll(int idPost)
+    public IEnumerable<PostCommentContent> GetAll(int idPost)
     {
         var query = $@"SELECT P.*, U.Username, U.ProfileImageName FROM [PostsComments] P 
                         INNER JOIN [Users] U ON P.IdUser = U.Id 
@@ -54,14 +52,14 @@ public class PostsCommentsRepository : IPostsCommentsRepository
 
         using var reader = _queryExecutor.ExecuteReader(query, parameters);
 
-        var comments = new List<PostComment>();
+        var comments = new List<PostCommentContent>();
 
         while(reader.Read())
         {
-            comments.Add(new PostComment
+            comments.Add(new PostCommentContent
             {
                 Id = Convert.ToInt32(reader["Id"]),
-                User = new User
+                User = new UserProfile
                 {
                     Id = Convert.ToInt32(reader["IdUser"]),
                     Username = Convert.ToString(reader["Username"]),

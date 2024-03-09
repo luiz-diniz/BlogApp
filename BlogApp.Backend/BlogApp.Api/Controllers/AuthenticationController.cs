@@ -21,7 +21,7 @@ public class AuthenticationController : ApiControllerBase
     }
 
     [HttpPost]
-    public IActionResult Authenticate([FromBody] LoginModel loginModel)
+    public IActionResult Authenticate([FromBody] Login loginModel)
     {
 		try
 		{

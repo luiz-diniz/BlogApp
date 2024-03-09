@@ -20,7 +20,7 @@ public class TokenService : ITokenService
         _configuration = configuration;
     }
 
-    public string GetToken(User user)
+    public string GetToken(UserCredentialsModel user)
     {
 		try
 		{

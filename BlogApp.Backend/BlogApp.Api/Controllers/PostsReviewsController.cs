@@ -20,7 +20,7 @@ public class PostsReviewsController : ApiControllerBase
     }
 
     [HttpPut]
-    public IActionResult Update([FromBody] PostReviewModel postReviewModel)
+    public IActionResult Update([FromBody] PostReview postReviewModel)
     {
         try
         {

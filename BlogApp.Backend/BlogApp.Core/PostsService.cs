@@ -1,7 +1,7 @@
 ﻿using BlogApp.Core.Enums;
 using BlogApp.Core.Intefaces;
-using BlogApp.Models;
 using BlogApp.Models.InputModels;
+using BlogApp.Models.OutputModels;
 using BlogApp.Repository.Interfaces;
 using Microsoft.Extensions.Logging;
 
@@ -28,7 +28,7 @@ public class PostsService : IPostsService
         _postLikesService = postLikesService;
     }
 
-    public void Add(PostModel postModel)
+    public void Add(Post postModel)
     {
 		try
 		{
@@ -50,7 +50,7 @@ public class PostsService : IPostsService
 		}
     }
 
-    public Post Get(int id)
+    public PostInfo Get(int id)
     {
         try
         {

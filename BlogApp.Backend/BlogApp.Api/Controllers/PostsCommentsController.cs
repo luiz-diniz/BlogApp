@@ -19,7 +19,7 @@ public class PostsCommentsController : ApiControllerBase
 
     [HttpPost]
     [Route("Comments")]
-    public IActionResult Add([FromBody] PostCommentModel postComment)
+    public IActionResult Add([FromBody] PostComment postComment)
     {
         try
         {

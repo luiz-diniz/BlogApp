@@ -1,10 +1,6 @@
 ﻿using BlogApp.Core.Intefaces;
-using BlogApp.Models;
-using BlogApp.Models.Enums;
 using BlogApp.Models.InputModels;
-using BlogApp.Repository;
 using BlogApp.Repository.Interfaces;
-using log4net.Core;
 using Microsoft.Extensions.Logging;
 
 namespace BlogApp.Core;
@@ -20,7 +16,7 @@ public class PostsReviewsService : IPostsReviewsService
         _postReviewRepository = postReviewRepository;
     }
 
-    public void Update(PostReviewModel postReviewModel)
+    public void Update(PostReview postReviewModel)
     {
         try
         { 

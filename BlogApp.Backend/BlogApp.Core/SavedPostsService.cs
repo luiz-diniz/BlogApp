@@ -29,7 +29,7 @@ public class SavedPostsService : ISavedPostsService
         }
     }
 
-    public void Save(SavedPostModel savedPostModel)
+    public void Save(SavedPost savedPostModel)
     {
         try
         {

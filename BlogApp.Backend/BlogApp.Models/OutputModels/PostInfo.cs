@@ -1,6 +1,6 @@
-﻿namespace BlogApp.Models;
+﻿namespace BlogApp.Models.OutputModels;
 
-public class Post
+public class PostInfo
 {
     public int Id { get; set; }
     public string Title { get; set; }
@@ -8,8 +8,8 @@ public class Post
     public string PostImageContent { get; set; }
     public string PostImageName { get; set; }
     public DateTime? PublishedDate { get; set; }
-    public User User { get; set; }
+    public UserProfile User { get; set; }
     public PostCategory Category { get; set; }
-    public IEnumerable<PostComment> Comments { get;set; }
+    public IEnumerable<PostCommentContent> Comments { get; set; }
     public int LikesCount { get; set; }
 }

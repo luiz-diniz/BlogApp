@@ -1,9 +1,9 @@
-﻿namespace BlogApp.Models;
+﻿namespace BlogApp.Models.OutputModels;
 
-public class PostComment
+public class PostCommentContent
 {
     public int Id { get; set; }
-    public User User { get; set; }
+    public UserProfile User { get; set; }
     public string Comment { get; set; }
     public DateTime CreationDate { get; set; }
 }

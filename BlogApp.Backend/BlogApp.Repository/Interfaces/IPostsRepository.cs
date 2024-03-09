@@ -1,12 +1,13 @@
-﻿using BlogApp.Models;
-using BlogApp.Models.InputModels;
+﻿using BlogApp.Models.InputModels;
+using BlogApp.Models.OutputModels;
 using System.Data;
 
 namespace BlogApp.Repository.Interfaces;
 
 public interface IPostsRepository
 {
-    int Add(PostModel post, IDbConnection connection, IDbTransaction transaction);
-    Post Get(int id);
+    int Add(Post post, IDbConnection connection, IDbTransaction transaction);
+    PostInfo Get(int id);
     IEnumerable<PostFeed> GetFeedPosts();
+    IEnumerable<PostFeed> GetProfileFeedPosts();
 }

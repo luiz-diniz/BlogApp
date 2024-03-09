@@ -1,9 +1,7 @@
-﻿using BlogApp.Models;
-using BlogApp.Repository.Interfaces;
-using System.Data.SqlClient;
-using System.Data;
-using BlogApp.Models.Enums;
+﻿using BlogApp.Models.Enums;
 using BlogApp.Models.InputModels;
+using BlogApp.Repository.Interfaces;
+using System.Data;
 
 namespace BlogApp.Repository.SqlRepository;
 
@@ -16,7 +14,7 @@ public class PostsReviewsRepository : IPostsReviewsRepository
         _queryExecutor = queryExecutor;
     }
 
-    public void Add(PostModel postModel, IDbConnection connection, IDbTransaction transaction)
+    public void Add(Post postModel, IDbConnection connection, IDbTransaction transaction)
     {
         var query = "INSERT INTO [PostsReviews] (IdPost, Status) VALUES (@P0, @P1);";
 
@@ -29,7 +27,7 @@ public class PostsReviewsRepository : IPostsReviewsRepository
         _queryExecutor.ExecuteNonQuery(connection, transaction, query, parameters);
     }
 
-    public void Update(PostReviewModel postReviewModel)
+    public void Update(PostReview postReviewModel)
     {
         var query = "UPDATE [PostsReviews] SET [IdUserReviewer] = @P0, [Status] = @P1, [Feedback] = @P2, [ReviewDate] = @P3 WHERE [IdPost] = @P4;";
 

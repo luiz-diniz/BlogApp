@@ -4,6 +4,6 @@ namespace BlogApp.Core.Intefaces;
 
 public interface ISavedPostsService
 {
-    void Save(SavedPostModel savedPostModel);
+    void Save(SavedPost savedPostModel);
     void Delete(int idSavedPost);
 }

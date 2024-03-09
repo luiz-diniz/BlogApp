@@ -1,9 +1,8 @@
 ﻿using BlogApp.Core.Exceptions;
 using BlogApp.Core.Intefaces;
-using BlogApp.Models;
 using BlogApp.Models.InputModels;
+using BlogApp.Models.OutputModels;
 using BlogApp.Repository.Interfaces;
-using log4net.Core;
 using Microsoft.Extensions.Logging;
 
 namespace BlogApp.Core;
@@ -23,7 +22,7 @@ public class AuthenticationService : IAuthenticationService
         _tokenService = tokenService;
     }
 
-    public AuthenticationResult Authenticate(LoginModel loginModel)
+    public AuthenticationResult Authenticate(Login loginModel)
     {
 		try
 		{

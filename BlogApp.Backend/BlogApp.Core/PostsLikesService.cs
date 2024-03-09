@@ -1,5 +1,4 @@
 ﻿using BlogApp.Core.Intefaces;
-using BlogApp.Models;
 using BlogApp.Models.InputModels;
 using BlogApp.Repository.Interfaces;
 using Microsoft.Extensions.Logging;
@@ -17,7 +16,7 @@ public class PostsLikesService : IPostsLikesService
         _postLikeRepository = postLikeRepository;
     }
 
-    public void AddLike(PostLikeModel postLikeModel)
+    public void AddLike(PostLike postLikeModel)
     {
         try
         {
@@ -33,7 +32,7 @@ public class PostsLikesService : IPostsLikesService
         }
     }
 
-    public void RemoveLike(PostLikeModel postLikeModel)
+    public void RemoveLike(PostLike postLikeModel)
     {
         try
         {

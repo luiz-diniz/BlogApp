@@ -1,11 +1,11 @@
-﻿using BlogApp.Models;
-using BlogApp.Models.InputModels;
+﻿using BlogApp.Models.InputModels;
+using BlogApp.Models.OutputModels;
 
 namespace BlogApp.Core.Intefaces;
 
 public interface IPostsCommentsService
 {
-    void Add(PostCommentModel postCommentModel);
+    void Add(PostComment postCommentModel);
     void Delete(int idPostComment);
-    IEnumerable<PostComment> GetAll(int idPost);
+    IEnumerable<PostCommentContent> GetAll(int idPost);
 }

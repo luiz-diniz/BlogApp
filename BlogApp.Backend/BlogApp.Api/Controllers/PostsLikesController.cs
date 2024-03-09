@@ -18,7 +18,7 @@ public class PostsLikesController : ApiControllerBase
     }
 
     [HttpPost]
-    public IActionResult AddLike([FromBody] PostLikeModel postLikeModel)
+    public IActionResult AddLike([FromBody] PostLike postLikeModel)
     {
         try
         {
@@ -33,7 +33,7 @@ public class PostsLikesController : ApiControllerBase
     }
 
     [HttpDelete]
-    public IActionResult RemoveLike([FromBody] PostLikeModel postLikeModel)
+    public IActionResult RemoveLike([FromBody] PostLike postLikeModel)
     {
         try
         {

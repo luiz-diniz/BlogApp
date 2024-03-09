@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
 namespace BlogApp.Models.InputModels;
 
-public class UserModel
+public class User
 {
     [Required]
     public string Username { get; set; }
