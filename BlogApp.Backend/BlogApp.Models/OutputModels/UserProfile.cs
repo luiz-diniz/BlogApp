@@ -6,4 +6,5 @@ public class UserProfile
     public string Username { get; set; }
     public string ProfileImageName { get; set; }
     public string ProfileImageContent { get; set; }
+    public string Description { get; set; }
 }

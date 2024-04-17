@@ -19,6 +19,8 @@ public class User
     [JsonIgnore]
     public string? ProfileImageName { get; set; }
 
+    public string? Description { get; set; }
+
     [Required]
     public int IdRole {  get; set; }
 }

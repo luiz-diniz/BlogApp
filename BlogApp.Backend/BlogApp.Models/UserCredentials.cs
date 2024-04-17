@@ -2,7 +2,7 @@
 
 namespace BlogApp.Models
 {
-    public class UserCredentialsModel
+    public class UserCredentials
     {
         public int Id { get; set; }
         public string Username { get; set; }

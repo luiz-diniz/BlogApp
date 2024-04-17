@@ -38,4 +38,20 @@ public class UsersController : ApiControllerBase
             return ReturnError(HttpStatusCode.InternalServerError, ex, _logger);
         }
     }
+
+    [HttpGet("{username}")]
+    [AllowAnonymous]
+    public IActionResult GetUserProfile(string username)
+    {
+        try
+        {
+            var userProfile = _userService.GetUserProfile(username);
+
+            return Ok(userProfile);
+        }
+        catch (Exception ex)
+        {
+            return ReturnError(HttpStatusCode.InternalServerError, ex, _logger);
+        }
+    }
 }

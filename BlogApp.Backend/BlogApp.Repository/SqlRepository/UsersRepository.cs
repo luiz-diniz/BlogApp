@@ -31,15 +31,15 @@ public class UsersRepository : IUsersRepository
         _queryExecutor.ExecuteNonQuery(query, parameters);
     }
 
-    public UserProfile GetProfileInfo(int id)
+    public UserProfile GetProfileInfo(string username)
     {
         var query = @"SELECT U.Id AS IdUser, U.Username, U.ProfileImageName
                         FROM Users U
-                        WHERE U.Id = @P0";
+                        WHERE U.Username = @P0";
 
         var parameters = new object[]
         {
-            id
+            username
         };
 
         using var reader = _queryExecutor.ExecuteReader(query, parameters);
@@ -57,7 +57,7 @@ public class UsersRepository : IUsersRepository
         return null!;
     }
 
-    public UserCredentialsModel GetUserCredentials(string username)
+    public UserCredentials GetUserCredentials(string username)
     {
         var query = @"SELECT Id, IdRole, Password FROM [Users] WHERE Username = @P0";
 
@@ -70,7 +70,7 @@ public class UsersRepository : IUsersRepository
 
         if (reader.Read())
         {
-            return new UserCredentialsModel
+            return new UserCredentials
             {
                 Id = Convert.ToInt32(reader["Id"]),
                 Role = new UserRole

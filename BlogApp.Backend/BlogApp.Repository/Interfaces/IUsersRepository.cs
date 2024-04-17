@@ -7,7 +7,7 @@ namespace BlogApp.Repository.Interfaces;
 public interface IUsersRepository
 {
     void Add(User userModel);
-    UserCredentialsModel GetUserCredentials(string username);
+    UserCredentials GetUserCredentials(string username);
     bool VerifyUserExist(string username);
-    UserProfile GetProfileInfo(int id);
+    UserProfile GetProfileInfo(string username);
 }
