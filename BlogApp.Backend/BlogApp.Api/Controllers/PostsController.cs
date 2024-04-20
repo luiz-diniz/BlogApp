@@ -42,9 +42,7 @@ public class PostsController : ApiControllerBase
         {
             var post = _postService.Get(id);
 
-            var postJson = SerializeReturn(post);
-
-            return Ok(postJson);
+            return Ok(SerializeReturn(post));
         }
         catch (Exception ex)
         {

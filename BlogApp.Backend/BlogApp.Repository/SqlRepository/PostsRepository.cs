@@ -79,6 +79,7 @@ public class PostsRepository : IPostsRepository
     public IEnumerable<PostFeed> GetFeedPosts()
     {
         var query = @"SELECT P.Id, P.Title, C.Id AS IdCategory, C.Name AS CategoryName, PR.ReviewDate AS PublishDate, 
+                                            U.Id AS IdUser, U.Username, U.ProfileImageName,
 											(SELECT COUNT(*) FROM [PostsLikes] WHERE IdPost = P.Id) AS LikesCount,
 											(SELECT COUNT(*) FROM [PostsComments] WHERE IdPost = P.Id) AS CommentsCount
                         FROM [Posts] AS P

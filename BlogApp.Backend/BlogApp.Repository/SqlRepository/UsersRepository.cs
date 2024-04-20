@@ -16,8 +16,8 @@ public class UsersRepository : IUsersRepository
 
     public void Add(User userModel)
     {
-        var query = @"INSERT INTO [Users] (IdRole, Username, Email, Password, ProfileImageName)
-            VALUES (@P0, @P1, @P2, @P3, @P4);";
+        var query = @"INSERT INTO [Users] (IdRole, Username, Email, Password, Description, ProfileImageName)
+            VALUES (@P0, @P1, @P2, @P3, @P4, @P5);";
 
         var parameters = new object[]
         {
@@ -25,7 +25,8 @@ public class UsersRepository : IUsersRepository
             userModel.Username.ToLower(),
             userModel.Email,
             userModel.Password,
-            userModel.ProfileImageName
+            userModel.Description!,
+            userModel.ProfileImageName!
         };
 
         _queryExecutor.ExecuteNonQuery(query, parameters);
@@ -33,7 +34,7 @@ public class UsersRepository : IUsersRepository
 
     public UserProfile GetProfileInfo(string username)
     {
-        var query = @"SELECT U.Id AS IdUser, U.Username, U.ProfileImageName
+        var query = @"SELECT U.Id AS IdUser, U.Username, U.ProfileImageName, U.Description
                         FROM Users U
                         WHERE U.Username = @P0";
 
@@ -50,7 +51,8 @@ public class UsersRepository : IUsersRepository
             {
                 Id = Convert.ToInt32(reader["IdUser"]),
                 Username = Convert.ToString(reader["Username"]),
-                ProfileImageName = Convert.ToString(reader["ProfileImageName"])
+                ProfileImageName = Convert.ToString(reader["ProfileImageName"]),
+                Description = Convert.ToString(reader["Description"])
             };
         }
 

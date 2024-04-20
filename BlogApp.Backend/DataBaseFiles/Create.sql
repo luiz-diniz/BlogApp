@@ -22,6 +22,7 @@ CREATE TABLE [Users](
 	[Email] VARCHAR(254) NOT NULL,
 	[Password] VARCHAR(255) NOT NULL,
 	[ProfileImageName] VARCHAR(255) NOT NULL,
+	[Description] VARCHAR(255) NULL
 
 	FOREIGN KEY ([IdRole]) REFERENCES [UsersRoles]([Id])
 );

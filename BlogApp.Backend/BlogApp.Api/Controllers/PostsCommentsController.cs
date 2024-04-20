@@ -57,9 +57,7 @@ public class PostsCommentsController : ApiControllerBase
         {
             var posts = _postCommentService.GetAll(idPost);
 
-            var postsJson = SerializeReturn(posts);
-
-            return Ok(postsJson);
+            return Ok(SerializeReturn(posts));
         }
         catch (Exception ex)
         {

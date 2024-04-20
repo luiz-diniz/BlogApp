@@ -47,7 +47,7 @@ public class UsersController : ApiControllerBase
         {
             var userProfile = _userService.GetUserProfile(username);
 
-            return Ok(userProfile);
+            return Ok(SerializeReturn(userProfile));
         }
         catch (Exception ex)
         {

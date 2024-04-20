@@ -66,8 +66,9 @@ public class PostsService : IPostsService
 
                 post.Comments = _postCommentsService.GetAll(id);
 
-                foreach (var comment in post.Comments)              
-                    comment.User.ProfileImageContent = _imageService.GetImage(comment.User.ProfileImageName, nameof(AppSettingsEnum.ProfileImageStoragePath));
+                if(post.Comments is not null)
+                    foreach (var comment in post.Comments)              
+                        comment.User.ProfileImageContent = _imageService.GetImage(comment.User.ProfileImageName, nameof(AppSettingsEnum.ProfileImageStoragePath));
                 
                 return post;
             }
