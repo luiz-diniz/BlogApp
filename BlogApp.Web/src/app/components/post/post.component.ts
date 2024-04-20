@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PostsService } from '../../services/posts.service';
 import { ActivatedRoute } from '@angular/router';
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
@@ -11,20 +11,19 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrl: './post.component.scss'
 })
 
-export class PostComponent {
+export class PostComponent implements OnInit{
 
-  post?: PostModel;
-
+  post: PostModel = new PostModel;
   faLikes = faThumbsUp;
 
   constructor(private postsService: PostsService, private route: ActivatedRoute, private sanitizer: DomSanitizer){
   }
 
   ngOnInit() : void{
-    let value = this.route.snapshot.paramMap.get('id');
+    const routeIdPost = this.route.snapshot.paramMap.get('id');
 
-    if(value !== null){
-      let idPost = parseInt(value);
+    if(routeIdPost !== null){
+      let idPost = parseInt(routeIdPost);
 
       this.postsService.getPost(idPost).subscribe({
         next: (post) => {

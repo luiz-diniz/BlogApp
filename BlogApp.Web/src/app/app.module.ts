@@ -13,6 +13,7 @@ import { UserComponent } from './components/user/user.component';
 
 //Services
 import { PostsService } from './services/posts.service';
+import { UsersService } from './services/users.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,10 @@ import { PostsService } from './services/posts.service';
     HttpClientModule,
     FontAwesomeModule
   ],
-  providers: [PostsService],
+  providers: [
+    PostsService,
+    UsersService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

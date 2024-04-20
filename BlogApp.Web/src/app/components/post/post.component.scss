@@ -1,13 +1,17 @@
 @import '../../../variables';
 
 .card{
-    width: 60rem;
+    max-width: 60rem;
 
     .post-img{
         margin: 1rem 0;
         height: 20rem;
         object-fit: cover;
         border: 1rem;
+    }
+
+    .info-user-date img{
+        cursor: pointer;
     }
 
     .post-content{

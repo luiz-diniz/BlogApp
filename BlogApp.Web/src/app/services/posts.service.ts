@@ -1,5 +1,5 @@
 import { environment } from "../../environments/environment";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { PostFeedModel } from "../models/post.feed.model";
 import { Observable } from "rxjs";
 import { Injectable } from "@angular/core";

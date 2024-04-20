@@ -1,15 +1,15 @@
 <h1>Most Recent</h1>
 <article class="card" *ngFor="let post of posts">
     <div class="info-user-date">
-        <img [src]="post.User?.ProfileImageContentSafe" alt="User profile image">
+        <img [src]="post.User?.ProfileImageContentSafe" alt="User profile image" [routerLink]="['/users', post.User?.Username]">
         <div class="user-info">
-            <a href="#" class="light-text">{{post.User?.Username}}</a>
+            <a href="#" class="light-text" [routerLink]="['/users', post.User?.Username]">{{post.User?.Username}}</a>
             <p class="light-text small">{{post.PublishDate | date}}</p>
         </div>
     </div>
     <div class="info-post">
         <h1>
-            <a [routerLink]="['/post', post.Id]">{{post.Title}}</a>
+            <a [routerLink]="['/posts', post.Id]">{{post.Title}}</a>
         </h1>
         <a href="#" class="light-text small">{{post.Category?.Name}}</a>
         <div class="interaction">

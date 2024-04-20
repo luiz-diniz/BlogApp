@@ -1,24 +1,24 @@
 <article class="card">
-    <img class="post-img" [src]="post?.PostImageContentSafe" alt="Post image">
+    <img class="post-img" [src]="post.PostImageContentSafe" alt="Post image">
     <div class="info-user-date">
-        <img [src]="post?.User?.ProfileImageContentSafe" alt="User profile image">
+        <img [src]="post.User?.ProfileImageContentSafe" alt="User profile image" [routerLink]="['/users', post.User?.Username]">
         <div class="user-info">
-            <a href="#" class="light-text">{{post?.User?.Username}}</a>
-            <p class="light-text small">{{post?.PublishedDate | date}}</p>
+            <a href="#" class="light-text" [routerLink]="['/users', post.User?.Username]">{{post.User?.Username}}</a>
+            <p class="light-text small">{{post.PublishedDate | date}}</p>
         </div>
     </div>
     <div class="info-post">
         <h1>
-            {{post?.Title}}
+            {{post.Title}}
         </h1>
-        <a href="#" class="light-text small">{{post?.Category?.Name}}</a>
+        <a href="#" class="light-text small">{{post.Category?.Name}}</a>
         <p class="post-content">
-            {{post?.Content}}
+            {{post.Content}}
         </p>
         <div class="interaction">
             <div class="likes">
                 <fa-icon class="blue" [icon]="faLikes"></fa-icon>
-                {{post?.LikesCount}}
+                {{post.LikesCount}}
             </div>
             <div class="comments">
                 <h3>Comments</h3>
