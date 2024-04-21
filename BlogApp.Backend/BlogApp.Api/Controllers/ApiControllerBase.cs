@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System.Net;
 
 namespace BlogApp.Api.Controllers;
@@ -11,14 +12,14 @@ public class ApiControllerBase : ControllerBase
     {
         return JsonConvert.SerializeObject(model, new JsonSerializerSettings
         {
-            NullValueHandling = NullValueHandling.Ignore
+            NullValueHandling = NullValueHandling.Ignore,
+            ContractResolver = new CamelCasePropertyNamesContractResolver()
         });
     }
 
-    protected IActionResult ReturnError(HttpStatusCode statusCode, Exception exception, ILogger logger = null)
+    protected IActionResult ReturnError(HttpStatusCode statusCode, Exception exception, ILogger logger)
     {
-        if(logger != null)
-            logger.LogError(exception, exception.Message);
+        logger.LogError(exception, exception.Message);
 
         return StatusCode((int)statusCode, exception.Message);
     }

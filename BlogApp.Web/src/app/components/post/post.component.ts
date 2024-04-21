@@ -29,11 +29,11 @@ export class PostComponent implements OnInit{
         next: (post) => {
           this.post = post
 
-          this.post.PostImageContentSafe = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + post.PostImageContent);
-          this.post.User!.ProfileImageContentSafe = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + post.User?.ProfileImageContent);
+          this.post.postImageContentSafe = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + post.postImageContent);
+          this.post.user!.profileImageContentSafe = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + post.user?.profileImageContent);
 
-          this.post.Comments?.forEach(comment => { 
-            comment.User!.ProfileImageContentSafe = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + comment.User?.ProfileImageContent);
+          this.post.comments?.forEach(comment => { 
+            comment.user!.profileImageContentSafe = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + comment.user?.profileImageContent);
           });
         }
       });

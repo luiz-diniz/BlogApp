@@ -17,12 +17,15 @@ export class PostsComponent implements OnInit{
   faLikes = faThumbsUp;
   faComments = faComment;
 
+  constructor(private postsService: PostsService, private sanitizer: DomSanitizer){
+  }
+
   ngOnInit() : void{
     this.postsService.getFeedPosts().subscribe({
       next: (posts) => {  
 
         posts.forEach(post => {
-            post.User!.ProfileImageContentSafe = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + post.User?.ProfileImageContent);
+            post.user!.profileImageContentSafe = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + post.user?.profileImageContent);
         });
 
         this.posts = posts;
@@ -30,8 +33,4 @@ export class PostsComponent implements OnInit{
       error: (e) => console.log(e)
     })
   }
-
-  constructor(private postsService: PostsService, private sanitizer: DomSanitizer){
-  }
-
 }

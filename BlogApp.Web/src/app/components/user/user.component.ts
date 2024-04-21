@@ -24,14 +24,10 @@ export class UserComponent implements OnInit{
       this.usersService.getUserProfile(routeUsername).subscribe({
         next: (user) => {
           this.user = user;
-          this.user.ProfileImageContentSafe = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + user.ProfileImageContent);
+          this.user.profileImageContentSafe = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + user.profileImageContent);
         },
         error: (e) => console.log(e)
       })
     }
-  }
-
-  teste(){
-    this.user.Id = 10;
   }
 }

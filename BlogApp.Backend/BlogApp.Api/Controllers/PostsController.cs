@@ -58,9 +58,7 @@ public class PostsController : ApiControllerBase
         {
             var posts = _postService.GetFeedPosts();
 
-            var jsonPosts = SerializeReturn(posts);
-
-            return Ok(jsonPosts);
+            return Ok(SerializeReturn(posts));
         }
         catch (Exception ex)
         {

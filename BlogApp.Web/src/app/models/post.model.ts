@@ -4,14 +4,14 @@ import { PostCategoryModel } from "./post.category.model";
 import { PostCommentModel } from "./post.comment.model";
 
 export class PostModel{
-    Id?: number;
-    Title?: string;
-    Content?: string;
-    PostImageContent?: string;
-    PostImageContentSafe?: SafeResourceUrl;
-    PublishedDate?: string;
-    LikesCount?: number;
-    User?: UserModel;
-    Category?: PostCategoryModel;
-    Comments?: PostCommentModel[];
+    id?: number;
+    title?: string;
+    content?: string;
+    postImageContent?: string;
+    postImageContentSafe?: SafeResourceUrl;
+    publishedDate?: string;
+    likesCount?: number;
+    user?: UserModel;
+    category?: PostCategoryModel;
+    comments?: PostCommentModel[];
 }
