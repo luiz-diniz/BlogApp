@@ -1,8 +1,8 @@
 @import '../../../variables';
 
 .card{
-    max-width: 60rem;
-
+    max-width: 90rem;
+    
     .post-img{
         margin: 1rem 0;
         height: 20rem;
@@ -27,10 +27,6 @@
         }
 
         .comments{
-            .no-comments{
-                color: $dark-gray;
-            }
-
             .comment-content{
                 margin: 1rem;
                 padding: 1rem;

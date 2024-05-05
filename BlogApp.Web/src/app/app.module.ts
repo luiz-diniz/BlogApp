@@ -9,18 +9,20 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppComponent } from './components/app.component';
 import { PostsComponent } from './components/posts/posts.component';
 import { PostComponent } from './components/post/post.component';
-import { UserComponent } from './components/user/user.component';
 
 //Services
 import { PostsService } from './services/posts.service';
 import { UsersService } from './services/users.service';
+import { UserProfileComponent } from './components/user-profile/user.profile.component';
+import { FeedComponent } from './components/feed/feed.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PostsComponent,
     PostComponent,
-    UserComponent
+    UserProfileComponent,
+    FeedComponent
   ],
   imports: [
     BrowserModule,

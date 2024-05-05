@@ -61,7 +61,7 @@ public class UsersRepository : IUsersRepository
 
     public UserCredentials GetUserCredentials(string username)
     {
-        var query = @"SELECT Id, IdRole, Password FROM [Users] WHERE Username = @P0";
+        var query = "SELECT Id, IdRole, Password FROM [Users] WHERE Username = @P0";
 
         var parameters = new object[]
         {
@@ -89,7 +89,7 @@ public class UsersRepository : IUsersRepository
 
     public bool VerifyUserExist(string username)
     {
-        var query = @"SELECT COUNT(*) AS Value FROM [Users] WHERE Username = @P0";
+        var query = "SELECT COUNT(*) AS Value FROM [Users] WHERE Username = @P0";
 
         var parameters = new object[]
         {

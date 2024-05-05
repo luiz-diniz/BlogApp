@@ -10,22 +10,20 @@ namespace BlogApp.Core;
 public class PostsService : IPostsService
 {
     private readonly ILogger<PostsService> _logger;
-    private readonly IPostsRepository _postRepository;
+    private readonly IPostsRepository _postsRepository;
     private readonly IImageService _imageService;
     private readonly IPostsReviewsRepository _postReviewRepository;
     private readonly IConnectionFactory _connectionFactory;
     private readonly IPostsCommentsService _postCommentsService;
-    private readonly IPostsLikesService _postLikesService;
 
-    public PostsService(ILogger<PostsService> logger, IPostsRepository postRepository, IImageService imageService, IPostsReviewsRepository postReviewRepository, IConnectionFactory connectionFactory, IPostsCommentsService postCommentsService, IPostsLikesService postLikesService)
+    public PostsService(ILogger<PostsService> logger, IPostsRepository postsRepository, IImageService imageService, IPostsReviewsRepository postReviewRepository, IConnectionFactory connectionFactory, IPostsCommentsService postCommentsService)
     {
         _logger = logger;
-        _postRepository = postRepository;
+        _postsRepository = postsRepository;
         _postReviewRepository = postReviewRepository;
         _imageService = imageService;
         _connectionFactory = connectionFactory;
         _postCommentsService = postCommentsService;
-        _postLikesService = postLikesService;
     }
 
     public void Add(Post postModel)
@@ -38,7 +36,7 @@ public class PostsService : IPostsService
 
             using var transaction = _connectionFactory.CreateTransaction(connection);
 
-            postModel.Id = _postRepository.Add(postModel, connection, transaction);
+            postModel.Id = _postsRepository.Add(postModel, connection, transaction);
             _postReviewRepository.Add(postModel, connection, transaction);
 
             transaction.Commit();
@@ -57,7 +55,7 @@ public class PostsService : IPostsService
             if(id <= 0)
                 throw new ArgumentOutOfRangeException(nameof(id), "Invalid Post Id.");
 
-            var post = _postRepository.Get(id);
+            var post = _postsRepository.Get(id);
 
             if(post is not null)
             {
@@ -86,13 +84,9 @@ public class PostsService : IPostsService
     {
         try
         {
-            var posts = _postRepository.GetFeedPosts();
+            var posts = _postsRepository.GetFeedPosts().ToArray();
 
-            if (posts is null)
-                return null!;
-
-            foreach (var post in posts)          
-                post.User.ProfileImageContent = _imageService.GetImage(post.User.ProfileImageName, nameof(AppSettingsEnum.ProfileImageStoragePath));           
+            PopulatePostUserImage(posts.ToArray());
 
             return posts;
         }
@@ -101,5 +95,28 @@ public class PostsService : IPostsService
             _logger.LogError(ex, ex.Message);
             throw;
         }    
+    }
+
+    public IEnumerable<PostFeed> GetUserPosts(int idUser)
+    {
+        try
+        {
+            var posts = _postsRepository.GetUserPosts(idUser).ToArray();
+
+            PopulatePostUserImage(posts);
+
+            return posts;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            throw;
+        }
+    }
+
+    private void PopulatePostUserImage(IEnumerable<PostFeed> posts)
+    {
+        foreach (var post in posts)
+            post.User.ProfileImageContent = _imageService.GetImage(post.User.ProfileImageName, nameof(AppSettingsEnum.ProfileImageStoragePath));
     }
 }

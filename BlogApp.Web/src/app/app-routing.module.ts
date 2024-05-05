@@ -2,12 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PostsComponent } from './components/posts/posts.component';
 import { PostComponent } from './components/post/post.component';
-import { UserComponent } from './components/user/user.component';
+import { UserProfileComponent } from './components/user-profile/user.profile.component';
+import { FeedComponent } from './components/feed/feed.component';
 
 const routes: Routes = [
-  {path: '', component: PostsComponent},
+  {path: '', component: FeedComponent},
   {path: 'posts/:id', component: PostComponent},
-  {path: 'users/:username', component: UserComponent}
+  {path: 'users/:username', component: UserProfileComponent}
 ]
 
 @NgModule({

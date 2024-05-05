@@ -9,5 +9,5 @@ public interface IPostsRepository
     int Add(Post post, IDbConnection connection, IDbTransaction transaction);
     PostInfo Get(int id);
     IEnumerable<PostFeed> GetFeedPosts();
-    IEnumerable<PostFeed> GetProfileFeedPosts();
+    IEnumerable<PostFeed> GetUserPosts(int idUser);
 }

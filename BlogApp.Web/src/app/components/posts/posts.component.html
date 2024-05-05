@@ -1,4 +1,3 @@
-<h1>Most Recent</h1>
 <article class="card" *ngFor="let post of posts">
     <div class="info-user-date">
         <img [src]="post.user?.profileImageContentSafe" alt="User profile image" [routerLink]="['/users', post.user?.username]">

@@ -65,4 +65,21 @@ public class PostsController : ApiControllerBase
             return ReturnError(HttpStatusCode.InternalServerError, ex, _logger);
         }
     }
+
+    [HttpGet]
+    [Route("user/{id}")]
+    [AllowAnonymous]
+    public IActionResult GetUserPosts(int id)
+    {
+        try
+        {
+            var posts = _postService.GetUserPosts(id);
+
+            return Ok(SerializeReturn(posts));
+        }
+        catch (Exception ex)
+        {
+            return ReturnError(HttpStatusCode.InternalServerError, ex, _logger);
+        }
+    }
 }

@@ -22,7 +22,7 @@ public class ImageService : IImageService
             if (string.IsNullOrEmpty(imageBase64))
                 return null!;
 
-            var path = _configuration.GetSection(appSettingsPathSection).Value?.ToString();
+            var path = _configuration.GetSection(appSettingsPathSection).Value;
 
             if (!string.IsNullOrWhiteSpace(path))
             {
@@ -63,7 +63,7 @@ public class ImageService : IImageService
             if (string.IsNullOrEmpty(imageName))
                 return null!;
 
-            var path = _configuration.GetSection(appSettingsPathSection).Value?.ToString();
+            var path = _configuration.GetSection(appSettingsPathSection).Value;
 
             if (!string.IsNullOrWhiteSpace(path))
             {

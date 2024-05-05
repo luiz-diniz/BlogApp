@@ -1,0 +1,8 @@
+<div class="card">
+    <div class="profile-info">
+        <img [src]="user.profileImageContentSafe" alt="User profile picture">
+        <h2>{{user.username}}</h2>
+        <p>{{user.description}}</p>
+    </div>
+</div>
+<app-posts [posts]="posts"></app-posts>

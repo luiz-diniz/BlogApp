@@ -19,7 +19,11 @@ export class PostComponent implements OnInit{
   constructor(private postsService: PostsService, private route: ActivatedRoute, private sanitizer: DomSanitizer){
   }
 
-  ngOnInit() : void{
+  ngOnInit() : void{   
+    this.getPostInformation();
+  }
+
+  getPostInformation(){
     const routeIdPost = this.route.snapshot.paramMap.get('id');
 
     if(routeIdPost !== null){
@@ -38,7 +42,5 @@ export class PostComponent implements OnInit{
         }
       });
     }
-
-    //else - redirect to not found page    
   }
 }

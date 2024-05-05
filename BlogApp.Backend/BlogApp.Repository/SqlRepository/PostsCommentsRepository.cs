@@ -15,7 +15,7 @@ public class PostsCommentsRepository : IPostsCommentsRepository
 
     public void Add(PostComment postComment)
     {
-        var query = $"INSERT INTO [PostsComments] (IdPost, IdUser, Comment) VALUES (@P0, @P1, @P2);";   
+        var query = "INSERT INTO [PostsComments] (IdPost, IdUser, Comment) VALUES (@P0, @P1, @P2);";   
 
         var parameters = new object[]
         {
@@ -29,7 +29,7 @@ public class PostsCommentsRepository : IPostsCommentsRepository
 
     public void Delete(int idPostComment)
     {
-        var query = $"DELETE FROM [PostsComments] WHERE Id = @P0";
+        var query = "DELETE FROM [PostsComments] WHERE Id = @P0";
 
         var parameters = new object[]
         {
@@ -41,7 +41,7 @@ public class PostsCommentsRepository : IPostsCommentsRepository
 
     public IEnumerable<PostCommentContent> GetAll(int idPost)
     {
-        var query = $@"SELECT P.*, U.Username, U.ProfileImageName FROM [PostsComments] P 
+        var query = @"SELECT P.*, U.Username, U.ProfileImageName FROM [PostsComments] P 
                         INNER JOIN [Users] U ON P.IdUser = U.Id 
                         WHERE P.IdPost = @P0";
               

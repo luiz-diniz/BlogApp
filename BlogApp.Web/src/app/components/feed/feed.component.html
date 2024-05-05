@@ -1,0 +1,5 @@
+<div class="feed">
+    <h2>Most recent posts</h2>
+    <p class="no-content" *ngIf="posts.length === 0">No posts found</p>
+    <app-posts [posts]="posts"></app-posts>
+</div>

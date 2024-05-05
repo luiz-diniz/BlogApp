@@ -23,7 +23,7 @@
             <div class="comments">
                 <h3>Comments</h3>
                 <div *ngIf="post?.comments?.length === null">
-                    <p class="no-comments">No comments yet, be the first one to comment!</p>
+                    <p class="no-content">No comments yet, be the first one to comment!</p>
                 </div>
                 <div class="comment-content" *ngFor="let comment of post?.comments">
                     <div class="info-user-date">

@@ -21,4 +21,7 @@ export class PostsService{
         return this.httpClient.get<any>(this.baseUrl);
     }
 
+    getUserFeedPosts(idUser: number): Observable<PostFeedModel[]>{
+        return this.httpClient.get<any>(`${this.baseUrl}/user/${idUser}`);
+    }
 }
