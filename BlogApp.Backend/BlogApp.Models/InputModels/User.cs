@@ -21,6 +21,6 @@ public class User
 
     public string? Description { get; set; }
 
-    [Required]
+    [JsonIgnore]
     public int IdRole {  get; set; }
 }
