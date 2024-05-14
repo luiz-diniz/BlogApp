@@ -4,9 +4,13 @@
       <a href="">
         <img src="../../assets/images/pato_logo.png" alt="Pato Logo">
       </a>
-      <div class="actions">
-        <a class="btn btn-gray" [routerLink]="['login']">Log In</a>
-        <a class="btn btn-blue" [routerLink]="['signup']">Sign Up</a>
+      <div class="actions" *ngIf="authService.usernameSignal()">
+        <a class="username light-text" [routerLink]="['/users', authService.usernameSignal()]">{{authService.usernameSignal()}}</a>
+        <a class="btn btn-gray" (click)="logout()">Log Out</a>
+      </div>
+      <div class="actions" *ngIf="authService.usernameSignal() === null">
+        <a class="btn btn-gray" [routerLink]="['/login']">Log In</a>
+        <a class="btn btn-blue" [routerLink]="['/signup']">Sign Up</a>
       </div>
     </div>    
   </div>

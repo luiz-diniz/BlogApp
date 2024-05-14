@@ -27,9 +27,9 @@
                 </div>
                 <div class="comment-content" *ngFor="let comment of post?.comments">
                     <div class="info-user-date">
-                        <img [src]="comment?.user?.profileImageContentSafe" alt="User profile image">
+                        <img [routerLink]="['/users', comment.user?.username]" [src]="comment?.user?.profileImageContentSafe" alt="User profile image">
                         <div class="user-info">
-                            <a href="#" class="light-text">{{comment.user?.username}}</a>
+                            <a [routerLink]="['/users', comment.user?.username]" class="light-text">{{comment.user?.username}}</a>
                             <p class="light-text small">{{comment?.creationDate | date}}</p>
                         </div>
                     </div>
