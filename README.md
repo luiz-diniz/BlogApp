@@ -1,5 +1,4 @@
-![duck_debugging_dev_icon_145991](https://github.com/luiz-diniz/PandaBlog/assets/39447716/84ffc027-3478-4a55-9915-5e1074d2f323)
-
+![duck_debugging_dev_icon_145991 (1)](https://github.com/luiz-diniz/PandaBlog/assets/39447716/e3003897-ede1-4207-b958-bb2d8b3f5738)
 
 # Pato Blog
 
