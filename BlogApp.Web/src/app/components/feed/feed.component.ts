@@ -28,8 +28,7 @@ export class FeedComponent implements OnInit{
         });
 
         this.posts = posts;
-      },
-      error: (e) => console.log(e)
+      }
     })
   }
 }

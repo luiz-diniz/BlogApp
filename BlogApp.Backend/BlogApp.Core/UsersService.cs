@@ -23,20 +23,22 @@ public class UsersService : IUsersService
         _imageService = imageService;
     }
 
-    public void Add(User userModel)
+    public void Add(User user)
     {
         try
         {
-            if(userModel is null)
-                throw new ArgumentNullException(nameof(userModel), "User null.");
+            if(user is null)
+                throw new ArgumentNullException(nameof(user), "User null.");
 
-            if (_userRepository.VerifyUserExist(userModel.Username))
-                throw new UserAlreadyExistsException($"User [{userModel.Username}] already exists.");
+            if (_userRepository.VerifyUserExist(user.Username))
+                throw new UserAlreadyExistsException($"User [{user.Username}] already exists.");
 
-            userModel.Password = _passwordManager.GeneratePasswordHash(userModel.Password);
-            userModel.ProfileImageName = _imageService.CreateImage(userModel.ProfileImageContent!, nameof(AppSettingsEnum.ProfileImageStoragePath));
+            user.Password = _passwordManager.GeneratePasswordHash(user.Password);
+            user.IdRole = 2;
 
-            _userRepository.Add(userModel);
+            AssignProfileImage(user);
+
+            _userRepository.Add(user);
         }
         catch (Exception ex)
         {
@@ -68,5 +70,13 @@ public class UsersService : IUsersService
             _logger.LogError(ex, ex.Message);
             throw;
         }
+    }
+
+    private void AssignProfileImage(User user)
+    {
+        if (string.IsNullOrWhiteSpace(user.ProfileImageContent))
+            user.ProfileImageName = _imageService.CreateImage($"data:image/jpg;base64,{Convert.ToBase64String(Properties.Resources.DefaultProfilePicture)}", nameof(AppSettingsEnum.ProfileImageStoragePath));
+        else
+            user.ProfileImageName = _imageService.CreateImage(user.ProfileImageContent, nameof(AppSettingsEnum.PostImageStoragePath));
     }
 }

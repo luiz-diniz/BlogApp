@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PostsComponent } from './components/posts/posts.component';
 import { PostComponent } from './components/post/post.component';
 import { UserProfileComponent } from './components/user-profile/user.profile.component';
 import { FeedComponent } from './components/feed/feed.component';
+import { LoginComponent } from './components/account/login/login.component';
+import { SignUpComponent } from './components/account/sign-up/sign.up.component';
 
 const routes: Routes = [
   {path: '', component: FeedComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'signup', component: SignUpComponent},
   {path: 'posts/:id', component: PostComponent},
   {path: 'users/:username', component: UserProfileComponent}
 ]

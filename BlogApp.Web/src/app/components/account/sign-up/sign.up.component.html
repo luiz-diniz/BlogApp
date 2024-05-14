@@ -1,0 +1,30 @@
+<div class="card">
+    <h2>Be part or our community!</h2>
+    <form [formGroup]="signupForm" (ngSubmit)="submit()">
+        <div class="form-content">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="cool_username" formControlName="username">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="your@email.com" formControlName="email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="" formControlName="password">
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text" id="description" placeholder="in a few words, tell us about yourself..." formControlName="description">
+            </div>
+            <div class="form-group">
+                <label for="picture">Profile picture - .jpg, .jpeg, .png</label>
+                <input type="file" id="file_selector" (change)="getFile($event)" accept=".jpg, .jpeg, .png" formControlName="picture" #fileUploader>
+            </div>
+            <div class="form-submit">
+                <input class="btn" type="submit" value="Sign Up" [disabled]="!signupForm.valid" [ngClass]="{'btn-blue': signupForm.valid}">
+            </div>
+        </div>
+    </form>
+</div>
