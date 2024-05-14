@@ -1,8 +1,8 @@
-![panda_logo](https://github.com/luiz-diniz/PandaBlog/assets/39447716/ef43a021-a5fa-4787-b329-3f38fc6b1112)
+![duck_debugging_dev_icon_145991 (1)](https://github.com/luiz-diniz/PandaBlog/assets/39447716/e3003897-ede1-4207-b958-bb2d8b3f5738)
 
-# Panda Blog
+# Pato Blog
 
-Panda Blog is a web application that allows users to create, interact and share content.
+Pato Blog is a web application that allows users to create, interact and share content.
 
 # Roadmap
 
