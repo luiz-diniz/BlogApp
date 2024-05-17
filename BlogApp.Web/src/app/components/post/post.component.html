@@ -1,43 +1,49 @@
-<article class="card">
-    <img class="post-img" [src]="post.postImageContentSafe" alt="Post image">
-    <div class="info-user-date">
-        <img [src]="post.user?.profileImageContentSafe" alt="User profile image" [routerLink]="['/users', post.user?.username]">
-        <div class="user-info">
-            <a href="#" class="light-text" [routerLink]="['/users', post.user?.username]">{{post.user?.username}}</a>
-            <p class="light-text small">{{post.publishedDate | date}}</p>
+<div class="response-status">
+    <p *ngIf="error">Post content not found</p>
+    <img class="loading" src="../../.././assets/gifs/loading.gif" *ngIf="loading" alt="Loading...">
+</div> 
+<article class="card" *ngIf="!loading && !error">
+    <div class="post">
+        <img class="post-img" [src]="post.postImageContentSafe" alt="Post image">
+        <div class="info-user-date">
+            <img [src]="post.user?.profileImageContentSafe" alt="User profile image" [routerLink]="['/users', post.user?.username]">
+            <div class="user-info">
+                <a href="#" class="light-text" [routerLink]="['/users', post.user?.username]">{{post.user?.username}}</a>
+                <p class="light-text small">{{post.publishedDate | date}}</p>
+            </div>
         </div>
-    </div>
-    <div class="info-post">
-        <h1>
-            {{post.title}}
-        </h1>
-        <a href="#" class="light-text small">{{post.category?.name}}</a>
-        <p class="post-content">
-            {{post.content}}
-        </p>
-        <div class="interaction">
-            <div class="likes">
-                <fa-icon class="blue" [icon]="faLikes"></fa-icon>
-                {{post.likesCount}}
-            </div>
-            <div class="comments">
-                <h3>Comments</h3>
-                <div *ngIf="post?.comments?.length === null">
-                    <p class="no-content">No comments yet, be the first one to comment!</p>
+        <div class="post-info">
+            <h1>
+                {{post.title}}
+            </h1>
+            <a href="#" class="light-text small">{{post.category?.name}}</a>
+            <p class="post-content">
+                {{post.content}}
+            </p>
+            <div class="interaction">
+                <div class="likes">
+                    <fa-icon class="blue" [icon]="faLikes"></fa-icon>
+                    {{post.likesCount}}
                 </div>
-                <div class="comment-content" *ngFor="let comment of post?.comments">
-                    <div class="info-user-date">
-                        <img [routerLink]="['/users', comment.user?.username]" [src]="comment?.user?.profileImageContentSafe" alt="User profile image">
-                        <div class="user-info">
-                            <a [routerLink]="['/users', comment.user?.username]" class="light-text">{{comment.user?.username}}</a>
-                            <p class="light-text small">{{comment?.creationDate | date}}</p>
-                        </div>
+                <div class="comments">
+                    <h3>Comments</h3>
+                    <div *ngIf="post?.comments?.length === null">
+                        <p class="no-content">No comments yet, be the first one to comment!</p>
                     </div>
-                    <p class="comment">
-                        {{comment.comment}}
-                    </p>                   
+                    <div class="comment-content" *ngFor="let comment of post?.comments">
+                        <div class="info-user-date">
+                            <img [routerLink]="['/users', comment.user?.username]" [src]="comment?.user?.profileImageContentSafe" alt="User profile image">
+                            <div class="user-info">
+                                <a [routerLink]="['/users', comment.user?.username]" class="light-text">{{comment.user?.username}}</a>
+                                <p class="light-text small">{{comment?.creationDate | date}}</p>
+                            </div>
+                        </div>
+                        <p class="comment">
+                            {{comment.comment}}
+                        </p>                   
+                    </div>
                 </div>
-            </div>
-        </div>   
-    </div>
+            </div>   
+        </div>
+    </div> 
 </article>

@@ -42,7 +42,7 @@ export class AuthenticationService{
         return this.jwtModule.decodeToken(localStorage.getItem('sessionToken')!).Username;
     }
 
-    setTokenSignal(){
+    setUsernameSignal(){
         if(this.authenticated())
             this.usernameSignal.set(this.getUsername());
         else

@@ -23,4 +23,11 @@ public class ApiControllerBase : ControllerBase
 
         return StatusCode((int)statusCode, exception.Message);
     }
+
+    protected IActionResult ReturnError(HttpStatusCode statusCode, Exception exception, string message, ILogger logger)
+    {
+        logger.LogError(exception, exception.Message);
+
+        return StatusCode((int)statusCode, message);
+    }
 }

@@ -9,12 +9,10 @@ import { AuthenticationService } from '../services/authentication.service';
 })
 
 export class AppComponent implements OnInit {
-    authenticated: boolean;
-    username: string;
     authService = inject(AuthenticationService);
 
     ngOnInit(): void {
-        this.authService.setTokenSignal();
+        this.authService.setUsernameSignal();    
     }
 
     logout(){

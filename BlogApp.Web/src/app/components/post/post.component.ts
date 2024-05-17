@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { PostModel } from '../../models/post.model';
 import { DomSanitizer } from '@angular/platform-browser';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-post',
@@ -13,8 +14,10 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 export class PostComponent implements OnInit{
 
-  post: PostModel = new PostModel;
+  post: PostModel;
   faLikes = faThumbsUp;
+  loading: boolean;
+  error: boolean;
 
   constructor(private postsService: PostsService, private route: ActivatedRoute, private sanitizer: DomSanitizer){
   }
@@ -24,6 +27,8 @@ export class PostComponent implements OnInit{
   }
 
   getPostInformation(){
+    this.loading = true;
+
     const routeIdPost = this.route.snapshot.paramMap.get('id');
 
     if(routeIdPost !== null){
@@ -31,14 +36,23 @@ export class PostComponent implements OnInit{
 
       this.postsService.getPost(idPost).subscribe({
         next: (post) => {
-          this.post = post
+            this.post = post
 
-          this.post.postImageContentSafe = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + post.postImageContent);
-          this.post.user!.profileImageContentSafe = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + post.user?.profileImageContent);
+            this.post.postImageContentSafe = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + post.postImageContent);
+            this.post.user!.profileImageContentSafe = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + post.user?.profileImageContent);
 
-          this.post.comments?.forEach(comment => { 
-            comment.user!.profileImageContentSafe = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + comment.user?.profileImageContent);
+            this.post.comments?.forEach(comment => { 
+              comment.user!.profileImageContentSafe = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + comment.user?.profileImageContent);
+
+            this.loading = false;
+            this.error = false;
           });
+        },
+        error: (error) => {
+          this.loading = false;
+          this.error = true;
+
+          return throwError(() => error)
         }
       });
     }

@@ -23,9 +23,9 @@ public class UsersRepository : IUsersRepository
         {
             userModel.IdRole,
             userModel.Username.ToLower(),
-            userModel.Email,
+            userModel.Email.ToLower(),
             userModel.Password,
-            userModel.Description!,
+            string.Empty,
             userModel.ProfileImageName!
         };
 
@@ -100,6 +100,23 @@ public class UsersRepository : IUsersRepository
 
         if (reader.Read())
             return Convert.ToInt32(reader["Value"]) > 0;      
+
+        return false;
+    }
+
+    public bool VerifyEmailExist(string email)
+    {
+        var query = "SELECT COUNT(*) AS Value FROM [Users] WHERE Email = @P0";
+
+        var parameters = new object[]
+        {
+            email.ToLower()
+        };
+
+        using var reader = _queryExecutor.ExecuteReader(query, parameters);
+
+        if (reader.Read())
+            return Convert.ToInt32(reader["Value"]) > 0;
 
         return false;
     }

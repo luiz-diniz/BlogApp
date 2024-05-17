@@ -1,8 +1,8 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { LoginModel } from '../../../models/login.model';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,30 +13,38 @@ import { Route, Router } from '@angular/router';
 export class LoginComponent implements OnInit{
 
   loginForm: FormGroup;
+  errorMessage: string = '';
+
+  loading: boolean;
 
   constructor(public authService: AuthenticationService, private router: Router) {      
   }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      username: new FormControl("", [Validators.required, Validators.max(100), Validators.pattern(/[\S]/)]),
-      password: new FormControl("", [Validators.required])
+      username: new FormControl("", [Validators.required, Validators.min(2), Validators.max(100), Validators.pattern(/[\S]/)]),
+      password: new FormControl("", [Validators.required, Validators.min(10), Validators.max(255)]),
     })
   }
 
   submit(){
-    let loginInfo = new LoginModel;
+    this.loading = true;
+    this.errorMessage = '';
 
-    loginInfo.username = this.loginForm.value["username"];
-    loginInfo.password = this.loginForm.value["password"];
+    const loginInfo: LoginModel = this.loginForm.getRawValue();
 
     this.authService.login(loginInfo).subscribe({
       next: () => {
         this.router.navigateByUrl('');
       },
-      error: error => {
-        console.log(error);
+      error: (response) => {
+        this.loading = false;
+
+        if(response.status === 0)
+          this.errorMessage = "Site unavailable, try again later";
+        else
+         this.errorMessage = response.error;
       }
-    })
+    }) 
   }
 }

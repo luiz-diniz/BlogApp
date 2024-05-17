@@ -6,6 +6,7 @@
       </a>
       <div class="actions" *ngIf="authService.usernameSignal()">
         <a class="username light-text" [routerLink]="['/users', authService.usernameSignal()]">{{authService.usernameSignal()}}</a>
+        <a class="btn btn-blue" (click)="logout()">Create Post</a>
         <a class="btn btn-gray" (click)="logout()">Log Out</a>
       </div>
       <div class="actions" *ngIf="authService.usernameSignal() === null">

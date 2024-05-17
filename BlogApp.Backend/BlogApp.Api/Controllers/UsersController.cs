@@ -29,13 +29,21 @@ public class UsersController : ApiControllerBase
 
             return Ok();
         }
-        catch(UserAlreadyExistsException ex)
+        catch(InvalidPasswordConfirmationException ex)
+        {
+            return ReturnError(HttpStatusCode.BadRequest, ex, _logger);
+        }
+        catch (UserAlreadyExistsException ex)
+        {
+            return ReturnError(HttpStatusCode.BadRequest, ex, _logger);
+        }
+        catch (EmailAlreadyExistsException ex)
         {
             return ReturnError(HttpStatusCode.BadRequest, ex, _logger);
         }
         catch (Exception ex)
         {
-            return ReturnError(HttpStatusCode.InternalServerError, ex, _logger);
+            return ReturnError(HttpStatusCode.InternalServerError, ex, "Internal error", _logger);
         }
     }
 
@@ -51,7 +59,7 @@ public class UsersController : ApiControllerBase
         }
         catch (Exception ex)
         {
-            return ReturnError(HttpStatusCode.InternalServerError, ex, _logger);
+            return ReturnError(HttpStatusCode.InternalServerError, ex, "Internal error", _logger);
         }
     }
 }

@@ -32,11 +32,11 @@ public class AuthenticationController : ApiControllerBase
         catch (InvalidUserCredentialsException ex)
         {
             _logger.LogError(ex, ex.Message);
-            return StatusCode((int)HttpStatusCode.Unauthorized, "Invalid Username or Password.");
+            return StatusCode((int)HttpStatusCode.Unauthorized, "Invalid Username or Password");
         }
         catch (Exception ex)
 		{
-            return ReturnError(HttpStatusCode.InternalServerError, ex, _logger);	
+            return ReturnError(HttpStatusCode.InternalServerError, ex, "Internal error", _logger);	
 		}
     }
 }

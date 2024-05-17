@@ -12,6 +12,9 @@ public class User
     public string Password { get; set; }
 
     [Required]
+    public string PasswordConfirmation { get; set; }
+
+    [Required]
     public string Email { get; set; }
 
     public string? ProfileImageContent { get; set; }

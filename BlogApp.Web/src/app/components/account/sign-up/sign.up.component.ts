@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserRegisterModel } from '../../../models/user.register.model';
 import { UsersService } from '../../../services/users.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -11,36 +12,52 @@ import { UsersService } from '../../../services/users.service';
 export class SignUpComponent implements OnInit{
 
   signupForm: FormGroup;
+  errorMessage: string = '';
+  successMessage: string = '';
+
+  error: boolean;
+  success: boolean;
+  loading: boolean;
 
   @ViewChild('fileUploader') fileUploader: ElementRef;
 
-  constructor(private userService: UsersService) {
+  constructor(private userService: UsersService, private router: Router) {
   }
 
   ngOnInit(): void {
     this.signupForm = new FormGroup({
-      username: new FormControl("", [Validators.required, Validators.max(100), Validators.pattern(/[\S]/)]),
-      email: new FormControl("", [Validators.required, Validators.pattern(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)]), 
-      password: new FormControl("", [Validators.required]),
-      description: new FormControl(""), 
-      profileImageContent: new FormControl("")
+      username: new FormControl("", [Validators.required, Validators.min(2), Validators.max(100), Validators.pattern(/[\S]/)]),
+      email: new FormControl("", [Validators.required, Validators.max(254), Validators.pattern(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)]), 
+      password: new FormControl("", [Validators.required, Validators.min(10), Validators.max(255)]),
+      passwordConfirmation: new FormControl("", [Validators.required, Validators.min(10), Validators.max(255)])
     })
   }
 
   submit(){
-    let user = new UserRegisterModel();
+    this.loading = true;
+    this.error = false;
+    this.errorMessage = '';
 
-    user.username = this.signupForm.value["username"];
-    user.email = this.signupForm.value["email"];
-    user.password = this.signupForm.value["password"];
-    user.description = this.signupForm.value["description"];
-    user.profileImageContent = this.signupForm.value["profileImageContent"];
+    const user: UserRegisterModel = this.signupForm.getRawValue();
 
-    
     this.userService.add(user).subscribe({
       next: () => {
-        // temporary
-        alert(`User created!`);
+        this.error = false;
+        this.success = true;
+        this.successMessage = "You'll be redirected to the login page";   
+        
+        setTimeout(() => {
+          this.router.navigateByUrl('/login');
+        }, 2000)
+      },
+      error: (response) => {
+        this.error = true;
+        this.loading = false;
+
+        if(response.status === 0)
+          this.errorMessage = "Site unavailable, try again later";
+        else
+         this.errorMessage = response.error;
       }
     });
   }

@@ -1,8 +1,16 @@
-<div class="card">
+<div class="response-status">
+    <p *ngIf="!loadingUser && user.id === undefined">User not found</p>
+    <img class="loading" src="../../.././assets/gifs/loading.gif" *ngIf="loadingUser" alt="Loading...">
+</div> 
+<div class="card" *ngIf="user.id !== undefined">
     <div class="profile-info">
         <img [src]="user.profileImageContentSafe" alt="User profile picture">
         <h2>{{user.username}}</h2>
         <p>{{user.description}}</p>
     </div>
 </div>
+<div class="response-status">
+    <p *ngIf="posts.length === 0 && user.id !== undefined">No posts found</p>
+    <img class="loading" src="../../.././assets/gifs/loading.gif" *ngIf="loadingPosts" alt="Loading...">
+</div> 
 <app-posts [posts]="posts"></app-posts>

@@ -27,11 +27,7 @@ public class UsersService : IUsersService
     {
         try
         {
-            if(user is null)
-                throw new ArgumentNullException(nameof(user), "User null.");
-
-            if (_userRepository.VerifyUserExist(user.Username))
-                throw new UserAlreadyExistsException($"User [{user.Username}] already exists.");
+            ValidateUserInput(user);
 
             user.Password = _passwordManager.GeneratePasswordHash(user.Password);
             user.IdRole = 2;
@@ -78,5 +74,21 @@ public class UsersService : IUsersService
             user.ProfileImageName = _imageService.CreateImage($"data:image/jpg;base64,{Convert.ToBase64String(Properties.Resources.DefaultProfilePicture)}", nameof(AppSettingsEnum.ProfileImageStoragePath));
         else
             user.ProfileImageName = _imageService.CreateImage(user.ProfileImageContent, nameof(AppSettingsEnum.PostImageStoragePath));
+    }
+
+    private void ValidateUserInput(User user)
+    {
+        if (user is null)
+            throw new ArgumentNullException(nameof(user), "User null.");
+
+        if (!string.Equals(user.Password, user.PasswordConfirmation, StringComparison.Ordinal))
+            throw new InvalidPasswordConfirmationException("Passwords don't match");
+
+        if (_userRepository.VerifyUserExist(user.Username))
+            throw new UserAlreadyExistsException($"User [{user.Username}] already taken");
+
+        if (_userRepository.VerifyEmailExist(user.Email))
+            throw new EmailAlreadyExistsException($"Email [{user.Email}] already taken");
+
     }
 }

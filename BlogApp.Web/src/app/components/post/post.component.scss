@@ -3,40 +3,43 @@
 .card{
     max-width: 90rem;
     
-    .post-img{
-        margin: 1rem 0;
-        height: 20rem;
-        object-fit: cover;
-        border: 1rem;
-    }
-
-    .info-user-date img{
-        cursor: pointer;
-    }
-
-    .post-content{
-        margin: 2rem 0;
-        color: $dark-gray;
-    }
-
-    .interaction{        
-        flex-direction: column;
-
-        .likes{
+    .post{
+        .post-img{
+            margin: 1rem 0;
+            height: 20rem;
+            width: 100%;
+            object-fit: cover;
+            border: 1rem;
+        }
+    
+        .info-user-date img{
+            cursor: pointer;
+        }
+    
+        .post-content{
             margin: 2rem 0;
+            color: $dark-gray;
         }
-
-        .comments{
-            .comment-content{
-                margin: 1rem;
-                padding: 1rem;
-                background-color: $light-gray;
-                border-radius: 1rem;
+    
+        .interaction{        
+            flex-direction: column;
+    
+            .likes{
+                margin: 2rem 0;
             }
-
-            .comment{
-                margin: .5rem 2.4rem;
+    
+            .comments{
+                .comment-content{
+                    margin: 1rem;
+                    padding: 1rem;
+                    background-color: $light-gray;
+                    border-radius: 1rem;
+                }
+    
+                .comment{
+                    margin: .5rem 2.4rem;
+                }
             }
         }
-    }
+    }    
 }
