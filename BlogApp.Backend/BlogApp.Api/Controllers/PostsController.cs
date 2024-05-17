@@ -2,6 +2,7 @@
 using BlogApp.Models.InputModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 using System.Net;
 
 namespace BlogApp.Api.Controllers;
@@ -42,6 +43,9 @@ public class PostsController : ApiControllerBase
         {
             var post = _postService.Get(id);
 
+            if (post is null)
+                return NotFound();
+
             return Ok(SerializeReturn(post));
         }
         catch (Exception ex)
@@ -57,6 +61,9 @@ public class PostsController : ApiControllerBase
         try
         {
             var posts = _postService.GetFeedPosts();
+
+            if (!posts.Any())
+                return NotFound();
 
             return Ok(SerializeReturn(posts));
         }
@@ -74,6 +81,9 @@ public class PostsController : ApiControllerBase
         try
         {
             var posts = _postService.GetUserPosts(id);
+
+            if (!posts.Any())
+                return NotFound();
 
             return Ok(SerializeReturn(posts));
         }

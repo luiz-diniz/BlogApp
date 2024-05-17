@@ -1,7 +1,7 @@
 <div class="feed">
     <h2>Most recent posts</h2>
     <div class="response-status">
-        <p *ngIf="posts.length === 0 && !loading">No posts found</p>
+        <p *ngIf="errorResponsePosts && !loading">No posts found</p>
         <img class="loading" src="../../../../assets/gifs/loading.gif" *ngIf="loading" alt="Loading...">
     </div> 
     <app-posts [posts]="posts"></app-posts>

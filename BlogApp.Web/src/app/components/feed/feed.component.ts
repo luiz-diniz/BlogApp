@@ -15,6 +15,7 @@ export class FeedComponent implements OnInit{
   posts: PostFeedModel[] = [];
 
   loading: boolean;
+  errorResponsePosts: boolean;
 
   constructor(private postsService: PostsService, private sanitizer: DomSanitizer){
   }
@@ -37,6 +38,7 @@ export class FeedComponent implements OnInit{
       },
       error: (error) => {
         this.loading = false;
+        this.errorResponsePosts = true;
 
         return throwError(() => error)
       }

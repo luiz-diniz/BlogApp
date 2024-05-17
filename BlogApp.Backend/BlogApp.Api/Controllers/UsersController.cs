@@ -55,6 +55,9 @@ public class UsersController : ApiControllerBase
         {
             var userProfile = _userService.GetUserProfile(username);
 
+            if (userProfile is null)
+                return NotFound();
+
             return Ok(SerializeReturn(userProfile));
         }
         catch (Exception ex)

@@ -1,5 +1,5 @@
 <div class="response-status">
-    <p *ngIf="error">Post content not found</p>
+    <p *ngIf="error && !loading">Post not found</p>
     <img class="loading" src="../../.././assets/gifs/loading.gif" *ngIf="loading" alt="Loading...">
 </div> 
 <article class="card" *ngIf="!loading && !error">

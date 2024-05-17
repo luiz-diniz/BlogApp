@@ -21,6 +21,9 @@ export class UserProfileComponent implements OnInit{
   loadingUser: boolean;
   loadingPosts: boolean;
 
+  errorResponseUser: boolean;
+  errorResponsePosts: boolean;
+
   constructor(private usersService: UsersService, private postsService: PostsService,private route: ActivatedRoute, private sanitizer: DomSanitizer){
   }
 
@@ -37,6 +40,7 @@ export class UserProfileComponent implements OnInit{
       this.usersService.getUserProfile(routeUsername).pipe(
         catchError(error => {
           this.loadingUser = false;
+          this.errorResponseUser = true;
 
           return throwError(() => error)
         }),
@@ -63,6 +67,7 @@ export class UserProfileComponent implements OnInit{
           },
         error:(error) => {
             this.loadingPosts = false;
+            this.errorResponsePosts = true;            
 
             return throwError(() => error)
         }
