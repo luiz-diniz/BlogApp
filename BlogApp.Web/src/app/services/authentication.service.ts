@@ -14,7 +14,7 @@ export class AuthenticationService{
     private baseUrl: string = `${environment.url}authentication`;
     private jwtModule: JwtHelperService;
 
-    constructor(private httpClient: HttpClient, private router: Router){
+    constructor(private httpClient: HttpClient){
         this.jwtModule = new JwtHelperService;
     }
 

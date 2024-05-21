@@ -8,7 +8,7 @@ import { PostsService } from '../../services/posts.service';
 import { catchError, switchMap, throwError } from 'rxjs';
 
 @Component({
-  selector: 'app-user',
+  selector: 'app-user-profile',
   templateUrl: './user.profile.component.html',
   styleUrl: './user.profile.component.scss'
 })

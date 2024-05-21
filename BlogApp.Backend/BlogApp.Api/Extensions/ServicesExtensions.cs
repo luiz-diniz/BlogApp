@@ -18,6 +18,7 @@ public static class ServicesExtensions
         serviceCollection.AddSingleton<IPostsLikesRepository, PostsLikesRepository>();
         serviceCollection.AddSingleton<IPostsCommentsRepository, PostsCommentsRepository>();
         serviceCollection.AddSingleton<ISavedPostsRepository, SavedPostsRepository>();
+        serviceCollection.AddSingleton<IPostsCategoriesRepository, PostsCategoriesRepository>();
     }
 
     public static void AddServices(this IServiceCollection serviceCollection)
@@ -32,5 +33,6 @@ public static class ServicesExtensions
         serviceCollection.AddSingleton<IPasswordService, PasswordService>();
         serviceCollection.AddSingleton<IAuthenticationService, AuthenticationService>();
         serviceCollection.AddSingleton<ITokenService, TokenService>();
+        serviceCollection.AddSingleton<IPostsCategoriesService, PostsCategoriesService>();
     }
 }

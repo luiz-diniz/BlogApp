@@ -43,10 +43,10 @@ export class PostComponent implements OnInit{
 
             this.post.comments?.forEach(comment => { 
               comment.user!.profileImageContentSafe = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + comment.user?.profileImageContent);
+            });
 
             this.loading = false;
             this.error = false;
-          });
         },
         error: (error) => {
           this.loading = false;
