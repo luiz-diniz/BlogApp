@@ -1,4 +1,4 @@
 export class PostCategoryModel{
-    id?: number;
-    name?: string;
+    id: number;
+    name: string;
 }

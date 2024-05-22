@@ -4,6 +4,7 @@ import { PostFeedModel } from "../models/post.feed.model";
 import { Observable } from "rxjs";
 import { Injectable } from "@angular/core";
 import { PostModel } from "../models/post.model";
+import { PostCreationModel } from "../models/post.creation.model";
 
 @Injectable()
 export class PostsService{
@@ -11,6 +12,14 @@ export class PostsService{
     private baseUrl: string = `${environment.url}posts`
 
     constructor(private httpClient: HttpClient){
+    }
+
+    addPost(post: PostCreationModel) : Observable<any>{
+        const headers = {
+            "Authorization": `Bearer ${localStorage.getItem("sessionToken")}`  
+        };
+
+        return this.httpClient.post<any>(this.baseUrl, post, {headers});
     }
 
     getPost(idPost: number) : Observable<PostModel>{

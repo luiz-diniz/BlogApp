@@ -23,7 +23,7 @@ public class PostsCategoriesController : ApiControllerBase
         {
             var categories = _postsCategoriesService.GetCategories();
 
-            if(categories.Count == 0)
+            if (!categories.Any())
                 return NotFound();
 
             return Ok(SerializeReturn(categories));

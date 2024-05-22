@@ -38,8 +38,12 @@ export class AuthenticationService{
         return !this.jwtModule.isTokenExpired(localStorage.getItem('sessionToken'));
     }
 
-    getUsername(): any{
+    getUsername(): string{
         return this.jwtModule.decodeToken(localStorage.getItem('sessionToken')!).Username;
+    }
+
+    getUserId(): number{
+        return this.jwtModule.decodeToken(localStorage.getItem('sessionToken')!).userId;
     }
 
     setUsernameSignal(){

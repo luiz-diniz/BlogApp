@@ -1,4 +1,5 @@
-﻿using BlogApp.Repository.Interfaces;
+﻿using BlogApp.Models.OutputModels;
+using BlogApp.Repository.Interfaces;
 
 namespace BlogApp.Repository.SqlRepository;
 
@@ -11,16 +12,20 @@ public class PostsCategoriesRepository : IPostsCategoriesRepository
         _queryExecutor = queryExecutor;
     }
 
-    public Dictionary<int, string> GetCategories()
+    public IEnumerable<PostCategory> GetCategories()
     {
         var query = "SELECT * FROM [PostsCategories]";
 
         using var reader = _queryExecutor.ExecuteReader(query);
 
-        var categories = new Dictionary<int, string>();
+        var categories = new List<PostCategory>();
 
         while (reader.Read())
-            categories.Add(Convert.ToInt32(reader["Id"]), Convert.ToString(reader["Name"]));
+            categories.Add(new PostCategory
+            {
+                Id = Convert.ToInt32(reader["Id"]),
+                Name = Convert.ToString(reader["Name"])
+            });
 
         return categories;
     }

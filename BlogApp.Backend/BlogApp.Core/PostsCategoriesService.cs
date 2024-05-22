@@ -1,4 +1,5 @@
 ﻿using BlogApp.Core.Intefaces;
+using BlogApp.Models.OutputModels;
 using BlogApp.Repository.Interfaces;
 using Microsoft.Extensions.Logging;
 
@@ -15,7 +16,7 @@ public class PostsCategoriesService : IPostsCategoriesService
         _postsCategoriesRepository = postsCategoriesRepository;
     }
 
-    public Dictionary<int, string> GetCategories()
+    public IEnumerable<PostCategory> GetCategories()
     {
 		try
         {

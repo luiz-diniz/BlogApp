@@ -1,6 +1,8 @@
-﻿namespace BlogApp.Core.Intefaces;
+﻿using BlogApp.Models.OutputModels;
+
+namespace BlogApp.Core.Intefaces;
 
 public interface IPostsCategoriesService
 {
-    Dictionary<int, string> GetCategories();
+    IEnumerable<PostCategory> GetCategories();
 }

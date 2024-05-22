@@ -4,7 +4,7 @@
 </div> 
 <article class="card" *ngIf="!loading && !error">
     <div class="post">
-        <img class="post-img" [src]="post.postImageContentSafe" alt="Post image">
+        <img class="post-img" [src]="post.postImageContentSafe" alt="Post image" *ngIf="post.postImageContentSafe !== undefined">
         <div class="info-user-date">
             <img [src]="post.user?.profileImageContentSafe" alt="User profile image" [routerLink]="['/users', post.user?.username]">
             <div class="user-info">
@@ -17,9 +17,8 @@
                 {{post.title}}
             </h1>
             <a href="#" class="light-text small">{{post.category?.name}}</a>
-            <p class="post-content">
-                {{post.content}}
-            </p>
+            <div class="post-content" [innerHTML]="post.content">                
+            </div>
             <div class="interaction">
                 <div class="likes">
                     <fa-icon class="blue" [icon]="faLikes"></fa-icon>

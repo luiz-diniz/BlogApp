@@ -2,6 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Editor } from 'ngx-editor';
 import { PostsCategoriesService } from '../../services/posts.categories.service';
+import { PostsService } from '../../services/posts.service';
+import { PostCreationModel } from '../../models/post.creation.model';
+import { AuthenticationService } from '../../services/authentication.service';
+import { PostCategoryModel } from '../../models/post.category.model';
 
 @Component({
   selector: 'app-post-creation',
@@ -11,23 +15,24 @@ import { PostsCategoriesService } from '../../services/posts.categories.service'
 export class PostCreationComponent implements OnInit, OnDestroy {
 
   postForm: FormGroup;
+  categories: PostCategoryModel[];
+
   editor: Editor;
   html = '';
 
-  categories: {[key: number]: string}
-
-  constructor(private postsCategoriesService: PostsCategoriesService){
+  constructor(private postsCategoriesService: PostsCategoriesService, private postsServices: PostsService, private authenticationService: AuthenticationService){
   }
 
   ngOnInit(): void {
 
+    this.editor = new Editor();
+
     this.postForm = new FormGroup({
       title: new FormControl("", [Validators.required, Validators.min(5), Validators.max(100), Validators.pattern(/[\S]/)]),
-      postImage: new FormControl("", ),
-      content: new FormControl("", [Validators.required, Validators.pattern(/^(?!\s*(<p>\s*<\/p>\s*)+$).*$/)])
+      postImageContent: new FormControl(""),
+      content: new FormControl("", [Validators.required, Validators.pattern(/^(?!\s*(<p>\s*<\/p>\s*)+$).*$/)]),
+      idCategory: new FormControl(1, [Validators.required]),
     });
-
-    this.editor = new Editor();
 
     this.getCategories();
   }
@@ -37,7 +42,20 @@ export class PostCreationComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    
+    const post: PostCreationModel = this.postForm.getRawValue();
+
+    post.idUser = this.authenticationService.getUserId();
+
+    console.log(post);
+
+    this.postsServices.addPost(post).subscribe({
+      next: () => {
+        console.log("Post created.")
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    });
   }
 
   getFile(event: Event){
@@ -56,7 +74,7 @@ export class PostCreationComponent implements OnInit, OnDestroy {
 
       reader.onload = () => {
           this.postForm.patchValue({
-            postImage: reader.result
+            postImageContent: reader.result
           });
       };
     }
@@ -75,7 +93,6 @@ export class PostCreationComponent implements OnInit, OnDestroy {
     this.postsCategoriesService.getCategories().subscribe({
       next: (result) => {
         this.categories = result;
-        console.log(this.categories);
       },
       error: (error) => {
         console.log(error);

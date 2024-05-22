@@ -20,7 +20,7 @@ public class ImageService : IImageService
         try
         {
             if (string.IsNullOrEmpty(imageBase64))
-                return null!;
+                return string.Empty;
 
             var path = _configuration.GetSection(appSettingsPathSection).Value;
 
