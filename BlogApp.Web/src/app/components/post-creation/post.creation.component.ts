@@ -46,14 +46,12 @@ export class PostCreationComponent implements OnInit, OnDestroy {
 
     post.idUser = this.authenticationService.getUserId();
 
-    console.log(post);
-
     this.postsServices.addPost(post).subscribe({
       next: () => {
         console.log("Post created.")
       },
-      error: (err) => {
-        console.log(err)
+      error: (error) => {
+        console.log(error)
       }
     });
   }
