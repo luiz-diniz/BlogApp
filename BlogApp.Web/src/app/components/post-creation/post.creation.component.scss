@@ -5,3 +5,10 @@ h1{
 p{
     font-size: 12px;
 }
+
+::ng-deep {
+    .NgxEditor__Content {
+      min-height: 10rem; 
+      margin: .5rem 1rem;
+    }
+  }

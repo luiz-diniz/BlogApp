@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Editor } from 'ngx-editor';
+import { Editor, Toolbar } from 'ngx-editor';
 import { PostsCategoriesService } from '../../services/posts.categories.service';
 import { PostsService } from '../../services/posts.service';
 import { PostCreationModel } from '../../models/post.creation.model';
@@ -18,6 +18,12 @@ export class PostCreationComponent implements OnInit, OnDestroy {
   categories: PostCategoryModel[];
 
   editor: Editor;
+  toolbar: Toolbar = [
+    ['bold', 'italic'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['ordered_list', 'bullet_list'],
+    ['image']
+  ];
   html = '';
 
   constructor(private postsCategoriesService: PostsCategoriesService, private postsServices: PostsService, private authenticationService: AuthenticationService){

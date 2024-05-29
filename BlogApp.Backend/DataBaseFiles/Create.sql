@@ -42,7 +42,7 @@ CREATE TABLE [Posts](
 	[IdUser] INT,
 	[IdCategory] INT,
 	[Title]	VARCHAR(100) NOT NULL,
-	[Content] VARCHAR(1000) NOT NULL,
+	[Content] VARCHAR(MAX) NOT NULL,
 	[PostImageName] VARCHAR(256) NOT NULL,
 	[CreationDate] DATETIME NOT NULL DEFAULT GETDATE(),
 

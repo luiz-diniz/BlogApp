@@ -30,6 +30,8 @@ public class PostsService : IPostsService
     {
 		try
 		{
+            ReplaceEmptyParagraphs(postModel);
+
             postModel.PostImageName = _imageService.CreateImage(postModel.PostImageContent, nameof(AppSettingsEnum.PostImageStoragePath));
 
             using var connection = _connectionFactory.CreateConnection();
@@ -118,5 +120,10 @@ public class PostsService : IPostsService
     {
         foreach (var post in posts)
             post.User.ProfileImageContent = _imageService.GetImage(post.User.ProfileImageName, nameof(AppSettingsEnum.ProfileImageStoragePath));
+    }
+
+    private void ReplaceEmptyParagraphs(Post post)
+    {
+        post.Content = post.Content.Replace("<p></p>", "<br>");
     }
 }
