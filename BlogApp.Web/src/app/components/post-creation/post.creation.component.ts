@@ -6,6 +6,7 @@ import { PostsService } from '../../services/posts.service';
 import { PostCreationModel } from '../../models/post.creation.model';
 import { AuthenticationService } from '../../services/authentication.service';
 import { PostCategoryModel } from '../../models/post.category.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post-creation',
@@ -25,8 +26,9 @@ export class PostCreationComponent implements OnInit, OnDestroy {
     ['image']
   ];
   html = '';
+  postSubmited = false;
 
-  constructor(private postsCategoriesService: PostsCategoriesService, private postsServices: PostsService, private authenticationService: AuthenticationService){
+  constructor(private postsCategoriesService: PostsCategoriesService, private postsServices: PostsService, private authenticationService: AuthenticationService, private router: Router){
   }
 
   ngOnInit(): void {
@@ -54,7 +56,11 @@ export class PostCreationComponent implements OnInit, OnDestroy {
 
     this.postsServices.addPost(post).subscribe({
       next: () => {
-        console.log("Post created.")
+        this.postSubmited = true;
+
+        setTimeout(() => {
+          this.router.navigateByUrl('');
+        }, 2500)
       },
       error: (error) => {
         console.log(error)
