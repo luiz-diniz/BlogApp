@@ -2,14 +2,14 @@ import { Injectable, signal } from "@angular/core";
 import { environment } from "../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { LoginModel } from "../models/login.model";
-import { Router } from "@angular/router";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { catchError, map, throwError } from "rxjs";
 
 @Injectable()
 export class AuthenticationService{
 
-    usernameSignal = signal<any | undefined | null>(undefined);
+    usernameSignal = signal<string | null>(null);
+    roleSignal = signal<number | null>(null);
 
     private baseUrl: string = `${environment.url}authentication`;
     private jwtModule: JwtHelperService;
@@ -26,12 +26,14 @@ export class AuthenticationService{
         map(result => {
             localStorage.setItem('sessionToken', result.token);
             this.usernameSignal.set(this.getUsername());
+            this.roleSignal.set(this.getUserRole());
         }));            
     }
 
     logout(){
         localStorage.removeItem('sessionToken');
         this.usernameSignal.set(null);
+        this.roleSignal.set(null);
     }
 
     authenticated() : boolean{
@@ -43,13 +45,21 @@ export class AuthenticationService{
     }
 
     getUserId(): number{
-        return this.jwtModule.decodeToken(localStorage.getItem('sessionToken')!).userId;
+        return +this.jwtModule.decodeToken(localStorage.getItem('sessionToken')!).userId;
     }
 
-    setUsernameSignal(){
-        if(this.authenticated())
+    getUserRole(): number{
+        return +this.jwtModule.decodeToken(localStorage.getItem('sessionToken')!).userRoleId;
+    }
+
+    setSignals(){
+        if(this.authenticated()){
             this.usernameSignal.set(this.getUsername());
-        else
+            this.roleSignal.set(this.roleSignal());
+        }
+        else{
             this.usernameSignal.set(null);
+            this.roleSignal.set(null);
+        }
     }
 }

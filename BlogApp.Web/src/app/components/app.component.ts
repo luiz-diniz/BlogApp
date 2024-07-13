@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
     authService = inject(AuthenticationService);
 
     ngOnInit(): void {
-        this.authService.setUsernameSignal();    
+        this.authService.setSignals();   
     }
 
     logout(){

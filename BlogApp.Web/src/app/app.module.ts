@@ -17,6 +17,7 @@ import { FeedComponent } from './components/feed/feed.component';
 import { LoginComponent } from './components/account/login/login.component';
 import { SignUpComponent } from './components/account/sign-up/sign.up.component';
 import { PostCreationComponent } from './components/post-creation/post.creation.component';
+import { PostsReviewsComponent } from './components/posts-reviews/posts.reviews.component';
 
 //Services
 import { PostsService } from './services/posts.service';
@@ -34,7 +35,8 @@ import { PostsCategoriesService } from './services/posts.categories.service';
     SignUpComponent,
     LoginComponent,
     SignUpComponent,
-    PostCreationComponent
+    PostCreationComponent,
+    PostsReviewsComponent
   ],
   imports: [
     BrowserModule,
