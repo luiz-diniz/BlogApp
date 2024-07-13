@@ -4,6 +4,8 @@
 
 Pato Blog is a web application that allows users to create, interact and share content.
 
+Project in progress.
+
 # Roadmap
 
 The application will support:
