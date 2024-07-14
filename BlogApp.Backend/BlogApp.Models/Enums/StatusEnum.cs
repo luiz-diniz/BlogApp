@@ -5,5 +5,6 @@ public enum StatusEnum
     Pending,
     Reviewing,
     Approved,
-    Declined
+    Declined,
+    Unknown
 }

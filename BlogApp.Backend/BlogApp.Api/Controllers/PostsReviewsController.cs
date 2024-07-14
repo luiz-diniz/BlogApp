@@ -19,6 +19,21 @@ public class PostsReviewsController : ApiControllerBase
         _postReviewService = postReviewService;
     }
 
+    [HttpGet]
+    public IActionResult GetReviewPosts()
+    {
+        try
+        {
+            var posts = _postReviewService.GetReviewPosts();
+
+            return Ok(SerializeReturn(posts));
+        }
+        catch (Exception ex)
+        {
+            return InternalServerError(ex, _logger);
+        }
+    }
+
     [HttpPut]
     public IActionResult Update([FromBody] PostReview postReviewModel)
     {
@@ -30,7 +45,7 @@ public class PostsReviewsController : ApiControllerBase
         }
         catch (Exception ex)
         {
-            return ReturnError(HttpStatusCode.InternalServerError, ex, "Internal error", _logger);
+            return InternalServerError(ex, _logger);
         }
     }
 }

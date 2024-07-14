@@ -1,4 +1,5 @@
 ﻿using BlogApp.Models;
+using BlogApp.Models.Enums;
 using BlogApp.Models.InputModels;
 using BlogApp.Models.OutputModels;
 using BlogApp.Repository.Interfaces;
@@ -165,5 +166,5 @@ public class PostsRepository : IPostsRepository
         }
 
         return posts;
-    }
+    }  
 }

@@ -8,9 +8,9 @@ namespace BlogApp.Api.Controllers;
 [ApiController]
 public class ApiControllerBase : ControllerBase
 {
-    protected string SerializeReturn(object model)
+    protected string SerializeReturn<T>(T data)
     {
-        return JsonConvert.SerializeObject(model, new JsonSerializerSettings
+        return JsonConvert.SerializeObject(data, new JsonSerializerSettings
         {
             NullValueHandling = NullValueHandling.Ignore,
             ContractResolver = new CamelCasePropertyNamesContractResolver()
@@ -29,5 +29,12 @@ public class ApiControllerBase : ControllerBase
         logger.LogError(exception, exception.Message);
 
         return StatusCode((int)statusCode, message);
+    }
+
+    protected IActionResult InternalServerError(Exception exception, ILogger logger)
+    {
+        logger.LogError(exception, exception.Message);
+
+        return StatusCode(500, "Internal Server Error");
     }
 }

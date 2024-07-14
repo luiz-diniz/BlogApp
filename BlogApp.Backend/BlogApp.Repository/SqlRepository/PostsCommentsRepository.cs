@@ -70,9 +70,6 @@ public class PostsCommentsRepository : IPostsCommentsRepository
             });
         }
 
-        if (comments.Count > 0)
-            return comments;
-
-        return null!;
+        return comments;
     }
 }

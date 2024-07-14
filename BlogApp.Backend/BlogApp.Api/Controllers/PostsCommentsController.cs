@@ -29,7 +29,7 @@ public class PostsCommentsController : ApiControllerBase
         }
         catch (Exception ex)
         {
-            return ReturnError(HttpStatusCode.InternalServerError, ex, "Internal error", _logger);
+            return InternalServerError(ex, _logger);
         }
     }
 
@@ -45,7 +45,7 @@ public class PostsCommentsController : ApiControllerBase
         }
         catch (Exception ex)
         {
-            return ReturnError(HttpStatusCode.InternalServerError, ex, "Internal error", _logger);
+            return InternalServerError(ex, _logger);
         }
     }
 
@@ -61,7 +61,7 @@ public class PostsCommentsController : ApiControllerBase
         }
         catch (Exception ex)
         {
-            return ReturnError(HttpStatusCode.InternalServerError, ex, "Internal error", _logger);
+            return InternalServerError(ex, _logger);
         }
     }
 }

@@ -1,9 +1,7 @@
 ﻿namespace BlogApp.Models.OutputModels;
 
-public class PostInfo
+public class PostInfo : PostBase
 {
-    public int Id { get; set; }
-    public string Title { get; set; }
     public string Content { get; set; }
     public string PostImageContent { get; set; }
     public string PostImageName { get; set; }

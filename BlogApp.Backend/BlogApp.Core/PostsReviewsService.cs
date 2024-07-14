@@ -1,5 +1,6 @@
 ﻿using BlogApp.Core.Intefaces;
 using BlogApp.Models.InputModels;
+using BlogApp.Models.OutputModels;
 using BlogApp.Repository.Interfaces;
 using Microsoft.Extensions.Logging;
 
@@ -14,6 +15,19 @@ public class PostsReviewsService : IPostsReviewsService
     {
         _logger = logger;
         _postReviewRepository = postReviewRepository;
+    }
+
+    public IEnumerable<PostReviewInfo> GetReviewPosts()
+    {
+        try
+        {
+            return _postReviewRepository.GetReviewPosts();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            throw;
+        }
     }
 
     public void Update(PostReview postReviewModel)
