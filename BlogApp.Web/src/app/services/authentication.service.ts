@@ -1,4 +1,4 @@
-import { Injectable, signal } from "@angular/core";
+import { inject, Injectable, signal } from "@angular/core";
 import { environment } from "../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { LoginModel } from "../models/login.model";
@@ -8,13 +8,15 @@ import { catchError, map, throwError } from "rxjs";
 @Injectable()
 export class AuthenticationService{
 
+    httpClient = inject(HttpClient);
+
     usernameSignal = signal<string | null>(null);
     roleSignal = signal<number | null>(null);
 
     private baseUrl: string = `${environment.url}authentication`;
     private jwtModule: JwtHelperService;
 
-    constructor(private httpClient: HttpClient){
+    constructor(){
         this.jwtModule = new JwtHelperService;
     }
 

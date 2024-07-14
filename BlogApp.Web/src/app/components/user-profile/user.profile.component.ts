@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { UsersService } from '../../services/users.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserProfileModel } from '../../models/user.profile.model';
@@ -15,17 +15,17 @@ import { catchError, switchMap, throwError } from 'rxjs';
 
 export class UserProfileComponent implements OnInit{
 
-  user: UserProfileModel = new UserProfileModel;
-  posts: PostFeedModel[] = [];
+  usersService = inject(UsersService);
+  postsService = inject(PostsService);
+  route = inject(ActivatedRoute);
+  sanitizer = inject(DomSanitizer);
 
+  user: UserProfileModel;
+  posts: PostFeedModel[];
   loadingUser: boolean;
   loadingPosts: boolean;
-
   errorResponseUser: boolean;
   errorResponsePosts: boolean;
-
-  constructor(private usersService: UsersService, private postsService: PostsService,private route: ActivatedRoute, private sanitizer: DomSanitizer){
-  }
 
   ngOnInit() : void{
     this.loadProfilePage();

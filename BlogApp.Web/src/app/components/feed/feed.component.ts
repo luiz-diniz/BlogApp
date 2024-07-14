@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { PostsService } from '../../services/posts.service';
 import { PostFeedModel } from '../../models/post.feed.model';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -12,13 +12,12 @@ import { throwError } from 'rxjs';
 
 export class FeedComponent implements OnInit{
 
-  posts: PostFeedModel[];
+  postsService = inject(PostsService);
+  sanitizer = inject(DomSanitizer);
 
+  posts: PostFeedModel[];
   loading: boolean;
   errorResponsePosts: boolean;
-
-  constructor(private postsService: PostsService, private sanitizer: DomSanitizer){
-  }
 
   ngOnInit(): void {
     this.getFeedPosts();

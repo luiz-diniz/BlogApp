@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { LoginModel } from '../../../models/login.model';
@@ -12,13 +12,12 @@ import { Router } from '@angular/router';
 
 export class LoginComponent implements OnInit{
 
+  authService = inject(AuthenticationService);
+  router = inject(Router)
+
   loginForm: FormGroup;
-  errorMessage: string = '';
-
+  errorMessage: string;
   loading: boolean;
-
-  constructor(public authService: AuthenticationService, private router: Router) {      
-  }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({

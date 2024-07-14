@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Editor, Toolbar } from 'ngx-editor';
 import { PostsCategoriesService } from '../../services/posts.categories.service';
@@ -15,8 +15,14 @@ import { Router } from '@angular/router';
 })
 export class PostCreationComponent implements OnInit, OnDestroy {
 
+  postsCategoriesService = inject(PostsCategoriesService);
+  postsServices = inject(PostsService);
+  authenticationService = inject(AuthenticationService);
+  router = inject(Router);
+
   postForm: FormGroup;
   categories: PostCategoryModel[];
+  postSubmited = false;
 
   editor: Editor;
   toolbar: Toolbar = [
@@ -26,13 +32,8 @@ export class PostCreationComponent implements OnInit, OnDestroy {
     ['image']
   ];
   html = '';
-  postSubmited = false;
-
-  constructor(private postsCategoriesService: PostsCategoriesService, private postsServices: PostsService, private authenticationService: AuthenticationService, private router: Router){
-  }
 
   ngOnInit(): void {
-
     this.editor = new Editor();
 
     this.postForm = new FormGroup({

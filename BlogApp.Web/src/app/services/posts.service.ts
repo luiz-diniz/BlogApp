@@ -2,17 +2,16 @@ import { environment } from "../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { PostFeedModel } from "../models/post.feed.model";
 import { Observable } from "rxjs";
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { PostModel } from "../models/post.model";
 import { PostCreationModel } from "../models/post.creation.model";
 
 @Injectable()
 export class PostsService{
 
-    private baseUrl: string = `${environment.url}posts`
+    httpClient = inject(HttpClient);
 
-    constructor(private httpClient: HttpClient){
-    }
+    private baseUrl: string = `${environment.url}posts`
 
     addPost(post: PostCreationModel) : Observable<any>{
         const headers = {

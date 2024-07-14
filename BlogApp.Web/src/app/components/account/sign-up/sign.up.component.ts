@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserRegisterModel } from '../../../models/user.register.model';
 import { UsersService } from '../../../services/users.service';
@@ -11,18 +11,17 @@ import { Router } from '@angular/router';
 })
 export class SignUpComponent implements OnInit{
 
-  signupForm: FormGroup;
-  errorMessage: string = '';
-  submittedMessage: string = '';
+  usersService = inject(UsersService);
+  router = inject(Router);
 
+  signupForm: FormGroup;
+  errorMessage: string;
+  submittedMessage: string;
   error: boolean;
   submitted: boolean;
   loading: boolean;
 
   @ViewChild('fileUploader') fileUploader: ElementRef;
-
-  constructor(private userService: UsersService, private router: Router) {
-  }
 
   ngOnInit(): void {
     this.signupForm = new FormGroup({
@@ -40,7 +39,7 @@ export class SignUpComponent implements OnInit{
 
     const user: UserRegisterModel = this.signupForm.getRawValue();
 
-    this.userService.add(user).subscribe({
+    this.usersService.add(user).subscribe({
       next: () => {
         this.error = false;
         this.submitted = true;

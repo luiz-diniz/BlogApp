@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { PostsService } from '../../services/posts.service';
 import { ActivatedRoute } from '@angular/router';
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
@@ -14,13 +14,14 @@ import { throwError } from 'rxjs';
 
 export class PostComponent implements OnInit{
 
+  postsService = inject(PostsService);
+  route = inject(ActivatedRoute);
+  sanitizer = inject(DomSanitizer);
+
   post: PostModel;
   faLikes = faThumbsUp;
   loading: boolean;
   error: boolean;
-
-  constructor(private postsService: PostsService, private route: ActivatedRoute, private sanitizer: DomSanitizer){
-  }
 
   ngOnInit() : void{   
     this.getPostInformation();
