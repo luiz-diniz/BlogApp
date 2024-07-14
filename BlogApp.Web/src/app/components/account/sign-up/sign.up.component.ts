@@ -13,10 +13,10 @@ export class SignUpComponent implements OnInit{
 
   signupForm: FormGroup;
   errorMessage: string = '';
-  successMessage: string = '';
+  submittedMessage: string = '';
 
   error: boolean;
-  success: boolean;
+  submitted: boolean;
   loading: boolean;
 
   @ViewChild('fileUploader') fileUploader: ElementRef;
@@ -43,12 +43,12 @@ export class SignUpComponent implements OnInit{
     this.userService.add(user).subscribe({
       next: () => {
         this.error = false;
-        this.success = true;
-        this.successMessage = "You'll be redirected to the login page";   
+        this.submitted = true;
+        this.submittedMessage = "You'll be redirected to the login page";   
         
         setTimeout(() => {
           this.router.navigateByUrl('/login');
-        }, 2000)
+        }, 2500)
       },
       error: (response) => {
         this.error = true;
