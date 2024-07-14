@@ -40,13 +40,11 @@ export class PostComponent implements OnInit{
 
             if(post.postImageContent !== undefined)
               this.post.postImageContentSafe = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + post.postImageContent);
-            else
-              this.post.postImageContentSafe = undefined;
 
-            this.post.user!.profileImageContentSafe = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + post.user?.profileImageContent);
+            this.post.user.profileImageContentSafe = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + post.user.profileImageContent);
 
             this.post.comments?.forEach(comment => { 
-              comment.user!.profileImageContentSafe = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + comment.user?.profileImageContent);
+              comment.user.profileImageContentSafe = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + comment.user.profileImageContent);
             });
 
             this.loading = false;

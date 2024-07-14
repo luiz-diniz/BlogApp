@@ -6,9 +6,9 @@
     <div class="post">
         <img class="post-img" [src]="post.postImageContentSafe" alt="Post image" *ngIf="post.postImageContentSafe !== undefined">
         <div class="info-user-date">
-            <img [src]="post.user?.profileImageContentSafe" alt="User profile image" [routerLink]="['/users', post.user?.username]">
+            <img [src]="post.user.profileImageContentSafe" alt="User profile image" [routerLink]="['/users', post.user.username]">
             <div class="user-info">
-                <a href="#" class="light-text" [routerLink]="['/users', post.user?.username]">{{post.user?.username}}</a>
+                <a href="#" class="light-text" [routerLink]="['/users', post.user.username]">{{post.user.username}}</a>
                 <p class="light-text small">{{post.publishedDate | date}}</p>
             </div>
         </div>
@@ -16,7 +16,7 @@
             <h1>
                 {{post.title}}
             </h1>
-            <a href="#" class="light-text small">{{post.category?.name}}</a>
+            <a href="#" class="light-text small">{{post.category.name}}</a>
             <div class="post-content" [innerHTML]="post.content"></div>
             <div class="interaction">
                 <div class="likes">
@@ -25,15 +25,15 @@
                 </div>
                 <div class="comments">
                     <h3>Comments</h3>
-                    <div *ngIf="post?.comments?.length === null">
+                    <div *ngIf="post.comments?.length === 0">
                         <p class="no-content">No comments yet, be the first one to comment!</p>
                     </div>
-                    <div class="comment-content" *ngFor="let comment of post?.comments">
+                    <div class="comment-content" *ngFor="let comment of post.comments">
                         <div class="info-user-date">
-                            <img [routerLink]="['/users', comment.user?.username]" [src]="comment?.user?.profileImageContentSafe" alt="User profile image">
+                            <img [routerLink]="['/users', comment.user.username]" [src]="comment.user.profileImageContentSafe" alt="User profile image">
                             <div class="user-info">
-                                <a [routerLink]="['/users', comment.user?.username]" class="light-text">{{comment.user?.username}}</a>
-                                <p class="light-text small">{{comment?.creationDate | date}}</p>
+                                <a [routerLink]="['/users', comment.user.username]" class="light-text">{{comment.user.username}}</a>
+                                <p class="light-text small">{{comment.creationDate | date}}</p>
                             </div>
                         </div>
                         <p class="comment">

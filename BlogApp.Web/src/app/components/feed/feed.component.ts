@@ -12,7 +12,7 @@ import { throwError } from 'rxjs';
 
 export class FeedComponent implements OnInit{
 
-  posts: PostFeedModel[] = [];
+  posts: PostFeedModel[];
 
   loading: boolean;
   errorResponsePosts: boolean;
@@ -30,7 +30,7 @@ export class FeedComponent implements OnInit{
     this.postsService.getFeedPosts().subscribe({
       next: (posts) => { 
         posts.forEach(post => {
-            post.user!.profileImageContentSafe = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + post.user?.profileImageContent);
+            post.user.profileImageContentSafe = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + post.user.profileImageContent);
         });
 
         this.posts = posts;

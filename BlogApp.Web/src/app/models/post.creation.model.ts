@@ -1,4 +1,4 @@
-export class PostCreationModel{
+export interface PostCreationModel{
     idUser: number;
     title: string;
     content: string;

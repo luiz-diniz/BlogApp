@@ -1,9 +1,9 @@
 <article class="card" *ngFor="let post of posts">
     <div class="post">
         <div class="info-user-date">
-            <img [src]="post.user?.profileImageContentSafe" alt="User profile image" [routerLink]="['/users', post.user?.username]">
+            <img [src]="post.user.profileImageContentSafe" alt="User profile image" [routerLink]="['/users', post.user.username]">
             <div class="user-info">
-                <a href="#" class="light-text" [routerLink]="['/users', post.user?.username]">{{post.user?.username}}</a>
+                <a href="#" class="light-text" [routerLink]="['/users', post.user.username]">{{post.user.username}}</a>
                 <p class="light-text small">{{post.publishDate | date}}</p>
             </div>
         </div>
@@ -11,7 +11,7 @@
             <h1>
                 <a [routerLink]="['/posts', post.id]">{{post.title}}</a>
             </h1>
-            <a href="#" class="light-text small">{{post.category?.name}}</a>
+            <a href="#" class="light-text small">{{post.category.name}}</a>
             <div class="interaction">
                 <div class="likes">
                     <fa-icon class="blue" [icon]="faLikes"></fa-icon>

@@ -1,4 +1,4 @@
-export class PostCategoryModel{
+export interface PostCategoryModel{
     id: number;
     name: string;
 }

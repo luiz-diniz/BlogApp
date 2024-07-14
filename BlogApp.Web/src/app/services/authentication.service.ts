@@ -36,7 +36,7 @@ export class AuthenticationService{
         this.roleSignal.set(null);
     }
 
-    authenticated() : boolean{
+    authenticated(): boolean{
         return !this.jwtModule.isTokenExpired(localStorage.getItem('sessionToken'));
     }
 
@@ -55,7 +55,7 @@ export class AuthenticationService{
     setSignals(){
         if(this.authenticated()){
             this.usernameSignal.set(this.getUsername());
-            this.roleSignal.set(this.roleSignal());
+            this.roleSignal.set(this.getUserRole());
         }
         else{
             this.usernameSignal.set(null);
