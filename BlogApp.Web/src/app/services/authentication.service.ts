@@ -42,6 +42,11 @@ export class AuthenticationService{
         return !this.jwtModule.isTokenExpired(localStorage.getItem('sessionToken'));
     }
 
+    getToken() : string | null{
+        const token = localStorage.getItem('sessionToken');
+        return token !== null ? token.toString() : null;
+    }
+
     getUsername(): string{
         return this.jwtModule.decodeToken(localStorage.getItem('sessionToken')!).Username;
     }

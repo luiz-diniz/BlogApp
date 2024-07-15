@@ -2,7 +2,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtModule } from '@auth0/angular-jwt';
@@ -24,6 +24,7 @@ import { PostsService } from './services/posts.service';
 import { UsersService } from './services/users.service';
 import { AuthenticationService } from './services/authentication.service';
 import { PostsCategoriesService } from './services/posts.categories.service';
+import { TokenInterceptorService } from './services/token.interceptor.service';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,12 @@ import { PostsCategoriesService } from './services/posts.categories.service';
     PostsService,
     UsersService,
     AuthenticationService,
-    PostsCategoriesService
+    PostsCategoriesService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

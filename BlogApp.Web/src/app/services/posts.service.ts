@@ -14,11 +14,7 @@ export class PostsService{
     private baseUrl: string = `${environment.url}posts`
 
     addPost(post: PostCreationModel) : Observable<any>{
-        const headers = {
-            "Authorization": `Bearer ${localStorage.getItem("sessionToken")}`  
-        };
-
-        return this.httpClient.post<any>(this.baseUrl, post, {headers});
+        return this.httpClient.post<any>(this.baseUrl, post);
     }
 
     getPost(idPost: number) : Observable<PostModel>{
