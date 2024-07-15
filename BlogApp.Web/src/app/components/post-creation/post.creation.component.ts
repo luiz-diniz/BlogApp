@@ -17,7 +17,7 @@ export class PostCreationComponent implements OnInit, OnDestroy {
 
   postsCategoriesService = inject(PostsCategoriesService);
   postsServices = inject(PostsService);
-  authenticationService = inject(AuthenticationService);
+  authService = inject(AuthenticationService);
   router = inject(Router);
 
   postForm: FormGroup;
@@ -53,7 +53,7 @@ export class PostCreationComponent implements OnInit, OnDestroy {
   submit() {
     const post: PostCreationModel = this.postForm.getRawValue();
 
-    post.idUser = this.authenticationService.getUserId();
+    post.idUser = this.authService.getUserId();
 
     this.postsServices.addPost(post).subscribe({
       next: () => {
