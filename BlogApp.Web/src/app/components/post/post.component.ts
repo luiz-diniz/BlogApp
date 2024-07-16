@@ -3,7 +3,7 @@ import { PostsService } from '../../services/posts.service';
 import { ActivatedRoute } from '@angular/router';
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { PostModel } from '../../models/post.model';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, Title } from '@angular/platform-browser';
 import { throwError } from 'rxjs';
 
 @Component({
@@ -17,6 +17,7 @@ export class PostComponent implements OnInit{
   postsService = inject(PostsService);
   route = inject(ActivatedRoute);
   sanitizer = inject(DomSanitizer);
+  title = inject(Title);
 
   post: PostModel;
   faLikes = faThumbsUp;
@@ -48,6 +49,7 @@ export class PostComponent implements OnInit{
               comment.user.profileImageContentSafe = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + comment.user.profileImageContent);
             });
 
+            this.title.setTitle(this.post.title);
             this.loading = false;
             this.error = false;
         },

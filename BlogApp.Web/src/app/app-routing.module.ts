@@ -10,11 +10,11 @@ import { AUTH_GUARD } from './consts/auth.guard';
 import { PostsReviewsComponent } from './components/posts-reviews/posts.reviews.component';
 
 const routes: Routes = [
-  {path: '', component: FeedComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'signup', component: SignUpComponent},
-  {path: 'post', component: PostCreationComponent, canActivate: [AUTH_GUARD]},
-  {path: 'posts/reviews', component: PostsReviewsComponent, canActivate: [AUTH_GUARD]},
+  {path: '', component: FeedComponent, title: 'Feed'},
+  {path: 'login', component: LoginComponent, title: 'Login'},
+  {path: 'signup', component: SignUpComponent, title: 'Sign Up'},
+  {path: 'post', component: PostCreationComponent, canActivate: [AUTH_GUARD], title: 'Post Creation'},
+  {path: 'posts/reviews', component: PostsReviewsComponent, canActivate: [AUTH_GUARD], title: 'Reviews'},
   {path: 'posts/:id', component: PostComponent},
   {path: 'users/:username', component: UserProfileComponent}
 ]

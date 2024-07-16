@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { UsersService } from '../../services/users.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserProfileModel } from '../../models/user.profile.model';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, Title } from '@angular/platform-browser';
 import { PostFeedModel } from '../../models/post.feed.model';
 import { PostsService } from '../../services/posts.service';
 import { catchError, switchMap, throwError } from 'rxjs';
@@ -19,6 +19,7 @@ export class UserProfileComponent implements OnInit{
   postsService = inject(PostsService);
   route = inject(ActivatedRoute);
   sanitizer = inject(DomSanitizer);
+  title = inject(Title);
 
   user: UserProfileModel;
   posts: PostFeedModel[];
@@ -52,6 +53,7 @@ export class UserProfileComponent implements OnInit{
             this.sanitizeUserProfilePicture(user);
 
             this.user = user;
+            this.title.setTitle(this.user.username);
 
             return this.postsService.getUserFeedPosts(user.id);
           }
