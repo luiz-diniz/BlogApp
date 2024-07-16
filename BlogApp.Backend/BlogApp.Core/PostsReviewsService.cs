@@ -17,11 +17,11 @@ public class PostsReviewsService : IPostsReviewsService
         _postReviewRepository = postReviewRepository;
     }
 
-    public IEnumerable<PostReviewInfo> GetReviewPosts()
+    public IEnumerable<PostReviewInfo> GetPostsReviews()
     {
         try
         {
-            return _postReviewRepository.GetReviewPosts();
+            return _postReviewRepository.GetPostsReviews();
         }
         catch (Exception ex)
         {

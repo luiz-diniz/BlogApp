@@ -44,7 +44,7 @@ public class PostsReviewsRepository : IPostsReviewsRepository
         _queryExecutor.ExecuteNonQuery(query, parameters);
     }
 
-    public IEnumerable<PostReviewInfo> GetReviewPosts()
+    public IEnumerable<PostReviewInfo> GetPostsReviews()
     {
         //TODO: Pagination
         var query = @"SELECT P.Id, P.Title, P.CreationDate, U.Username, PR.Status FROM

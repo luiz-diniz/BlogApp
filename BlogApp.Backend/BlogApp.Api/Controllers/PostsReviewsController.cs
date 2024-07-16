@@ -20,11 +20,11 @@ public class PostsReviewsController : ApiControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetReviewPosts()
+    public IActionResult GetPostsReviews()
     {
         try
         {
-            var posts = _postReviewService.GetReviewPosts();
+            var posts = _postReviewService.GetPostsReviews();
 
             return Ok(SerializeReturn(posts));
         }

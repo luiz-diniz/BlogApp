@@ -6,5 +6,5 @@ namespace BlogApp.Core.Intefaces;
 public interface IPostsReviewsService
 {
     public void Update(PostReview postReviewModel);
-    IEnumerable<PostReviewInfo> GetReviewPosts();
+    IEnumerable<PostReviewInfo> GetPostsReviews();
 }

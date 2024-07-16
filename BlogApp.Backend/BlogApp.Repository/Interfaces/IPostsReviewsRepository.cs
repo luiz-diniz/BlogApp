@@ -9,5 +9,5 @@ public interface IPostsReviewsRepository
 {
     void Add(Post postModel, IDbConnection connection, IDbTransaction transaction);
     void Update(PostReview postReviewModel);
-    IEnumerable<PostReviewInfo> GetReviewPosts();
+    IEnumerable<PostReviewInfo> GetPostsReviews();
 }
