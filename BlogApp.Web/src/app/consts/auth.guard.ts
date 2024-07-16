@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot, Url
 import { Observable } from "rxjs";
 import { AuthenticationService } from "../services/authentication.service";
 
-export const AuthGuard: CanActivateFn = (
+export const AUTH_GUARD: CanActivateFn = (
     route: ActivatedRouteSnapshot, 
     state: RouterStateSnapshot
 ) : Observable<boolean | UrlTree> 
