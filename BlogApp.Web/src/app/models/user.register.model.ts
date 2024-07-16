@@ -1,4 +1,4 @@
-export class UserRegisterModel{
+export interface UserRegisterModel{
     username: string;
     password: string;
     passwordConfirmation: string;

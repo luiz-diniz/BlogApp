@@ -1,5 +1,5 @@
 import { UserModel } from "./user.model";
 
-export class UserProfileModel extends UserModel{
+export interface UserProfileModel extends UserModel{
     description?: string;
 }

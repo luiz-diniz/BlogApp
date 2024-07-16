@@ -9,30 +9,29 @@ export class TokenInterceptorService implements HttpInterceptor{
     authService = inject(AuthenticationService);
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+      if(!req.context.get(AUTH_REQUEST))            
+          return next.handle(req);
 
-        if(!req.context.get(AUTH_REQUEST))            
-            return next.handle(req);
+      const token = this.authService.getToken();
 
-        const token = this.authService.getToken();
+      if(token !== null){
+          req = req.clone({
+              setHeaders: {
+                Authorization: `Bearer ${token}`,
+              },
+          });
+      }
 
-        if(token !== null){
-            req = req.clone({
-                setHeaders: {
-                  Authorization: `Bearer ${token}`,
-                },
-            });
-        }
+      return next.handle(req).pipe(
+          catchError((err) => {
+            if (err.status === 401) {
+              this.authService.logout();
+            }
 
-        return next.handle(req).pipe(
-            catchError((err) => {
-              if (err.status === 401) {
-                this.authService.logout();
-              }
+            const error = err.error.message || err.statusText;
 
-              const error = err.error.message || err.statusText;
-
-              return throwError(() => error);
-            })
-          );    
-        }
+            return throwError(() => error);
+          })
+        );    
+    }
 }

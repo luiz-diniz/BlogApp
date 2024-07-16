@@ -10,7 +10,7 @@
     text-decoration: none;
 }
 
-h1, h2, h3, h4, h5, p, a, input, .form-group, .post-content{
+h1, h2, h3, h4, h5, p, a, input, table, .form-group, .post-content{
     font-family: "Roboto", sans-serif;
     font-weight: 300;
     font-style: normal;
@@ -74,6 +74,10 @@ header{
 //text
 h1{
     color: $black;
+}
+
+.title{
+    padding-bottom: 1rem;
 }
 
 .no-content{

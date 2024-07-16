@@ -25,6 +25,8 @@ import { UsersService } from './services/users.service';
 import { AuthenticationService } from './services/authentication.service';
 import { PostsCategoriesService } from './services/posts.categories.service';
 import { TokenInterceptorService } from './services/token.interceptor.service';
+import { PostsReviewService } from './services/posts.review.service';
+import { ReviewStatusPipe } from './pipes/review.status.pipe';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { TokenInterceptorService } from './services/token.interceptor.service';
     LoginComponent,
     SignUpComponent,
     PostCreationComponent,
-    PostsReviewsComponent
+    PostsReviewsComponent,
+    ReviewStatusPipe
   ],
   imports: [
     BrowserModule,
@@ -54,6 +57,7 @@ import { TokenInterceptorService } from './services/token.interceptor.service';
     UsersService,
     AuthenticationService,
     PostsCategoriesService,
+    PostsReviewService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

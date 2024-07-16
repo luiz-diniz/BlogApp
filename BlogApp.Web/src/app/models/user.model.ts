@@ -1,6 +1,6 @@
 import { SafeResourceUrl } from "@angular/platform-browser";
 
-export class UserModel{
+export interface UserModel{
     id: number;
     username: number;
     profileImageContent: string;
