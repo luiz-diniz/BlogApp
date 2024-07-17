@@ -103,6 +103,9 @@ public class PostsService : IPostsService
     {
         try
         {
+            if (idUser <= 0)
+                throw new ArgumentOutOfRangeException(nameof(idUser), "Invalid Post Id.");
+
             var posts = _postsRepository.GetUserPosts(idUser).ToArray();
 
             PopulatePostUserImage(posts);

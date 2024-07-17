@@ -3,6 +3,7 @@ using BlogApp.Models.InputModels;
 using BlogApp.Models.OutputModels;
 using BlogApp.Repository.Interfaces;
 using System.Data;
+using System.Text;
 
 namespace BlogApp.Repository.SqlRepository;
 
@@ -70,6 +71,47 @@ public class PostsReviewsRepository : IPostsReviewsRepository
         }
 
         return posts;
+    }
+
+    public PostReviewCompleteInfo GetPostForReview(int id)
+    {
+        var query = new StringBuilder(@$"SELECT U.Id AS IdUser, U.Username, U.ProfileImageName, C.Id AS IdCategory, C.Name AS CategoryName, P.Id, P.Title, P.Content, P.PostImageName, P.CreationDate					   
+                        FROM [Posts] AS P
+                            INNER JOIN [Users] AS U ON P.IdUser = U.Id
+                            INNER JOIN [PostsCategories] AS C ON P.IdCategory = C.Id
+                        WHERE P.Id = @P0;");
+
+        var parameters = new object[]
+        {
+            id
+        };
+
+        using var reader = _queryExecutor.ExecuteReader(query.ToString(), parameters);
+
+        if (reader.Read())
+        {
+            return new PostReviewCompleteInfo
+            {
+                Id = Convert.ToInt32(reader["Id"]),
+                Title = Convert.ToString(reader["Title"]),
+                Content = Convert.ToString(reader["Content"]),
+                PostImageName = Convert.ToString(reader["PostImageName"]),
+                CreationDate = Convert.ToDateTime(reader["CreationDate"]),
+                User = new UserProfile
+                {
+                    Id = Convert.ToInt32(reader["IdUser"]),
+                    Username = Convert.ToString(reader["Username"]),
+                    ProfileImageName = Convert.ToString(reader["ProfileImageName"])
+                },
+                Category = new PostCategory
+                {
+                    Id = Convert.ToInt32(reader["IdCategory"]),
+                    Name = Convert.ToString(reader["CategoryName"])
+                }
+            };
+        }
+
+        return null!;
     }
 
     private StatusEnum ConvertToStatusEnum(int status)

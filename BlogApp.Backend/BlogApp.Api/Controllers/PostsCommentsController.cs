@@ -1,7 +1,6 @@
 ﻿using BlogApp.Core.Intefaces;
 using BlogApp.Models.InputModels;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 
 namespace BlogApp.Api.Controllers;
 

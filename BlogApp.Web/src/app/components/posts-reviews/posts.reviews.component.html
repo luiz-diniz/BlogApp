@@ -11,7 +11,7 @@
 
         @for (post of postsReviews; track $index) {
             <tr>
-                <td><a [routerLink]="['/posts', post.id]">{{post.title}}</a></td>
+                <td><a [routerLink]="['/posts', post.id, 'reviews']">{{post.title}}</a></td>
                 <td>{{post.username}}</td>
                 <td>{{post.status | reviewStatusPipe}}</td>
                 <td>{{post.creationDate | date:'short'}}</td>

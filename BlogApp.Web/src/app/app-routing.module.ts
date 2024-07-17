@@ -8,6 +8,7 @@ import { SignUpComponent } from './components/account/sign-up/sign.up.component'
 import { PostCreationComponent } from './components/post-creation/post.creation.component';
 import { AUTH_GUARD } from './consts/auth.guard';
 import { PostsReviewsComponent } from './components/posts-reviews/posts.reviews.component';
+import { PostReviewComponent } from './components/post-review/post-review.component';
 
 const routes: Routes = [
   {path: '', component: FeedComponent, title: 'Feed'},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'signup', component: SignUpComponent, title: 'Sign Up'},
   {path: 'post', component: PostCreationComponent, canActivate: [AUTH_GUARD], title: 'Post Creation'},
   {path: 'posts/reviews', component: PostsReviewsComponent, canActivate: [AUTH_GUARD], title: 'Reviews'},
+  {path: 'posts/:id/reviews', component: PostReviewComponent, canActivate: [AUTH_GUARD], title: 'Reviews'},
   {path: 'posts/:id', component: PostComponent},
   {path: 'users/:username', component: UserProfileComponent}
 ]

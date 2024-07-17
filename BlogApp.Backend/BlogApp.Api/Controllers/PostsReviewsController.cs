@@ -6,7 +6,7 @@ using System.Net;
 
 namespace BlogApp.Api.Controllers;
 
-[Route("api/v1/Posts/Reviews")]
+[Route("api/v1/Posts")]
 [Authorize(Policy = PolicyConstants.MustBeAdmin)]
 public class PostsReviewsController : ApiControllerBase
 {
@@ -20,6 +20,7 @@ public class PostsReviewsController : ApiControllerBase
     }
 
     [HttpGet]
+    [Route("Reviews")]
     public IActionResult GetPostsReviews()
     {
         try
@@ -34,7 +35,24 @@ public class PostsReviewsController : ApiControllerBase
         }
     }
 
+    [HttpGet]
+    [Route("{id}/Reviews")]
+    public IActionResult GetPostForReview(int id)
+    {
+        try
+        {
+            var post = _postReviewService.GetPostForReview(id);
+
+            return Ok(SerializeReturn(post));
+        }
+        catch (Exception ex)
+        {
+            return InternalServerError(ex, _logger);
+        }
+    }
+
     [HttpPut]
+    [Route("Reviews")]
     public IActionResult Update([FromBody] PostReview postReviewModel)
     {
         try

@@ -27,6 +27,8 @@ import { PostsCategoriesService } from './services/posts.categories.service';
 import { TokenInterceptorService } from './services/token.interceptor.service';
 import { PostsReviewService } from './services/posts.review.service';
 import { ReviewStatusPipe } from './pipes/review.status.pipe';
+import { PostReviewComponent } from './components/post-review/post-review.component';
+import { PostBaseComponent } from './components/post-base/post.base.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { ReviewStatusPipe } from './pipes/review.status.pipe';
     SignUpComponent,
     PostCreationComponent,
     PostsReviewsComponent,
-    ReviewStatusPipe
+    ReviewStatusPipe,
+    PostReviewComponent,
+    PostBaseComponent
   ],
   imports: [
     BrowserModule,

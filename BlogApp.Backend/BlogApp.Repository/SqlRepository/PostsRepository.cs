@@ -4,6 +4,7 @@ using BlogApp.Models.InputModels;
 using BlogApp.Models.OutputModels;
 using BlogApp.Repository.Interfaces;
 using System.Data;
+using System.Text;
 
 namespace BlogApp.Repository.SqlRepository;
 
@@ -35,20 +36,20 @@ public class PostsRepository : IPostsRepository
 
     public PostInfo Get(int id)
     {
-        var query = @"SELECT U.Id AS IdUser, U.Username, U.ProfileImageName, C.Id AS IdCategory, C.Name AS CategoryName, P.Id, P.Title, P.Content, P.PostImageName, PR.ReviewDate AS PublishedDate,
+        var query =  new StringBuilder(@$"SELECT U.Id AS IdUser, U.Username, U.ProfileImageName, C.Id AS IdCategory, C.Name AS CategoryName, P.Id, P.Title, P.Content, P.PostImageName, PR.ReviewDate AS PublishedDate,
 						    (SELECT COUNT(*) FROM [PostsLikes] WHERE IdPost = P.Id) AS LikesCount
                         FROM [Posts] AS P
                             INNER JOIN [Users] AS U ON P.IdUser = U.Id
                             INNER JOIN [PostsCategories] AS C ON P.IdCategory = C.Id
                             INNER JOIN [PostsReviews] AS PR ON P.Id = PR.IdPost
-                        WHERE P.Id = @P0 AND PR.Status = 2;";
-  
+                        WHERE P.Id = @P0 AND PR.Status = 2;");
+
         var parameters = new object[]
         {
             id
         };        
 
-        using var reader = _queryExecutor.ExecuteReader(query, parameters);
+        using var reader = _queryExecutor.ExecuteReader(query.ToString(), parameters);
 
         if (reader.Read())
         {
@@ -75,7 +76,7 @@ public class PostsRepository : IPostsRepository
         }
 
         return null!;
-    }
+    }    
 
     public IEnumerable<PostFeed> GetFeedPosts()
     {
