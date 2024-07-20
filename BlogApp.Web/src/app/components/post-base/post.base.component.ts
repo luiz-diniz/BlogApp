@@ -1,7 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
-import { PostReviewCompleteModel } from '../../models/post.review.complete.model';
-import { PostModel } from '../../models/post.model';
 
 @Component({
   selector: 'app-post-base',
@@ -10,7 +8,6 @@ import { PostModel } from '../../models/post.model';
 })
 export class PostBaseComponent implements OnInit {
   @Input({required: true}) post: any;  
-  @Input({required: true}) published: boolean;
 
   faLikes = faThumbsUp;
 

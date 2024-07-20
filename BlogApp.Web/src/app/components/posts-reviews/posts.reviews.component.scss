@@ -14,5 +14,10 @@ table{
     th, td{
         padding: .7rem;
         width: 20%;
+
+        a{
+            font-weight: bold;
+            color: #333;
+        }
     }
 }

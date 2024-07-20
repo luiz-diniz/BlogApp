@@ -16,32 +16,7 @@
             <a href="#" class="light-text small">{{post.category.name}}</a>
             <div class="post-content" [innerHTML]="post.content"></div>
 
-            @if(!published){
-                <div class="interaction">
-                    <div class="likes">
-                        <fa-icon class="blue" [icon]="faLikes"></fa-icon>
-                        {{post.likesCount}}
-                    </div>
-                    <div class="comments">
-                        <h3>Comments</h3>
-                        <div *ngIf="post.comments?.length === 0">
-                            <p class="no-content">No comments yet, be the first one to comment!</p>
-                        </div>
-                        <div class="comment-content" *ngFor="let comment of post.comments">
-                            <div class="info-user-date">
-                                <img [routerLink]="['/users', comment.user.username]" [src]="comment.user.profileImageContentSafe" alt="User profile image">
-                                <div class="user-info">
-                                    <a [routerLink]="['/users', comment.user.username]" class="light-text">{{comment.user.username}}</a>
-                                    <p class="light-text small">{{comment.creationDate | date}}</p>
-                                </div>
-                            </div>
-                            <p class="comment">
-                                {{comment.comment}}
-                            </p>                   
-                        </div>
-                    </div>
-                </div>   
-            }
+            <ng-content></ng-content>
 
         </div>
     </div> 

@@ -3,5 +3,30 @@
     <img class="loading" src="../../.././assets/gifs/loading.gif" *ngIf="loading" alt="Loading...">
 </div> 
 @if (!loading && !error) {
-    <app-post-base [post]="post" [published]="false"></app-post-base>
+    <app-post-base [post]="post">
+        <div class="interaction">
+            <div class="likes">
+                <fa-icon class="blue" [icon]="faLikes"></fa-icon>
+                {{post.likesCount}}
+            </div>
+            <div class="comments">
+                <h3>Comments</h3>
+                <div *ngIf="post.comments?.length === 0">
+                    <p class="no-content">No comments yet, be the first one to comment!</p>
+                </div>
+                <div class="comment-content" *ngFor="let comment of post.comments">
+                    <div class="info-user-date">
+                        <img [routerLink]="['/users', comment.user.username]" [src]="comment.user.profileImageContentSafe" alt="User profile image">
+                        <div class="user-info">
+                            <a [routerLink]="['/users', comment.user.username]" class="light-text">{{comment.user.username}}</a>
+                            <p class="light-text small">{{comment.creationDate | date}}</p>
+                        </div>
+                    </div>
+                    <p class="comment">
+                        {{comment.comment}}
+                    </p>                   
+                </div>
+            </div>
+        </div>  
+    </app-post-base>
 }

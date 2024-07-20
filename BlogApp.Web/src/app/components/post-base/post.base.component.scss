@@ -19,27 +19,7 @@
         .post-content{
             margin: 2rem 1rem;
             color: $dark-gray;     
-        }
-    
-        .interaction{        
-            flex-direction: column;
-    
-            .likes{
-                margin: 2rem 0;
-            }
-    
-            .comments{
-                .comment-content{
-                    margin: 1rem;
-                    padding: 1rem;
-                    background-color: $light-gray;
-                    border-radius: 1rem;
-                }
-    
-                .comment{
-                    margin: .5rem 2.4rem;
-                }
-            }
-        }
+        }     
+        
     }    
 }

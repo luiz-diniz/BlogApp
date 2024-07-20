@@ -1,45 +1,22 @@
 @import '../../../variables';
 
-.card{
-    max-width: 90rem;
-    
-    .post{
-        .post-img{
-            margin: 1rem 0;
-            height: 20rem;
-            width: 100%;
-            object-fit: cover;
-            border: 1rem;
+.interaction{        
+    flex-direction: column;
+
+    .likes{
+        margin: 2rem 0;
+    }
+
+    .comments{
+        .comment-content{
+            margin: 1rem;
+            padding: 1rem;
+            background-color: $light-gray;
+            border-radius: 1rem;
         }
-    
-        .info-user-date img{
-            cursor: pointer;
+
+        .comment{
+            margin: .5rem 2.4rem;
         }
-    
-        .post-content{
-            margin: 2rem 1rem;
-            color: $dark-gray;     
-        }
-    
-        .interaction{        
-            flex-direction: column;
-    
-            .likes{
-                margin: 2rem 0;
-            }
-    
-            .comments{
-                .comment-content{
-                    margin: 1rem;
-                    padding: 1rem;
-                    background-color: $light-gray;
-                    border-radius: 1rem;
-                }
-    
-                .comment{
-                    margin: .5rem 2.4rem;
-                }
-            }
-        }
-    }    
+    }
 }
