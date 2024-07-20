@@ -5,8 +5,8 @@ import { Observable } from "rxjs";
 import { HttpClient, HttpContext } from "@angular/common/http";
 import { environment } from "../../environments/environment";
 import { AUTH_REQUEST } from "../consts/auth.request";
-import { PostModel } from "../models/post.model";
 import { PostReviewCompleteModel } from "../models/post.review.complete.model";
+import { PostReviewFeedbackModel } from "../models/post.review.feedback.model";
 
 @Injectable()
 export class PostsReviewService{
@@ -21,5 +21,9 @@ export class PostsReviewService{
 
     getPostForReview(id: number) : Observable<PostReviewCompleteModel>{
         return this.httpClient.get<PostReviewCompleteModel>(`${this.baseUrl}/${id}/reviews`, {context: new HttpContext().set(AUTH_REQUEST, true)});
+    }
+
+    submitReview(review: PostReviewFeedbackModel){
+        return this.httpClient.put(`${this.baseUrl}/reviews`, review, {context: new HttpContext().set(AUTH_REQUEST, true)});
     }
 }

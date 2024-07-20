@@ -1,18 +1,12 @@
 import { Pipe, PipeTransform } from "@angular/core";
+import { POST_STATUS } from "../consts/post.status";
 
 @Pipe({
     name: 'reviewStatusPipe'
 })
 export class ReviewStatusPipe implements PipeTransform{
 
-    private reviewsStatus: { [key: number]: string } = {
-        0: 'Pending',
-        1: 'Reviewing',
-        2: 'Approved',
-        3: 'Declined'
-    };    
-
     transform(value: any) {
-        return this.reviewsStatus[value] || 'Unknown';
+        return POST_STATUS[value] || 'Unknown';
     }
 }

@@ -1,10 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { PostsReviewService } from '../../services/posts.review.service';
-import { PostModel } from '../../models/post.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { throwError } from 'rxjs';
 import { DomSanitizer, Title } from '@angular/platform-browser';
 import { PostReviewCompleteModel } from '../../models/post.review.complete.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { POST_STATUS } from '../../consts/post.status';
+import { AuthenticationService } from '../../services/authentication.service';
+import { PostReviewFeedbackModel } from '../../models/post.review.feedback.model';
 
 @Component({
   selector: 'app-post-review',
@@ -14,16 +17,26 @@ import { PostReviewCompleteModel } from '../../models/post.review.complete.model
 export class PostReviewComponent implements OnInit{
 
   postReviewService = inject(PostsReviewService);
+  authService = inject(AuthenticationService);
   route = inject(ActivatedRoute);
+  router = inject(Router)
   sanitizer = inject(DomSanitizer);
   title = inject(Title);
 
+  reviewForm: FormGroup;
   post: PostReviewCompleteModel;
   loading: boolean;
   error: boolean;
+  
+  status = POST_STATUS;  
 
   ngOnInit(): void {
     this.getPostForReview();
+
+    this.reviewForm = new FormGroup({
+      status: new FormControl(0, [Validators.required]),
+      feedback: new FormControl("", [Validators.required, Validators.min(2), Validators.min(255)])
+    });
   }
 
   getPostForReview(){
@@ -55,5 +68,25 @@ export class PostReviewComponent implements OnInit{
         }
       });
     }
+  }
+
+  submitReview(){
+    let review: PostReviewFeedbackModel = {
+      idPost: this.post.id,
+      idUserReviewer: this.authService.getUserId(),
+      status: this.reviewForm.value["status"],
+      feedback: this.reviewForm.value["feedback"]
+    };
+
+    console.log(review);
+
+    this.postReviewService.submitReview(review).subscribe({
+      next: () => {
+        this.router.navigateByUrl('posts/reviews');
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
   }
 }

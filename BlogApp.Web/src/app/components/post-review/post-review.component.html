@@ -4,6 +4,25 @@
 </div> 
 @if (!loading && !error) {
     <app-post-base [post]="post">
-        <p>1fdsfsd23</p>
+            <h3>Review</h3>
+            <form [formGroup]="reviewForm" (ngSubmit)="submitReview()">
+                <div class="form-content">
+                    <div class="form-group">
+                        <label for="feedback">Feedback</label>
+                        <input type="text" id="feedback" placeholder="Provide a feedback" formControlName="feedback">
+                        <p class="message-error" *ngIf="reviewForm.get('feedback')?.invalid && reviewForm.get('feedback')?.touched">Feedback is required</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select id="status" formControlName="status" [value]="-1">
+                        <option value="-1">Select an option</option>
+                        <option *ngFor="let item of status | keyvalue" [ngValue]="item.key">{{item.value}}</option>
+                    </select>
+                </div>
+                <div class="form-submit">
+                    <input class="btn" type="submit" value="Submit" [disabled]="!reviewForm.valid" [ngClass]="{'btn-blue': reviewForm.valid}">
+                </div>
+            </form>
     </app-post-base>
 }
