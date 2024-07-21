@@ -34,7 +34,7 @@ export class PostReviewComponent implements OnInit{
     this.getPostForReview();
 
     this.reviewForm = new FormGroup({
-      status: new FormControl(0, [Validators.required]),
+      status: new FormControl(-1, [Validators.required, Validators.pattern('^[0-3]$')]),
       feedback: new FormControl("", [Validators.required, Validators.min(2), Validators.min(255)])
     });
   }
@@ -77,8 +77,6 @@ export class PostReviewComponent implements OnInit{
       status: this.reviewForm.value["status"],
       feedback: this.reviewForm.value["feedback"]
     };
-
-    console.log(review);
 
     this.postReviewService.submitReview(review).subscribe({
       next: () => {
