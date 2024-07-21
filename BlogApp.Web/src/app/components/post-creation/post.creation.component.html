@@ -15,6 +15,7 @@
             <div class="form-group">
                 <label for="category">Category</label>
                 <select id="category" formControlName="idCategory">
+                    <option value="-1">Select an option</option>
                     <option *ngFor="let category of categories" [ngValue]="category.id">{{category.name}}</option>
                 </select>
             </div>

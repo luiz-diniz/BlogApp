@@ -40,7 +40,7 @@ export class PostCreationComponent implements OnInit, OnDestroy {
       title: new FormControl("", [Validators.required, Validators.min(5), Validators.max(100), Validators.pattern(/[\S]/)]),
       postImageContent: new FormControl(""),
       content: new FormControl("", [Validators.required, Validators.pattern(/^(?!\s*(<p>\s*<\/p>\s*)+$).*$/)]),
-      idCategory: new FormControl(1, [Validators.required]),
+      idCategory: new FormControl(-1, [Validators.required, Validators.pattern('^(?!-1$).+$')]),
     });
 
     this.getCategories();
