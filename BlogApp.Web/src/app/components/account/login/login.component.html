@@ -13,7 +13,7 @@
                 <p class="message-error" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">Password is required</p>
             </div>
             <div class="form-result">
-                <p class="message-error" *ngIf="errorMessage !== ''">{{errorMessage}}</p>
+                <p class="message-error" *ngIf="errorMessage">{{errorMessage}}</p>
                 <img class="loading" src="../../../../assets/gifs/loading.gif" *ngIf="loading" alt="Loading...">
             </div>            
             <div class="form-submit">

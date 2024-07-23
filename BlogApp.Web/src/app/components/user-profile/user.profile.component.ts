@@ -37,7 +37,7 @@ export class UserProfileComponent implements OnInit{
 
     const routeUsername = this.route.snapshot.paramMap.get('username');
 
-    if(routeUsername !== null){
+    if(routeUsername){
       this.usersService.getUserProfile(routeUsername).pipe(
         catchError(error => {
           this.loadingUser = false;

@@ -34,8 +34,8 @@ export class PostReviewComponent implements OnInit{
     this.getPostForReview();
 
     this.reviewForm = new FormGroup({
-      status: new FormControl(-1, [Validators.required, Validators.pattern('^[0-3]$')]),
-      feedback: new FormControl("", [Validators.required, Validators.min(2), Validators.min(255)])
+      feedback: new FormControl("", [Validators.required, Validators.min(2), Validators.min(255)]),
+      status: new FormControl(-1, [Validators.required, Validators.pattern('^[0-3]$')])
     });
   }
 
@@ -44,14 +44,14 @@ export class PostReviewComponent implements OnInit{
 
     const routeIdPost = this.route.snapshot.paramMap.get('id');
 
-    if(routeIdPost !== null){
+    if(routeIdPost){
       let idPost = parseInt(routeIdPost);
 
       this.postReviewService.getPostForReview(idPost).subscribe({
         next: (post) => {
             this.post = post
 
-            if(post.postImageContent !== undefined)
+            if(post.postImageContent)
               this.post.postImageContentSafe = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + post.postImageContent);
 
             this.post.user.profileImageContentSafe = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + post.user.profileImageContent);

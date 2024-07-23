@@ -44,7 +44,7 @@ export class AuthenticationService{
 
     getToken() : string | null{
         const token = localStorage.getItem('sessionToken');
-        return token !== null ? token.toString() : null;
+        return token ? token.toString() : null;
     }
 
     getUsername(): string{

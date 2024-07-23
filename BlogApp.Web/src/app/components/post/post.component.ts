@@ -33,14 +33,14 @@ export class PostComponent implements OnInit{
 
     const routeIdPost = this.route.snapshot.paramMap.get('id');
 
-    if(routeIdPost !== null){
+    if(routeIdPost){
       let idPost = parseInt(routeIdPost);
 
       this.postsService.getPost(idPost).subscribe({
         next: (post) => {
             this.post = post
 
-            if(post.postImageContent !== undefined)
+            if(post.postImageContent)
               this.post.postImageContentSafe = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + post.postImageContent);
 
             this.post.user.profileImageContentSafe = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + post.user.profileImageContent);
