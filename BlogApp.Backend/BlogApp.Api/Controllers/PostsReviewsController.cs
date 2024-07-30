@@ -36,12 +36,12 @@ public class PostsReviewsController : ApiControllerBase
     }
 
     [HttpGet]
-    [Route("{id}/Reviews")]
-    public IActionResult GetPostForReview(int id)
+    [Route("{idPost}/Reviews")]
+    public IActionResult GetPostForReview(int idPost)
     {
         try
         {
-            var post = _postReviewService.GetPostForReview(id);
+            var post = _postReviewService.GetPostForReview(idPost);
 
             return Ok(SerializeReturn(post));
         }

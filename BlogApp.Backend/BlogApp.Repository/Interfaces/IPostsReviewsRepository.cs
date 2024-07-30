@@ -10,5 +10,5 @@ public interface IPostsReviewsRepository
     void Add(Post postModel, IDbConnection connection, IDbTransaction transaction);
     void Update(PostReview postReviewModel);
     IEnumerable<PostReviewInfo> GetPostsReviews();
-    PostReviewCompleteInfo GetPostForReview(int id);
+    PostReviewCompleteInfo GetPostForReview(int idPost);
 }

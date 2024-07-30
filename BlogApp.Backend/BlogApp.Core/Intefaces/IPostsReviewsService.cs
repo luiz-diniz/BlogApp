@@ -7,5 +7,5 @@ public interface IPostsReviewsService
 {
     public void Update(PostReview postReviewModel);
     IEnumerable<PostReviewInfo> GetPostsReviews();
-    PostReviewCompleteInfo GetPostForReview(int id);
+    PostReviewCompleteInfo GetPostForReview(int idPost);
 }

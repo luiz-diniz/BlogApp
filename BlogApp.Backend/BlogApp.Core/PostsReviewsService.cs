@@ -21,14 +21,14 @@ public class PostsReviewsService : IPostsReviewsService
         _imageService = imageService;
     }
 
-    public PostReviewCompleteInfo GetPostForReview(int id)
+    public PostReviewCompleteInfo GetPostForReview(int idPost)
     {
         try
         {
-            if (id <= 0)
-                throw new ArgumentOutOfRangeException(nameof(id), "Invalid Post Id.");
+            if (idPost <= 0)
+                throw new ArgumentOutOfRangeException(nameof(idPost), "Invalid Post Id.");
 
-            var post = _postReviewRepository.GetPostForReview(id);
+            var post = _postReviewRepository.GetPostForReview(idPost);
 
             if (post is not null)
             {

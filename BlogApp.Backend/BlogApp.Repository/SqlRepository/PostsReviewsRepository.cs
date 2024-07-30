@@ -73,7 +73,7 @@ public class PostsReviewsRepository : IPostsReviewsRepository
         return posts;
     }
 
-    public PostReviewCompleteInfo GetPostForReview(int id)
+    public PostReviewCompleteInfo GetPostForReview(int idPost)
     {
         var query = new StringBuilder(@$"SELECT U.Id AS IdUser, U.Username, U.ProfileImageName, C.Id AS IdCategory, C.Name AS CategoryName, P.Id, P.Title, P.Content, P.PostImageName, P.CreationDate					   
                         FROM [Posts] AS P
@@ -83,7 +83,7 @@ public class PostsReviewsRepository : IPostsReviewsRepository
 
         var parameters = new object[]
         {
-            id
+            idPost
         };
 
         using var reader = _queryExecutor.ExecuteReader(query.ToString(), parameters);
