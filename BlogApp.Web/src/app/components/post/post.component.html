@@ -14,7 +14,7 @@
                 <div *ngIf="post.comments?.length === 0">
                     <p class="no-content">No comments yet, be the first one to comment!</p>
                 </div>
-                <button class="btn btn-blue" (click)="isCommenting = !isCommenting">New Comment</button>
+                <button class="btn btn-blue" (click)="initializeComment()" *ngIf="!isCommenting">New Comment</button>
                 <div class="new-comment" *ngIf="isAuthenticated && isCommenting">
                     <form [formGroup]="commentForm" (ngSubmit)="onComment()">
                         <div class="form-content">
@@ -22,7 +22,8 @@
                                 <textarea placeholder="Comment" formControlName="comment"></textarea>
                             </div>
                         </div>
-                        <div class="form-submit">
+                        <div class="form-buttons">
+                            <button class="btn btn-gray" (click)="resetComment()" *ngIf="isCommenting">Cancel</button>
                             <input class="btn" type="submit" value="Comment" [disabled]="!commentForm.valid" [ngClass]="{'btn-blue': commentForm.valid}">
                         </div>
                     </form>

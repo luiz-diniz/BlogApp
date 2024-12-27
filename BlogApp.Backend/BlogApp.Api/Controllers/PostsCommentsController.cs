@@ -22,9 +22,9 @@ public class PostsCommentsController : ApiControllerBase
     {
         try
         {
-            _postCommentService.Add(postComment);
+            var commentContent = _postCommentService.Add(postComment);
 
-            return Ok();
+            return Ok(commentContent);
         }
         catch (Exception ex)
         {

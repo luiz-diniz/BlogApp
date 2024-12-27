@@ -5,7 +5,7 @@ namespace BlogApp.Core.Intefaces;
 
 public interface IPostsCommentsService
 {
-    void Add(PostComment postCommentModel);
+    PostCommentContent Add(PostComment postCommentModel);
     void Delete(int idPostComment);
     IEnumerable<PostCommentContent> GetAll(int idPost);
 }

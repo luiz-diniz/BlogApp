@@ -68,7 +68,7 @@ export class PostCreationComponent implements OnInit, OnDestroy {
       },
       error: (error) => {
         this.toastr.error("An error occurred while submiting the post");
-        console.error("Error: ", error)      
+        console.error("Error: ", error);
       }
     });
   }
@@ -111,7 +111,7 @@ export class PostCreationComponent implements OnInit, OnDestroy {
       },
       error: (error) => {
         this.toastr.error("An error occurred while fetching the posts categories");
-        console.error("Error: ", error)      
+        console.error("Error: ", error);      
       }
     })
   }

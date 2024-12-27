@@ -86,7 +86,7 @@ export class PostReviewComponent implements OnInit{
       },
       error: (error) => {
         this.toastr.error("An error occurred while submiting the post reviews");
-        console.error("Error: ", error)
+        console.error("Error: ", error);
       }
     })
   }

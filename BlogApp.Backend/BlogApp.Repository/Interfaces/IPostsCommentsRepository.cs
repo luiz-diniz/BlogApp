@@ -5,7 +5,8 @@ namespace BlogApp.Repository.Interfaces;
 
 public interface IPostsCommentsRepository
 {
-    void Add(PostComment postComment);
+    int Add(PostComment postComment);
     void Delete(int idPostComment);
     IEnumerable<PostCommentContent> GetAll(int idPost);
+    PostCommentContent Get(int idComment);
 }

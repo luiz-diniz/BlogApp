@@ -49,6 +49,14 @@ export class PostComponent implements OnInit{
     return this.authService.authenticated();
   }
 
+  initializeComment(){
+    if(this.isAuthenticated){
+      this.isCommenting = !this.isCommenting;
+    }else{
+      this.toastr.warning("You need to be logged in to comment");
+    }
+  }
+
   getPostInformation(){
     this.loading = true;
 
@@ -101,13 +109,20 @@ export class PostComponent implements OnInit{
     };
 
     this.postCommentService.submitComment(comment).subscribe({
-      next: () =>{
-        console.log("ok - temp log");
+      next: (commentResult) =>{
         this.resetComment();
+
+        if(!this.post.comments)
+          this.post!.comments = [];
+        
+        if(commentResult){
+          commentResult.user.profileImageContentSafe = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + commentResult.user.profileImageContent);
+          this.post.comments.unshift(commentResult);
+        }
       },
       error: (error) => {
         this.toastr.error("An error occurred while submiting the post comment");
-        console.error("Error: ", error)
+        console.error("Error: ", error);
       }
     });
   }

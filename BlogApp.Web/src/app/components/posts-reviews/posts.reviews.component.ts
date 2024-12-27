@@ -34,7 +34,7 @@ export class PostsReviewsComponent implements OnInit{
       },
       error: (error) => {
         this.toastr.error("An error occurred while fetching the posts reviews");
-        console.error("Error: ", error)
+        console.error("Error: ", error);
       }
     });
   }
