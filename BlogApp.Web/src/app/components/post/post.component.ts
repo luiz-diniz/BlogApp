@@ -5,6 +5,10 @@ import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { PostModel } from '../../models/post.model';
 import { DomSanitizer, Title } from '@angular/platform-browser';
 import { throwError } from 'rxjs';
+import { AuthenticationService } from '../../services/authentication.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { PostNewCommentModel } from '../../models/post.new.comment.model';
+import { PostsCommentService } from '../../services/post.comment.service';
 
 @Component({
   selector: 'app-post',
@@ -18,14 +22,29 @@ export class PostComponent implements OnInit{
   route = inject(ActivatedRoute);
   sanitizer = inject(DomSanitizer);
   title = inject(Title);
+  authService = inject(AuthenticationService);
+  postCommentService = inject(PostsCommentService);
 
   post: PostModel;
   faLikes = faThumbsUp;
   loading: boolean;
   error: boolean;
 
+  commentForm: FormGroup;
+  isCommenting: boolean;
+
   ngOnInit() : void{   
     this.getPostInformation();
+
+    if(this.isAuthenticated){
+      this.commentForm = new FormGroup({
+        comment: new FormControl("", [Validators.required, Validators.min(2), Validators.max(500)])
+      });
+    }
+  }
+
+  get isAuthenticated(){
+    return this.authService.authenticated();
   }
 
   getPostInformation(){
@@ -61,5 +80,32 @@ export class PostComponent implements OnInit{
         }
       });
     }
+  }
+
+  resetComment(){
+    this.commentForm.setValue({
+      comment: ""
+    });
+
+    this.isCommenting = false;
+  }
+
+  onComment(){
+    const comment: PostNewCommentModel = {
+      idPost: this.post.id,
+      idUser: this.authService.getUserId(),
+      //todo: sanitize user input
+      comment: this.commentForm.value["comment"]
+    };
+
+    this.postCommentService.submitComment(comment).subscribe({
+      next: () =>{
+        console.log("ok - temp log");
+        this.resetComment();
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
   }
 }

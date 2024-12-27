@@ -29,6 +29,7 @@ import { PostsReviewService } from './services/posts.review.service';
 import { ReviewStatusPipe } from './pipes/review.status.pipe';
 import { PostReviewComponent } from './components/post-review/post-review.component';
 import { PostBaseComponent } from './components/post-base/post.base.component';
+import { PostsCommentService } from './services/post.comment.service';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { PostBaseComponent } from './components/post-base/post.base.component';
     AuthenticationService,
     PostsCategoriesService,
     PostsReviewService,
+    PostsCommentService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

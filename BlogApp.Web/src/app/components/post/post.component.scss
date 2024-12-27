@@ -3,6 +3,10 @@
 .interaction{        
     flex-direction: column;
 
+    button{
+        margin: 1rem 0 .5rem 1rem;
+    }
+
     .likes{
         margin: 2rem 0;
     }
@@ -19,4 +23,16 @@
             margin: .5rem 2.4rem;
         }
     }
+
+    .new-comment{
+        padding: 1rem;
+        margin: 1rem;
+        background-color: $light-gray;
+
+        textarea{
+            padding: .5rem;
+            resize: none;
+        }
+    }
 }
+

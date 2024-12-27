@@ -14,6 +14,19 @@
                 <div *ngIf="post.comments?.length === 0">
                     <p class="no-content">No comments yet, be the first one to comment!</p>
                 </div>
+                <button class="btn btn-blue" (click)="isCommenting = !isCommenting">New Comment</button>
+                <div class="new-comment" *ngIf="isAuthenticated && isCommenting">
+                    <form [formGroup]="commentForm" (ngSubmit)="onComment()">
+                        <div class="form-content">
+                            <div class="form-group">
+                                <textarea placeholder="Comment" formControlName="comment"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-submit">
+                            <input class="btn" type="submit" value="Comment" [disabled]="!commentForm.valid" [ngClass]="{'btn-blue': commentForm.valid}">
+                        </div>
+                    </form>
+                </div>
                 <div class="comment-content" *ngFor="let comment of post.comments">
                     <div class="info-user-date">
                         <img [routerLink]="['/users', comment.user.username]" [src]="comment.user.profileImageContentSafe" alt="User profile image">
@@ -25,7 +38,7 @@
                     <p class="comment">
                         {{comment.comment}}
                     </p>                   
-                </div>
+                </div>                
             </div>
         </div>  
     </app-post-base>

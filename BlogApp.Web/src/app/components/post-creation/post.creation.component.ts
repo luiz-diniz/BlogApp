@@ -55,6 +55,7 @@ export class PostCreationComponent implements OnInit, OnDestroy {
 
     post.idUser = this.authService.getUserId();
 
+    //todo: sanitize user input
     this.postsServices.addPost(post).subscribe({
       next: () => {
         this.postSubmited = true;
