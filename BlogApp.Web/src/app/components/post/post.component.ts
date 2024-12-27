@@ -9,6 +9,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PostNewCommentModel } from '../../models/post.new.comment.model';
 import { PostsCommentService } from '../../services/post.comment.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-post',
@@ -24,6 +25,7 @@ export class PostComponent implements OnInit{
   title = inject(Title);
   authService = inject(AuthenticationService);
   postCommentService = inject(PostsCommentService);
+  toastr = inject(ToastrService);
 
   post: PostModel;
   faLikes = faThumbsUp;
@@ -104,7 +106,8 @@ export class PostComponent implements OnInit{
         this.resetComment();
       },
       error: (error) => {
-        console.log(error);
+        this.toastr.error("An error occurred while submiting the post comment");
+        console.error("Error: ", error)
       }
     });
   }

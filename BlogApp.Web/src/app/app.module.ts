@@ -7,6 +7,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtModule } from '@auth0/angular-jwt';
 import { NgxEditorModule } from 'ngx-editor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
 
 //Components
 import { AppComponent } from './components/app.component';
@@ -55,7 +58,16 @@ import { PostsCommentService } from './services/post.comment.service';
     ReactiveFormsModule,
     JwtModule,
     NgxEditorModule,
-    FormsModule
+    FormsModule,
+    CommonModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-top-center',
+      preventDuplicates: true,
+      progressBar: true,
+      closeButton: true
+    }),
   ],
   providers: [
     PostsService,

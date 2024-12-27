@@ -7,6 +7,7 @@ import { PostCreationModel } from '../../models/post.creation.model';
 import { AuthenticationService } from '../../services/authentication.service';
 import { PostCategoryModel } from '../../models/post.category.model';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-post-creation',
@@ -19,6 +20,7 @@ export class PostCreationComponent implements OnInit, OnDestroy {
   postsServices = inject(PostsService);
   authService = inject(AuthenticationService);
   router = inject(Router);
+  toastr = inject(ToastrService);
 
   postForm: FormGroup;
   categories: PostCategoryModel[];
@@ -65,7 +67,8 @@ export class PostCreationComponent implements OnInit, OnDestroy {
         }, 2500)
       },
       error: (error) => {
-        console.log(error)
+        this.toastr.error("An error occurred while submiting the post");
+        console.error("Error: ", error)      
       }
     });
   }
@@ -107,7 +110,8 @@ export class PostCreationComponent implements OnInit, OnDestroy {
         this.categories = result;
       },
       error: (error) => {
-        console.log(error);
+        this.toastr.error("An error occurred while fetching the posts categories");
+        console.error("Error: ", error)      
       }
     })
   }

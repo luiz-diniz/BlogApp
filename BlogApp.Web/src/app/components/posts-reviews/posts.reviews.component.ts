@@ -3,6 +3,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { Router } from '@angular/router';
 import { PostsReviewService } from '../../services/posts.review.service';
 import { PostReviewModel } from '../../models/post.review.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-posts.reviews',
@@ -14,7 +15,8 @@ export class PostsReviewsComponent implements OnInit{
   authService = inject(AuthenticationService);
   router = inject(Router);
   postsReviewsService = inject(PostsReviewService);
-
+  toastr = inject(ToastrService);
+  
   postsReviews: PostReviewModel[];
 
   ngOnInit(){
@@ -31,7 +33,8 @@ export class PostsReviewsComponent implements OnInit{
         this.postsReviews = posts;
       },
       error: (error) => {
-        console.log(error);
+        this.toastr.error("An error occurred while fetching the posts reviews");
+        console.error("Error: ", error)
       }
     });
   }

@@ -8,6 +8,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { POST_STATUS } from '../../consts/post.status';
 import { AuthenticationService } from '../../services/authentication.service';
 import { PostReviewFeedbackModel } from '../../models/post.review.feedback.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-post-review',
@@ -22,6 +23,7 @@ export class PostReviewComponent implements OnInit{
   router = inject(Router)
   sanitizer = inject(DomSanitizer);
   title = inject(Title);
+  toastr = inject(ToastrService);
 
   reviewForm: FormGroup;
   post: PostReviewCompleteModel;
@@ -83,7 +85,8 @@ export class PostReviewComponent implements OnInit{
         this.router.navigateByUrl('posts/reviews');
       },
       error: (error) => {
-        console.log(error);
+        this.toastr.error("An error occurred while submiting the post reviews");
+        console.error("Error: ", error)
       }
     })
   }
