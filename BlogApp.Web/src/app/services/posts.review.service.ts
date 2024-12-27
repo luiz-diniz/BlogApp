@@ -10,9 +10,8 @@ import { PostReviewFeedbackModel } from "../models/post.review.feedback.model";
 
 @Injectable()
 export class PostsReviewService{
-    authService = inject(AuthenticationService);
-    httpClient = inject(HttpClient);
-
+    
+    private httpClient = inject(HttpClient);
     private baseUrl: string = `${environment.url}posts`
 
     getPostsReviews() : Observable<PostReviewModel[]>{

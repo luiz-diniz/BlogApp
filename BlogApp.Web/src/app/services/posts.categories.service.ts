@@ -8,8 +8,7 @@ import { AUTH_REQUEST } from "../consts/auth.request";
 @Injectable()
 export class PostsCategoriesService{
 
-    httpClient = inject(HttpClient);
-
+    private httpClient = inject(HttpClient);
     private baseUrl: string = `${environment.url}posts/categories`
 
     getCategories() : Observable<PostCategoryModel[]>{        

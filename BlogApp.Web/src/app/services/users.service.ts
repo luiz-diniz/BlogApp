@@ -8,8 +8,7 @@ import { UserRegisterModel } from "../models/user.register.model";
 @Injectable()
 export class UsersService{
 
-    httpClient = inject(HttpClient);
-
+    private httpClient = inject(HttpClient);
     private baseUrl: string = `${environment.url}users`
 
     getUserProfile(username: string) : Observable<UserProfileModel>{

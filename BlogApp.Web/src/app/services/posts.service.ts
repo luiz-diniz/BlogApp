@@ -10,8 +10,7 @@ import { AUTH_REQUEST } from "../consts/auth.request";
 @Injectable()
 export class PostsService{
 
-    httpClient = inject(HttpClient);
-
+    private httpClient = inject(HttpClient);
     private baseUrl: string = `${environment.url}posts`
 
     addPost(post: PostCreationModel) : Observable<any>{

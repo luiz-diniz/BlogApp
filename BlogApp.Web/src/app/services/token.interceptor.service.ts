@@ -6,7 +6,7 @@ import { AUTH_REQUEST } from "../consts/auth.request";
 
 export class TokenInterceptorService implements HttpInterceptor{
 
-    authService = inject(AuthenticationService);
+    private authService = inject(AuthenticationService);
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
       if(!req.context.get(AUTH_REQUEST))            
