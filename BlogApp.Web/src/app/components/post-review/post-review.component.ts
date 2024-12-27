@@ -37,7 +37,7 @@ export class PostReviewComponent implements OnInit{
 
     this.reviewForm = new FormGroup({
       feedback: new FormControl("", [Validators.required, Validators.min(2), Validators.min(255)]),
-      status: new FormControl(-1, [Validators.required, Validators.pattern('^[0-3]$')])
+      status: new FormControl(-1, [Validators.required, Validators.pattern('^[0-4]$')])
     });
   }
 

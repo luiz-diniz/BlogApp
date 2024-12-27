@@ -18,6 +18,7 @@ export class PostsReviewsComponent implements OnInit{
   toastr = inject(ToastrService);
   
   postsReviews: PostReviewModel[];
+  loading: boolean;
 
   ngOnInit(){
     if(this.authService.roleSignal() !== 1){
@@ -28,13 +29,17 @@ export class PostsReviewsComponent implements OnInit{
   }
 
   getPostsReviewsList(){
+    this.loading = true;
+
     this.postsReviewsService.getPostsReviews().subscribe({
       next: (posts) => {
         this.postsReviews = posts;
+        this.loading = false;
       },
       error: (error) => {
         this.toastr.error("An error occurred while fetching the posts reviews");
         console.error("Error: ", error);
+        this.loading = false;
       }
     });
   }

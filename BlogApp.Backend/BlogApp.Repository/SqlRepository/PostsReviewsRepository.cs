@@ -126,6 +126,8 @@ public class PostsReviewsRepository : IPostsReviewsRepository
                 return StatusEnum.Approved;
             case 3:
                 return StatusEnum.Declined;
+            case 4:
+                return StatusEnum.Archived;
             default: return StatusEnum.Unknown;
         }
     }

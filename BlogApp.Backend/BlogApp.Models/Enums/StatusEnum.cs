@@ -6,5 +6,6 @@ public enum StatusEnum
     Reviewing,
     Approved,
     Declined,
+    Archived,
     Unknown
 }
